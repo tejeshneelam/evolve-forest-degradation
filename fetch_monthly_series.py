@@ -27,8 +27,20 @@ def build_composite(start, end, cloud_prob_thresh=40):
     def mask_with_probability(img):
         img = ee.Image(img)
         cloud_prob = ee.Image(img.get('cloud_mask')).select('probability')
-        is_clear = cloud_prob.lt(cloud_prob_thresh)
-        return img.updateMask(is_clear).divide(10000)
+
+        scl = img.select('SCL')
+        # SCL class codes: 3 = cloud shadow, 8/9 = cloud medium/high probability,
+        # 10 = thin cirrus, 11 = snow/ice
+        scl_mask = (scl.neq(3)
+                    .And(scl.neq(8))
+                    .And(scl.neq(9))
+                    .And(scl.neq(10))
+                    .And(scl.neq(11)))
+
+        prob_mask = cloud_prob.lt(cloud_prob_thresh)
+
+        combined_mask = scl_mask.And(prob_mask)
+        return img.updateMask(combined_mask).divide(10000)
 
     collection = ee.ImageCollection(joined).map(mask_with_probability)
     count = collection.size().getInfo()

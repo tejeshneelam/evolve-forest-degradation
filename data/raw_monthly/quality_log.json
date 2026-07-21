@@ -32,25 +32,25 @@
   {
     "month": "2025-06",
     "source_images": 32,
-    "coverage": 0.475,
+    "coverage": 0.257,
     "status": "skipped"
   },
   {
     "month": "2025-07",
     "source_images": 34,
-    "coverage": 0.115,
+    "coverage": 0.067,
     "status": "skipped"
   },
   {
     "month": "2025-08",
     "source_images": 33,
-    "coverage": 0.648,
+    "coverage": 0.361,
     "status": "skipped"
   },
   {
     "month": "2025-09",
-    "source_images": 22,
-    "coverage": 0.897,
+    "source_images": 34,
+    "coverage": 0.998,
     "status": "saved"
   },
   {
