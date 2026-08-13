@@ -1,0 +1,1021 @@
+{
+  "threshold": 0.03,
+  "n_degraded": 7,
+  "n_healthy": 57,
+  "labels": {
+    "0": {
+      "patch_id": 0,
+      "label": 0,
+      "soft_label": 0.011,
+      "loss_pixels": 45,
+      "total_pixels": 4096,
+      "loss_by_year": {
+        "2019": 24,
+        "2023": 21
+      },
+      "mean_cover_2000": 43.8,
+      "pixel_bounds": [
+        0,
+        64,
+        0,
+        64
+      ]
+    },
+    "1": {
+      "patch_id": 1,
+      "label": 1,
+      "soft_label": 0.0393,
+      "loss_pixels": 161,
+      "total_pixels": 4096,
+      "loss_by_year": {
+        "2020": 42,
+        "2021": 4,
+        "2024": 6,
+        "2025": 70
+      },
+      "mean_cover_2000": 23.2,
+      "pixel_bounds": [
+        0,
+        64,
+        64,
+        128
+      ]
+    },
+    "2": {
+      "patch_id": 2,
+      "label": 0,
+      "soft_label": 0.0015,
+      "loss_pixels": 6,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 21.0,
+      "pixel_bounds": [
+        0,
+        64,
+        128,
+        192
+      ]
+    },
+    "3": {
+      "patch_id": 3,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 53.2,
+      "pixel_bounds": [
+        0,
+        64,
+        192,
+        256
+      ]
+    },
+    "4": {
+      "patch_id": 4,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 45.5,
+      "pixel_bounds": [
+        0,
+        64,
+        256,
+        320
+      ]
+    },
+    "5": {
+      "patch_id": 5,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 22.3,
+      "pixel_bounds": [
+        0,
+        64,
+        320,
+        384
+      ]
+    },
+    "6": {
+      "patch_id": 6,
+      "label": 0,
+      "soft_label": 0.0088,
+      "loss_pixels": 36,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 42.7,
+      "pixel_bounds": [
+        0,
+        64,
+        384,
+        448
+      ]
+    },
+    "7": {
+      "patch_id": 7,
+      "label": 0,
+      "soft_label": 0.0059,
+      "loss_pixels": 24,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 58.2,
+      "pixel_bounds": [
+        0,
+        64,
+        448,
+        512
+      ]
+    },
+    "8": {
+      "patch_id": 8,
+      "label": 1,
+      "soft_label": 0.1187,
+      "loss_pixels": 486,
+      "total_pixels": 4096,
+      "loss_by_year": {
+        "2019": 54,
+        "2023": 404
+      },
+      "mean_cover_2000": 66.5,
+      "pixel_bounds": [
+        64,
+        128,
+        0,
+        64
+      ]
+    },
+    "9": {
+      "patch_id": 9,
+      "label": 1,
+      "soft_label": 0.1384,
+      "loss_pixels": 567,
+      "total_pixels": 4096,
+      "loss_by_year": {
+        "2021": 195,
+        "2022": 76,
+        "2023": 187,
+        "2025": 94
+      },
+      "mean_cover_2000": 40.0,
+      "pixel_bounds": [
+        64,
+        128,
+        64,
+        128
+      ]
+    },
+    "10": {
+      "patch_id": 10,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 7.2,
+      "pixel_bounds": [
+        64,
+        128,
+        128,
+        192
+      ]
+    },
+    "11": {
+      "patch_id": 11,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 61.9,
+      "pixel_bounds": [
+        64,
+        128,
+        192,
+        256
+      ]
+    },
+    "12": {
+      "patch_id": 12,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 53.8,
+      "pixel_bounds": [
+        64,
+        128,
+        256,
+        320
+      ]
+    },
+    "13": {
+      "patch_id": 13,
+      "label": 0,
+      "soft_label": 0.0076,
+      "loss_pixels": 31,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 32.5,
+      "pixel_bounds": [
+        64,
+        128,
+        320,
+        384
+      ]
+    },
+    "14": {
+      "patch_id": 14,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 52.2,
+      "pixel_bounds": [
+        64,
+        128,
+        384,
+        448
+      ]
+    },
+    "15": {
+      "patch_id": 15,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 41.5,
+      "pixel_bounds": [
+        64,
+        128,
+        448,
+        512
+      ]
+    },
+    "16": {
+      "patch_id": 16,
+      "label": 1,
+      "soft_label": 0.1125,
+      "loss_pixels": 461,
+      "total_pixels": 4096,
+      "loss_by_year": {
+        "2019": 98,
+        "2020": 76,
+        "2021": 27,
+        "2022": 24,
+        "2023": 39
+      },
+      "mean_cover_2000": 59.1,
+      "pixel_bounds": [
+        128,
+        192,
+        0,
+        64
+      ]
+    },
+    "17": {
+      "patch_id": 17,
+      "label": 0,
+      "soft_label": 0.0286,
+      "loss_pixels": 117,
+      "total_pixels": 4096,
+      "loss_by_year": {
+        "2020": 11,
+        "2023": 30
+      },
+      "mean_cover_2000": 44.4,
+      "pixel_bounds": [
+        128,
+        192,
+        64,
+        128
+      ]
+    },
+    "18": {
+      "patch_id": 18,
+      "label": 0,
+      "soft_label": 0.0081,
+      "loss_pixels": 33,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 0.0,
+      "pixel_bounds": [
+        128,
+        192,
+        128,
+        192
+      ]
+    },
+    "19": {
+      "patch_id": 19,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 41.0,
+      "pixel_bounds": [
+        128,
+        192,
+        192,
+        256
+      ]
+    },
+    "20": {
+      "patch_id": 20,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 69.6,
+      "pixel_bounds": [
+        128,
+        192,
+        256,
+        320
+      ]
+    },
+    "21": {
+      "patch_id": 21,
+      "label": 0,
+      "soft_label": 0.0249,
+      "loss_pixels": 102,
+      "total_pixels": 4096,
+      "loss_by_year": {
+        "2021": 27,
+        "2022": 27
+      },
+      "mean_cover_2000": 52.7,
+      "pixel_bounds": [
+        128,
+        192,
+        320,
+        384
+      ]
+    },
+    "22": {
+      "patch_id": 22,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 56.2,
+      "pixel_bounds": [
+        128,
+        192,
+        384,
+        448
+      ]
+    },
+    "23": {
+      "patch_id": 23,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 48.7,
+      "pixel_bounds": [
+        128,
+        192,
+        448,
+        512
+      ]
+    },
+    "24": {
+      "patch_id": 24,
+      "label": 0,
+      "soft_label": 0.0122,
+      "loss_pixels": 50,
+      "total_pixels": 4096,
+      "loss_by_year": {
+        "2022": 3
+      },
+      "mean_cover_2000": 38.3,
+      "pixel_bounds": [
+        192,
+        256,
+        0,
+        64
+      ]
+    },
+    "25": {
+      "patch_id": 25,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 3.9,
+      "pixel_bounds": [
+        192,
+        256,
+        64,
+        128
+      ]
+    },
+    "26": {
+      "patch_id": 26,
+      "label": 0,
+      "soft_label": 0.0022,
+      "loss_pixels": 9,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 3.9,
+      "pixel_bounds": [
+        192,
+        256,
+        128,
+        192
+      ]
+    },
+    "27": {
+      "patch_id": 27,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 54.1,
+      "pixel_bounds": [
+        192,
+        256,
+        192,
+        256
+      ]
+    },
+    "28": {
+      "patch_id": 28,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 57.5,
+      "pixel_bounds": [
+        192,
+        256,
+        256,
+        320
+      ]
+    },
+    "29": {
+      "patch_id": 29,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 60.6,
+      "pixel_bounds": [
+        192,
+        256,
+        320,
+        384
+      ]
+    },
+    "30": {
+      "patch_id": 30,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 57.3,
+      "pixel_bounds": [
+        192,
+        256,
+        384,
+        448
+      ]
+    },
+    "31": {
+      "patch_id": 31,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 30.7,
+      "pixel_bounds": [
+        192,
+        256,
+        448,
+        512
+      ]
+    },
+    "32": {
+      "patch_id": 32,
+      "label": 0,
+      "soft_label": 0.0161,
+      "loss_pixels": 66,
+      "total_pixels": 4096,
+      "loss_by_year": {
+        "2022": 42
+      },
+      "mean_cover_2000": 22.8,
+      "pixel_bounds": [
+        256,
+        320,
+        0,
+        64
+      ]
+    },
+    "33": {
+      "patch_id": 33,
+      "label": 0,
+      "soft_label": 0.0029,
+      "loss_pixels": 12,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 6.0,
+      "pixel_bounds": [
+        256,
+        320,
+        64,
+        128
+      ]
+    },
+    "34": {
+      "patch_id": 34,
+      "label": 0,
+      "soft_label": 0.0037,
+      "loss_pixels": 15,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 37.4,
+      "pixel_bounds": [
+        256,
+        320,
+        128,
+        192
+      ]
+    },
+    "35": {
+      "patch_id": 35,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 67.0,
+      "pixel_bounds": [
+        256,
+        320,
+        192,
+        256
+      ]
+    },
+    "36": {
+      "patch_id": 36,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 54.0,
+      "pixel_bounds": [
+        256,
+        320,
+        256,
+        320
+      ]
+    },
+    "37": {
+      "patch_id": 37,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 66.0,
+      "pixel_bounds": [
+        256,
+        320,
+        320,
+        384
+      ]
+    },
+    "38": {
+      "patch_id": 38,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 64.2,
+      "pixel_bounds": [
+        256,
+        320,
+        384,
+        448
+      ]
+    },
+    "39": {
+      "patch_id": 39,
+      "label": 0,
+      "soft_label": 0.0066,
+      "loss_pixels": 27,
+      "total_pixels": 4096,
+      "loss_by_year": {
+        "2019": 27
+      },
+      "mean_cover_2000": 58.3,
+      "pixel_bounds": [
+        256,
+        320,
+        448,
+        512
+      ]
+    },
+    "40": {
+      "patch_id": 40,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 7.1,
+      "pixel_bounds": [
+        320,
+        384,
+        0,
+        64
+      ]
+    },
+    "41": {
+      "patch_id": 41,
+      "label": 1,
+      "soft_label": 0.0344,
+      "loss_pixels": 141,
+      "total_pixels": 4096,
+      "loss_by_year": {
+        "2020": 69,
+        "2023": 39
+      },
+      "mean_cover_2000": 63.9,
+      "pixel_bounds": [
+        320,
+        384,
+        64,
+        128
+      ]
+    },
+    "42": {
+      "patch_id": 42,
+      "label": 0,
+      "soft_label": 0.0037,
+      "loss_pixels": 15,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 39.8,
+      "pixel_bounds": [
+        320,
+        384,
+        128,
+        192
+      ]
+    },
+    "43": {
+      "patch_id": 43,
+      "label": 0,
+      "soft_label": 0.0298,
+      "loss_pixels": 122,
+      "total_pixels": 4096,
+      "loss_by_year": {
+        "2020": 4,
+        "2021": 6
+      },
+      "mean_cover_2000": 69.7,
+      "pixel_bounds": [
+        320,
+        384,
+        192,
+        256
+      ]
+    },
+    "44": {
+      "patch_id": 44,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 57.1,
+      "pixel_bounds": [
+        320,
+        384,
+        256,
+        320
+      ]
+    },
+    "45": {
+      "patch_id": 45,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 63.5,
+      "pixel_bounds": [
+        320,
+        384,
+        320,
+        384
+      ]
+    },
+    "46": {
+      "patch_id": 46,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 71.7,
+      "pixel_bounds": [
+        320,
+        384,
+        384,
+        448
+      ]
+    },
+    "47": {
+      "patch_id": 47,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 70.7,
+      "pixel_bounds": [
+        320,
+        384,
+        448,
+        512
+      ]
+    },
+    "48": {
+      "patch_id": 48,
+      "label": 1,
+      "soft_label": 0.0381,
+      "loss_pixels": 156,
+      "total_pixels": 4096,
+      "loss_by_year": {
+        "2023": 18
+      },
+      "mean_cover_2000": 41.2,
+      "pixel_bounds": [
+        384,
+        448,
+        0,
+        64
+      ]
+    },
+    "49": {
+      "patch_id": 49,
+      "label": 1,
+      "soft_label": 0.0486,
+      "loss_pixels": 199,
+      "total_pixels": 4096,
+      "loss_by_year": {
+        "2022": 24,
+        "2023": 103,
+        "2024": 36
+      },
+      "mean_cover_2000": 62.1,
+      "pixel_bounds": [
+        384,
+        448,
+        64,
+        128
+      ]
+    },
+    "50": {
+      "patch_id": 50,
+      "label": 0,
+      "soft_label": 0.0088,
+      "loss_pixels": 36,
+      "total_pixels": 4096,
+      "loss_by_year": {
+        "2024": 36
+      },
+      "mean_cover_2000": 27.7,
+      "pixel_bounds": [
+        384,
+        448,
+        128,
+        192
+      ]
+    },
+    "51": {
+      "patch_id": 51,
+      "label": 0,
+      "soft_label": 0.0212,
+      "loss_pixels": 87,
+      "total_pixels": 4096,
+      "loss_by_year": {
+        "2021": 24,
+        "2025": 15
+      },
+      "mean_cover_2000": 42.5,
+      "pixel_bounds": [
+        384,
+        448,
+        192,
+        256
+      ]
+    },
+    "52": {
+      "patch_id": 52,
+      "label": 0,
+      "soft_label": 0.0249,
+      "loss_pixels": 102,
+      "total_pixels": 4096,
+      "loss_by_year": {
+        "2024": 21,
+        "2025": 30
+      },
+      "mean_cover_2000": 56.0,
+      "pixel_bounds": [
+        384,
+        448,
+        256,
+        320
+      ]
+    },
+    "53": {
+      "patch_id": 53,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 69.1,
+      "pixel_bounds": [
+        384,
+        448,
+        320,
+        384
+      ]
+    },
+    "54": {
+      "patch_id": 54,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 63.5,
+      "pixel_bounds": [
+        384,
+        448,
+        384,
+        448
+      ]
+    },
+    "55": {
+      "patch_id": 55,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 66.4,
+      "pixel_bounds": [
+        384,
+        448,
+        448,
+        512
+      ]
+    },
+    "56": {
+      "patch_id": 56,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 43.2,
+      "pixel_bounds": [
+        448,
+        512,
+        0,
+        64
+      ]
+    },
+    "57": {
+      "patch_id": 57,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 54.6,
+      "pixel_bounds": [
+        448,
+        512,
+        64,
+        128
+      ]
+    },
+    "58": {
+      "patch_id": 58,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 46.0,
+      "pixel_bounds": [
+        448,
+        512,
+        128,
+        192
+      ]
+    },
+    "59": {
+      "patch_id": 59,
+      "label": 0,
+      "soft_label": 0.0022,
+      "loss_pixels": 9,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 68.8,
+      "pixel_bounds": [
+        448,
+        512,
+        192,
+        256
+      ]
+    },
+    "60": {
+      "patch_id": 60,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 64.2,
+      "pixel_bounds": [
+        448,
+        512,
+        256,
+        320
+      ]
+    },
+    "61": {
+      "patch_id": 61,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 65.9,
+      "pixel_bounds": [
+        448,
+        512,
+        320,
+        384
+      ]
+    },
+    "62": {
+      "patch_id": 62,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 60.4,
+      "pixel_bounds": [
+        448,
+        512,
+        384,
+        448
+      ]
+    },
+    "63": {
+      "patch_id": 63,
+      "label": 0,
+      "soft_label": 0.0,
+      "loss_pixels": 0,
+      "total_pixels": 4096,
+      "loss_by_year": {},
+      "mean_cover_2000": 63.4,
+      "pixel_bounds": [
+        448,
+        512,
+        448,
+        512
+      ]
+    }
+  }
+}

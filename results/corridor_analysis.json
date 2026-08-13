@@ -1,0 +1,540 @@
+{
+  "total_corridors": 8,
+  "intact": 6,
+  "weakened": 2,
+  "broken": 0,
+  "corridors": [
+    {
+      "corridor_id": 0,
+      "patches": [
+        0,
+        8,
+        16,
+        24,
+        32,
+        40,
+        48,
+        56
+      ],
+      "status": "Weakened",
+      "mean_degradation": 0.3333,
+      "length_km": 5.12,
+      "break_points": [
+        8,
+        16
+      ]
+    },
+    {
+      "corridor_id": 1,
+      "patches": [
+        1,
+        9,
+        17,
+        25,
+        33,
+        41,
+        49,
+        57
+      ],
+      "status": "Weakened",
+      "mean_degradation": 0.3718,
+      "length_km": 5.12,
+      "break_points": [
+        1,
+        9,
+        41,
+        49
+      ]
+    },
+    {
+      "corridor_id": 2,
+      "patches": [
+        2,
+        10,
+        18,
+        26,
+        34,
+        42,
+        50,
+        58
+      ],
+      "status": "Intact",
+      "mean_degradation": 0.1194,
+      "length_km": 5.12,
+      "break_points": [
+        34
+      ]
+    },
+    {
+      "corridor_id": 3,
+      "patches": [
+        3,
+        11,
+        19,
+        27,
+        35,
+        43,
+        51,
+        59
+      ],
+      "status": "Intact",
+      "mean_degradation": 0.026,
+      "length_km": 5.12,
+      "break_points": []
+    },
+    {
+      "corridor_id": 4,
+      "patches": [
+        4,
+        12,
+        20,
+        28,
+        36,
+        44,
+        52,
+        60
+      ],
+      "status": "Intact",
+      "mean_degradation": 0.0584,
+      "length_km": 5.12,
+      "break_points": []
+    },
+    {
+      "corridor_id": 5,
+      "patches": [
+        5,
+        13,
+        21,
+        29,
+        37,
+        45,
+        53,
+        61
+      ],
+      "status": "Intact",
+      "mean_degradation": 0.0947,
+      "length_km": 5.12,
+      "break_points": []
+    },
+    {
+      "corridor_id": 6,
+      "patches": [
+        6,
+        14,
+        22,
+        30,
+        38,
+        46,
+        54,
+        62
+      ],
+      "status": "Intact",
+      "mean_degradation": 0.01,
+      "length_km": 5.12,
+      "break_points": []
+    },
+    {
+      "corridor_id": 7,
+      "patches": [
+        7,
+        15,
+        23,
+        31,
+        39,
+        47,
+        55,
+        63
+      ],
+      "status": "Intact",
+      "mean_degradation": 0.0131,
+      "length_km": 5.12,
+      "break_points": []
+    }
+  ],
+  "patch_health": {
+    "0": {
+      "score": 0.0115,
+      "status": "Intact",
+      "grid_row": 0,
+      "grid_col": 0
+    },
+    "1": {
+      "score": 0.5013,
+      "status": "Broken",
+      "grid_row": 0,
+      "grid_col": 1
+    },
+    "2": {
+      "score": 0.0194,
+      "status": "Intact",
+      "grid_row": 0,
+      "grid_col": 2
+    },
+    "3": {
+      "score": 0.0235,
+      "status": "Intact",
+      "grid_row": 0,
+      "grid_col": 3
+    },
+    "4": {
+      "score": 0.0679,
+      "status": "Intact",
+      "grid_row": 0,
+      "grid_col": 4
+    },
+    "5": {
+      "score": 0.0146,
+      "status": "Intact",
+      "grid_row": 0,
+      "grid_col": 5
+    },
+    "6": {
+      "score": 0.01,
+      "status": "Intact",
+      "grid_row": 0,
+      "grid_col": 6
+    },
+    "7": {
+      "score": 0.02,
+      "status": "Intact",
+      "grid_row": 0,
+      "grid_col": 7
+    },
+    "8": {
+      "score": 0.9349,
+      "status": "Broken",
+      "grid_row": 1,
+      "grid_col": 0
+    },
+    "9": {
+      "score": 0.5252,
+      "status": "Broken",
+      "grid_row": 1,
+      "grid_col": 1
+    },
+    "10": {
+      "score": 0.0132,
+      "status": "Intact",
+      "grid_row": 1,
+      "grid_col": 2
+    },
+    "11": {
+      "score": 0.0111,
+      "status": "Intact",
+      "grid_row": 1,
+      "grid_col": 3
+    },
+    "12": {
+      "score": 0.0522,
+      "status": "Intact",
+      "grid_row": 1,
+      "grid_col": 4
+    },
+    "13": {
+      "score": 0.4728,
+      "status": "Broken",
+      "grid_row": 1,
+      "grid_col": 5
+    },
+    "14": {
+      "score": 0.0093,
+      "status": "Intact",
+      "grid_row": 1,
+      "grid_col": 6
+    },
+    "15": {
+      "score": 0.0173,
+      "status": "Intact",
+      "grid_row": 1,
+      "grid_col": 7
+    },
+    "16": {
+      "score": 0.9289,
+      "status": "Broken",
+      "grid_row": 2,
+      "grid_col": 0
+    },
+    "17": {
+      "score": 0.1774,
+      "status": "Intact",
+      "grid_row": 2,
+      "grid_col": 1
+    },
+    "18": {
+      "score": 0.0181,
+      "status": "Intact",
+      "grid_row": 2,
+      "grid_col": 2
+    },
+    "19": {
+      "score": 0.0123,
+      "status": "Intact",
+      "grid_row": 2,
+      "grid_col": 3
+    },
+    "20": {
+      "score": 0.0094,
+      "status": "Intact",
+      "grid_row": 2,
+      "grid_col": 4
+    },
+    "21": {
+      "score": 0.1812,
+      "status": "Intact",
+      "grid_row": 2,
+      "grid_col": 5
+    },
+    "22": {
+      "score": 0.0094,
+      "status": "Intact",
+      "grid_row": 2,
+      "grid_col": 6
+    },
+    "23": {
+      "score": 0.0133,
+      "status": "Intact",
+      "grid_row": 2,
+      "grid_col": 7
+    },
+    "24": {
+      "score": 0.1608,
+      "status": "Intact",
+      "grid_row": 3,
+      "grid_col": 0
+    },
+    "25": {
+      "score": 0.0153,
+      "status": "Intact",
+      "grid_row": 3,
+      "grid_col": 1
+    },
+    "26": {
+      "score": 0.024,
+      "status": "Intact",
+      "grid_row": 3,
+      "grid_col": 2
+    },
+    "27": {
+      "score": 0.0506,
+      "status": "Intact",
+      "grid_row": 3,
+      "grid_col": 3
+    },
+    "28": {
+      "score": 0.0209,
+      "status": "Intact",
+      "grid_row": 3,
+      "grid_col": 4
+    },
+    "29": {
+      "score": 0.0105,
+      "status": "Intact",
+      "grid_row": 3,
+      "grid_col": 5
+    },
+    "30": {
+      "score": 0.0112,
+      "status": "Intact",
+      "grid_row": 3,
+      "grid_col": 6
+    },
+    "31": {
+      "score": 0.0128,
+      "status": "Intact",
+      "grid_row": 3,
+      "grid_col": 7
+    },
+    "32": {
+      "score": 0.0156,
+      "status": "Intact",
+      "grid_row": 4,
+      "grid_col": 0
+    },
+    "33": {
+      "score": 0.0129,
+      "status": "Intact",
+      "grid_row": 4,
+      "grid_col": 1
+    },
+    "34": {
+      "score": 0.6206,
+      "status": "Broken",
+      "grid_row": 4,
+      "grid_col": 2
+    },
+    "35": {
+      "score": 0.0139,
+      "status": "Intact",
+      "grid_row": 4,
+      "grid_col": 3
+    },
+    "36": {
+      "score": 0.0121,
+      "status": "Intact",
+      "grid_row": 4,
+      "grid_col": 4
+    },
+    "37": {
+      "score": 0.0101,
+      "status": "Intact",
+      "grid_row": 4,
+      "grid_col": 5
+    },
+    "38": {
+      "score": 0.0103,
+      "status": "Intact",
+      "grid_row": 4,
+      "grid_col": 6
+    },
+    "39": {
+      "score": 0.0109,
+      "status": "Intact",
+      "grid_row": 4,
+      "grid_col": 7
+    },
+    "40": {
+      "score": 0.0112,
+      "status": "Intact",
+      "grid_row": 5,
+      "grid_col": 0
+    },
+    "41": {
+      "score": 0.8937,
+      "status": "Broken",
+      "grid_row": 5,
+      "grid_col": 1
+    },
+    "42": {
+      "score": 0.0621,
+      "status": "Intact",
+      "grid_row": 5,
+      "grid_col": 2
+    },
+    "43": {
+      "score": 0.0349,
+      "status": "Intact",
+      "grid_row": 5,
+      "grid_col": 3
+    },
+    "44": {
+      "score": 0.0631,
+      "status": "Intact",
+      "grid_row": 5,
+      "grid_col": 4
+    },
+    "45": {
+      "score": 0.0087,
+      "status": "Intact",
+      "grid_row": 5,
+      "grid_col": 5
+    },
+    "46": {
+      "score": 0.0113,
+      "status": "Intact",
+      "grid_row": 5,
+      "grid_col": 6
+    },
+    "47": {
+      "score": 0.0127,
+      "status": "Intact",
+      "grid_row": 5,
+      "grid_col": 7
+    },
+    "48": {
+      "score": 0.4734,
+      "status": "Broken",
+      "grid_row": 6,
+      "grid_col": 0
+    },
+    "49": {
+      "score": 0.737,
+      "status": "Broken",
+      "grid_row": 6,
+      "grid_col": 1
+    },
+    "50": {
+      "score": 0.1842,
+      "status": "Intact",
+      "grid_row": 6,
+      "grid_col": 2
+    },
+    "51": {
+      "score": 0.0196,
+      "status": "Intact",
+      "grid_row": 6,
+      "grid_col": 3
+    },
+    "52": {
+      "score": 0.1638,
+      "status": "Intact",
+      "grid_row": 6,
+      "grid_col": 4
+    },
+    "53": {
+      "score": 0.0398,
+      "status": "Intact",
+      "grid_row": 6,
+      "grid_col": 5
+    },
+    "54": {
+      "score": 0.009,
+      "status": "Intact",
+      "grid_row": 6,
+      "grid_col": 6
+    },
+    "55": {
+      "score": 0.0087,
+      "status": "Intact",
+      "grid_row": 6,
+      "grid_col": 7
+    },
+    "56": {
+      "score": 0.13,
+      "status": "Intact",
+      "grid_row": 7,
+      "grid_col": 0
+    },
+    "57": {
+      "score": 0.1115,
+      "status": "Intact",
+      "grid_row": 7,
+      "grid_col": 1
+    },
+    "58": {
+      "score": 0.0137,
+      "status": "Intact",
+      "grid_row": 7,
+      "grid_col": 2
+    },
+    "59": {
+      "score": 0.042,
+      "status": "Intact",
+      "grid_row": 7,
+      "grid_col": 3
+    },
+    "60": {
+      "score": 0.0779,
+      "status": "Intact",
+      "grid_row": 7,
+      "grid_col": 4
+    },
+    "61": {
+      "score": 0.0196,
+      "status": "Intact",
+      "grid_row": 7,
+      "grid_col": 5
+    },
+    "62": {
+      "score": 0.0099,
+      "status": "Intact",
+      "grid_row": 7,
+      "grid_col": 6
+    },
+    "63": {
+      "score": 0.009,
+      "status": "Intact",
+      "grid_row": 7,
+      "grid_col": 7
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "ndvi_thresh_dry": 0.3332,
+  "ndvi_thresh_monsoon": 0.5536,
+  "ndvi_thresh_retreat": 0.2877,
+  "description": {
+    "dry": "Jan\u2013May: dry season threshold",
+    "monsoon": "Jun\u2013Sep: peak monsoon threshold",
+    "retreat": "Oct\u2013Dec: post-monsoon retreat threshold"
+  },
+  "best_fitness": 0.5905,
+  "best_config": {
+    "lr": 0.005439,
+    "dropout": 0.4319,
+    "hidden_dim": 192,
+    "num_layers": 2
+  }
+}

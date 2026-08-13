@@ -1,5 +1,23 @@
-venv/
+# Datasets and caches
+data/raw_monthly/
+data/patches/*.npy
+data/labels/*.npy
+data/labels/*.tif
+*.npy
+*.zip
+*.dmg
+.ipynb_checkpoints/
 __pycache__/
 *.pyc
+
+# Local environments and IDEs
+venv/
+.env
 .DS_Store
-data/raw_monthly/*.tif
+.vscode/
+.idea/
+
+# Node modules
+node_modules/
+dist/
+build/

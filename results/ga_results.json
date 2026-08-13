@@ -1,0 +1,557 @@
+{
+  "best_chromosome": {
+    "lr": 0.005438621885822971,
+    "dropout": 0.4318998464014786,
+    "hidden_dim": 192,
+    "nhead": 2,
+    "num_layers": 2,
+    "ndvi_thresh_dry": 0.3332158849835786,
+    "ndvi_thresh_monsoon": 0.5535665473479037,
+    "ndvi_thresh_retreat": 0.2877393079443269,
+    "lambda_recon": 1.4688411695999841,
+    "lambda_contrast": 0.5768356259735394,
+    "fitness": 0.5904761904761905
+  },
+  "history": [
+    {
+      "generation": 1,
+      "best_fitness": 0.4111,
+      "avg_fitness": 0.0622,
+      "best_chrom": {
+        "lr": 0.00039,
+        "dropout": 0.06167,
+        "hidden_dim": 64,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.49735,
+        "ndvi_thresh_monsoon": 0.4959,
+        "ndvi_thresh_retreat": 0.43917,
+        "lambda_recon": 0.9955,
+        "lambda_contrast": 0.28418,
+        "fitness": 0.41111
+      }
+    },
+    {
+      "generation": 2,
+      "best_fitness": 0.4524,
+      "avg_fitness": 0.0871,
+      "best_chrom": {
+        "lr": 0.0054,
+        "dropout": 0.19939,
+        "hidden_dim": 96,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.61955,
+        "ndvi_thresh_monsoon": 0.43605,
+        "ndvi_thresh_retreat": 0.29845,
+        "lambda_recon": 1.39258,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.45238
+      }
+    },
+    {
+      "generation": 3,
+      "best_fitness": 0.4524,
+      "avg_fitness": 0.0871,
+      "best_chrom": {
+        "lr": 0.0054,
+        "dropout": 0.19939,
+        "hidden_dim": 96,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.61955,
+        "ndvi_thresh_monsoon": 0.43605,
+        "ndvi_thresh_retreat": 0.29845,
+        "lambda_recon": 1.39258,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.45238
+      }
+    },
+    {
+      "generation": 4,
+      "best_fitness": 0.4524,
+      "avg_fitness": 0.0871,
+      "best_chrom": {
+        "lr": 0.0054,
+        "dropout": 0.19939,
+        "hidden_dim": 96,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.61955,
+        "ndvi_thresh_monsoon": 0.43605,
+        "ndvi_thresh_retreat": 0.29845,
+        "lambda_recon": 1.39258,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.45238
+      }
+    },
+    {
+      "generation": 5,
+      "best_fitness": 0.4524,
+      "avg_fitness": 0.0887,
+      "best_chrom": {
+        "lr": 0.0054,
+        "dropout": 0.19939,
+        "hidden_dim": 96,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.61955,
+        "ndvi_thresh_monsoon": 0.43605,
+        "ndvi_thresh_retreat": 0.29845,
+        "lambda_recon": 1.39258,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.45238
+      }
+    },
+    {
+      "generation": 6,
+      "best_fitness": 0.4524,
+      "avg_fitness": 0.0887,
+      "best_chrom": {
+        "lr": 0.0054,
+        "dropout": 0.19939,
+        "hidden_dim": 96,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.61955,
+        "ndvi_thresh_monsoon": 0.43605,
+        "ndvi_thresh_retreat": 0.29845,
+        "lambda_recon": 1.39258,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.45238
+      }
+    },
+    {
+      "generation": 7,
+      "best_fitness": 0.4524,
+      "avg_fitness": 0.0887,
+      "best_chrom": {
+        "lr": 0.0054,
+        "dropout": 0.19939,
+        "hidden_dim": 96,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.61955,
+        "ndvi_thresh_monsoon": 0.43605,
+        "ndvi_thresh_retreat": 0.29845,
+        "lambda_recon": 1.39258,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.45238
+      }
+    },
+    {
+      "generation": 8,
+      "best_fitness": 0.4524,
+      "avg_fitness": 0.0888,
+      "best_chrom": {
+        "lr": 0.0054,
+        "dropout": 0.19939,
+        "hidden_dim": 96,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.61955,
+        "ndvi_thresh_monsoon": 0.43605,
+        "ndvi_thresh_retreat": 0.29845,
+        "lambda_recon": 1.39258,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.45238
+      }
+    },
+    {
+      "generation": 9,
+      "best_fitness": 0.4524,
+      "avg_fitness": 0.0888,
+      "best_chrom": {
+        "lr": 0.0054,
+        "dropout": 0.19939,
+        "hidden_dim": 96,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.61955,
+        "ndvi_thresh_monsoon": 0.43605,
+        "ndvi_thresh_retreat": 0.29845,
+        "lambda_recon": 1.39258,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.45238
+      }
+    },
+    {
+      "generation": 10,
+      "best_fitness": 0.4524,
+      "avg_fitness": 0.0888,
+      "best_chrom": {
+        "lr": 0.0054,
+        "dropout": 0.19939,
+        "hidden_dim": 96,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.61955,
+        "ndvi_thresh_monsoon": 0.43605,
+        "ndvi_thresh_retreat": 0.29845,
+        "lambda_recon": 1.39258,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.45238
+      }
+    },
+    {
+      "generation": 11,
+      "best_fitness": 0.4683,
+      "avg_fitness": 0.0905,
+      "best_chrom": {
+        "lr": 0.00074,
+        "dropout": 0.37184,
+        "hidden_dim": 160,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.52118,
+        "ndvi_thresh_monsoon": 0.56644,
+        "ndvi_thresh_retreat": 0.29845,
+        "lambda_recon": 1.53075,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.46825
+      }
+    },
+    {
+      "generation": 12,
+      "best_fitness": 0.4683,
+      "avg_fitness": 0.0909,
+      "best_chrom": {
+        "lr": 0.00074,
+        "dropout": 0.37184,
+        "hidden_dim": 160,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.52118,
+        "ndvi_thresh_monsoon": 0.56644,
+        "ndvi_thresh_retreat": 0.29845,
+        "lambda_recon": 1.53075,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.46825
+      }
+    },
+    {
+      "generation": 13,
+      "best_fitness": 0.4889,
+      "avg_fitness": 0.0931,
+      "best_chrom": {
+        "lr": 0.0054,
+        "dropout": 0.37415,
+        "hidden_dim": 64,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.51218,
+        "ndvi_thresh_monsoon": 0.4959,
+        "ndvi_thresh_retreat": 0.3147,
+        "lambda_recon": 1.39258,
+        "lambda_contrast": 0.70973,
+        "fitness": 0.48889
+      }
+    },
+    {
+      "generation": 14,
+      "best_fitness": 0.5111,
+      "avg_fitness": 0.096,
+      "best_chrom": {
+        "lr": 0.00589,
+        "dropout": 0.4319,
+        "hidden_dim": 192,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.49735,
+        "ndvi_thresh_monsoon": 0.43605,
+        "ndvi_thresh_retreat": 0.32509,
+        "lambda_recon": 1.46884,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.51111
+      }
+    },
+    {
+      "generation": 15,
+      "best_fitness": 0.5111,
+      "avg_fitness": 0.0979,
+      "best_chrom": {
+        "lr": 0.00589,
+        "dropout": 0.4319,
+        "hidden_dim": 192,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.49735,
+        "ndvi_thresh_monsoon": 0.43605,
+        "ndvi_thresh_retreat": 0.32509,
+        "lambda_recon": 1.46884,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.51111
+      }
+    },
+    {
+      "generation": 16,
+      "best_fitness": 0.5111,
+      "avg_fitness": 0.0979,
+      "best_chrom": {
+        "lr": 0.00589,
+        "dropout": 0.4319,
+        "hidden_dim": 192,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.49735,
+        "ndvi_thresh_monsoon": 0.43605,
+        "ndvi_thresh_retreat": 0.32509,
+        "lambda_recon": 1.46884,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.51111
+      }
+    },
+    {
+      "generation": 17,
+      "best_fitness": 0.5905,
+      "avg_fitness": 0.104,
+      "best_chrom": {
+        "lr": 0.00544,
+        "dropout": 0.4319,
+        "hidden_dim": 192,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.33322,
+        "ndvi_thresh_monsoon": 0.55357,
+        "ndvi_thresh_retreat": 0.28774,
+        "lambda_recon": 1.46884,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.59048
+      }
+    },
+    {
+      "generation": 18,
+      "best_fitness": 0.5905,
+      "avg_fitness": 0.104,
+      "best_chrom": {
+        "lr": 0.00544,
+        "dropout": 0.4319,
+        "hidden_dim": 192,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.33322,
+        "ndvi_thresh_monsoon": 0.55357,
+        "ndvi_thresh_retreat": 0.28774,
+        "lambda_recon": 1.46884,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.59048
+      }
+    },
+    {
+      "generation": 19,
+      "best_fitness": 0.5905,
+      "avg_fitness": 0.104,
+      "best_chrom": {
+        "lr": 0.00544,
+        "dropout": 0.4319,
+        "hidden_dim": 192,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.33322,
+        "ndvi_thresh_monsoon": 0.55357,
+        "ndvi_thresh_retreat": 0.28774,
+        "lambda_recon": 1.46884,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.59048
+      }
+    },
+    {
+      "generation": 20,
+      "best_fitness": 0.5905,
+      "avg_fitness": 0.104,
+      "best_chrom": {
+        "lr": 0.00544,
+        "dropout": 0.4319,
+        "hidden_dim": 192,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.33322,
+        "ndvi_thresh_monsoon": 0.55357,
+        "ndvi_thresh_retreat": 0.28774,
+        "lambda_recon": 1.46884,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.59048
+      }
+    },
+    {
+      "generation": 21,
+      "best_fitness": 0.5905,
+      "avg_fitness": 0.1051,
+      "best_chrom": {
+        "lr": 0.00544,
+        "dropout": 0.4319,
+        "hidden_dim": 192,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.33322,
+        "ndvi_thresh_monsoon": 0.55357,
+        "ndvi_thresh_retreat": 0.28774,
+        "lambda_recon": 1.46884,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.59048
+      }
+    },
+    {
+      "generation": 22,
+      "best_fitness": 0.5905,
+      "avg_fitness": 0.1051,
+      "best_chrom": {
+        "lr": 0.00544,
+        "dropout": 0.4319,
+        "hidden_dim": 192,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.33322,
+        "ndvi_thresh_monsoon": 0.55357,
+        "ndvi_thresh_retreat": 0.28774,
+        "lambda_recon": 1.46884,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.59048
+      }
+    },
+    {
+      "generation": 23,
+      "best_fitness": 0.5905,
+      "avg_fitness": 0.1051,
+      "best_chrom": {
+        "lr": 0.00544,
+        "dropout": 0.4319,
+        "hidden_dim": 192,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.33322,
+        "ndvi_thresh_monsoon": 0.55357,
+        "ndvi_thresh_retreat": 0.28774,
+        "lambda_recon": 1.46884,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.59048
+      }
+    },
+    {
+      "generation": 24,
+      "best_fitness": 0.5905,
+      "avg_fitness": 0.1083,
+      "best_chrom": {
+        "lr": 0.00544,
+        "dropout": 0.4319,
+        "hidden_dim": 192,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.33322,
+        "ndvi_thresh_monsoon": 0.55357,
+        "ndvi_thresh_retreat": 0.28774,
+        "lambda_recon": 1.46884,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.59048
+      }
+    },
+    {
+      "generation": 25,
+      "best_fitness": 0.5905,
+      "avg_fitness": 0.1083,
+      "best_chrom": {
+        "lr": 0.00544,
+        "dropout": 0.4319,
+        "hidden_dim": 192,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.33322,
+        "ndvi_thresh_monsoon": 0.55357,
+        "ndvi_thresh_retreat": 0.28774,
+        "lambda_recon": 1.46884,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.59048
+      }
+    },
+    {
+      "generation": 26,
+      "best_fitness": 0.5905,
+      "avg_fitness": 0.1083,
+      "best_chrom": {
+        "lr": 0.00544,
+        "dropout": 0.4319,
+        "hidden_dim": 192,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.33322,
+        "ndvi_thresh_monsoon": 0.55357,
+        "ndvi_thresh_retreat": 0.28774,
+        "lambda_recon": 1.46884,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.59048
+      }
+    },
+    {
+      "generation": 27,
+      "best_fitness": 0.5905,
+      "avg_fitness": 0.1083,
+      "best_chrom": {
+        "lr": 0.00544,
+        "dropout": 0.4319,
+        "hidden_dim": 192,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.33322,
+        "ndvi_thresh_monsoon": 0.55357,
+        "ndvi_thresh_retreat": 0.28774,
+        "lambda_recon": 1.46884,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.59048
+      }
+    },
+    {
+      "generation": 28,
+      "best_fitness": 0.5905,
+      "avg_fitness": 0.1083,
+      "best_chrom": {
+        "lr": 0.00544,
+        "dropout": 0.4319,
+        "hidden_dim": 192,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.33322,
+        "ndvi_thresh_monsoon": 0.55357,
+        "ndvi_thresh_retreat": 0.28774,
+        "lambda_recon": 1.46884,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.59048
+      }
+    },
+    {
+      "generation": 29,
+      "best_fitness": 0.5905,
+      "avg_fitness": 0.1083,
+      "best_chrom": {
+        "lr": 0.00544,
+        "dropout": 0.4319,
+        "hidden_dim": 192,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.33322,
+        "ndvi_thresh_monsoon": 0.55357,
+        "ndvi_thresh_retreat": 0.28774,
+        "lambda_recon": 1.46884,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.59048
+      }
+    },
+    {
+      "generation": 30,
+      "best_fitness": 0.5905,
+      "avg_fitness": 0.1083,
+      "best_chrom": {
+        "lr": 0.00544,
+        "dropout": 0.4319,
+        "hidden_dim": 192,
+        "nhead": 2,
+        "num_layers": 2,
+        "ndvi_thresh_dry": 0.33322,
+        "ndvi_thresh_monsoon": 0.55357,
+        "ndvi_thresh_retreat": 0.28774,
+        "lambda_recon": 1.46884,
+        "lambda_contrast": 0.57684,
+        "fitness": 0.59048
+      }
+    }
+  ]
+}
