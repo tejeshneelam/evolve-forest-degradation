@@ -14,16 +14,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from dashboard.backend.routes import (
-    health, wildlife, risk, conservation, reports, ga_log
+    health, wildlife, risk, conservation, reports, ga_log, dynamic_region
 )
 
 app = FastAPI(
     title="EvOLve Forest Intelligence API",
     description=(
         "Evolutionary-Optimized Adaptive Self-Supervised Framework "
-        "for Forest Degradation Detection — Wayanad Wildlife Sanctuary"
+        "for Forest Degradation Detection — Global & Wayanad"
     ),
-    version="1.0.0",
+    version="2.0.0",
 )
 
 # Allow React dev server (port 3000) to call the API
@@ -35,6 +35,7 @@ app.add_middleware(
 )
 
 # Register all route groups
+app.include_router(dynamic_region.router,prefix="/api",        tags=["Dynamic GEE Ingestion"])
 app.include_router(health.router,       prefix="/api",        tags=["Forest Health"])
 app.include_router(wildlife.router,     prefix="/api",        tags=["Wildlife"])
 app.include_router(risk.router,         prefix="/api",        tags=["Risk"])
