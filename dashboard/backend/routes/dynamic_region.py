@@ -18,13 +18,15 @@ class RegionRequest(BaseModel):
     bbox: List[float]  # [min_lon, min_lat, max_lon, max_lat]
     region_name: Optional[str] = "Selected Region"
     num_months: Optional[int] = 24
+    start_date: Optional[str] = None
+    end_date: Optional[str] = None
 
 
 @router.post("/process-region")
 def process_region(req: RegionRequest):
     """
     On-the-fly endpoint triggered when a user selects/draws a region on the map.
-    Queries Google Earth Engine, runs EvOLve inference, and computes all 6 features dynamically.
+    Queries Google Earth Engine, runs EvOLve inference, and computes all features dynamically.
     """
     global LATEST_DYNAMIC_ANALYSIS
     if len(req.bbox) != 4:
@@ -32,15 +34,22 @@ def process_region(req: RegionRequest):
 
     min_lon, min_lat, max_lon, max_lat = req.bbox
     
-    # Validation: Ensure reasonable box size (max 0.25 x 0.25 degrees ~ 25km x 25km)
+    # Validation: Ensure reasonable box size (max 0.35 x 0.35 degrees ~ 35km x 35km)
     if abs(max_lat - min_lat) > 0.35 or abs(max_lon - min_lon) > 0.35:
-        raise HTTPException(400, "Selected region is too large for real-time analysis. Please choose an area under 25km x 25km.")
+        raise HTTPException(400, "Selected region is too large for real-time analysis. Please choose an area under 35km x 35km.")
 
     try:
-        print(f"🛰️ Processing dynamic region: {req.region_name} | Bounds: {req.bbox}")
-        gee_data = fetch_dynamic_region(min_lon, min_lat, max_lon, max_lat, num_months=req.num_months)
+        print(f"🛰️ Processing dynamic region: {req.region_name} | Bounds: {req.bbox} | Dates: {req.start_date} to {req.end_date}")
+        gee_data = fetch_dynamic_region(
+            min_lon, min_lat, max_lon, max_lat,
+            num_months=req.num_months,
+            start_date=req.start_date,
+            end_date=req.end_date
+        )
         analysis = analyze_dynamic_region(gee_data)
         analysis['region_name'] = req.region_name
+        analysis['start_date'] = gee_data.get('start_date')
+        analysis['end_date'] = gee_data.get('end_date')
         LATEST_DYNAMIC_ANALYSIS = analysis
         return analysis
     except Exception as e:
@@ -73,4 +82,27 @@ def get_landslide_diagnostic(patch_id: int):
         'grid_col': patch['grid_col'],
         'center': patch['center'],
         'diagnostic': patch['landslide']
+    }
+
+
+@router.get("/construction-diagnostic/{patch_id}")
+def get_construction_diagnostic(patch_id: int):
+    """
+    Dedicated geo-safety and terrain construction suitability diagnostic report for a specific patch.
+    """
+    if not LATEST_DYNAMIC_ANALYSIS:
+        raise HTTPException(404, "No active region loaded. Please select a region first.")
+
+    patch = next((p for p in LATEST_DYNAMIC_ANALYSIS['patches'] if p['patch_id'] == patch_id), None)
+    if not patch:
+        raise HTTPException(404, f"Patch {patch_id} not found in active region.")
+
+    return {
+        'patch_id': patch_id,
+        'grid_row': patch['grid_row'],
+        'grid_col': patch['grid_col'],
+        'center': patch['center'],
+        'bounds': patch['bounds'],
+        'slope_deg': patch['slope_deg'],
+        'construction': patch.get('construction_suitability', {})
     }

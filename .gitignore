@@ -6,6 +6,9 @@ data/labels/*.tif
 *.npy
 *.zip
 *.dmg
+*.pkg
+*.db
+*.sqlite
 .ipynb_checkpoints/
 __pycache__/
 *.pyc

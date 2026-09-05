@@ -2,7 +2,7 @@ const API_BASE = 'http://localhost:8000/api';
 
 export const api = {
   // Dynamic GEE Region Analysis (Version 2.0)
-  processRegion: (bbox, regionName = "Custom Region", numMonths = 24) => {
+  processRegion: (bbox, regionName = "Custom Region", numMonths = 24, startDate = null, endDate = null) => {
     return fetch(`${API_BASE}/process-region`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -10,6 +10,8 @@ export const api = {
         bbox: bbox,
         region_name: regionName,
         num_months: numMonths,
+        start_date: startDate,
+        end_date: endDate,
       })
     }).then(async r => {
       if (!r.ok) {
@@ -27,6 +29,16 @@ export const api = {
       if (!r.ok) {
         const err = await r.json().catch(() => ({}));
         throw new Error(err.detail || 'Landslide diagnostic not found');
+      }
+      return r.json();
+    });
+  },
+
+  getConstructionDiagnostic: (patchId) => {
+    return fetch(`${API_BASE}/construction-diagnostic/${patchId}`).then(async r => {
+      if (!r.ok) {
+        const err = await r.json().catch(() => ({}));
+        throw new Error(err.detail || 'Construction diagnostic not found');
       }
       return r.json();
     });
@@ -54,6 +66,23 @@ export const api = {
   getGAResults:    () => fetch(`${API_BASE}/ga-results`).then(r => r.json()),
   getGAThresholds: () => fetch(`${API_BASE}/ga-thresholds`).then(r => r.json()),
   getGAHistory:    () => fetch(`${API_BASE}/ga-history`).then(r => r.json()),
+  runGAAdaptation: (targetObjective = "balanced", popSize = 30, mutationRate = 0.08) => {
+    return fetch(`${API_BASE}/run-ga-adaptation`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        target_objective: targetObjective,
+        population_size: popSize,
+        mutation_rate: mutationRate,
+      })
+    }).then(async r => {
+      if (!r.ok) {
+        const err = await r.json().catch(() => ({}));
+        throw new Error(err.detail || 'Failed to run GA adaptation');
+      }
+      return r.json();
+    });
+  },
 
   // Reports
   exportPDF: (from, to) => {

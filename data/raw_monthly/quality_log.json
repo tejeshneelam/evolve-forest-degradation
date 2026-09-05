@@ -70,5 +70,437 @@
     "source_images": 16,
     "coverage": 0.998,
     "status": "saved"
+  },
+  {
+    "month": "2019-01",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2019-02",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2019-03",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2019-04",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2019-05",
+    "source_images": 12,
+    "coverage": 0.988,
+    "status": "saved"
+  },
+  {
+    "month": "2019-06",
+    "source_images": 22,
+    "coverage": 0.976,
+    "status": "saved"
+  },
+  {
+    "month": "2019-07",
+    "source_images": 34,
+    "coverage": 0.679,
+    "status": "skipped"
+  },
+  {
+    "month": "2019-08",
+    "source_images": 30,
+    "coverage": 0.651,
+    "status": "skipped"
+  },
+  {
+    "month": "2019-09",
+    "source_images": 18,
+    "coverage": 0.94,
+    "status": "saved"
+  },
+  {
+    "month": "2019-10",
+    "source_images": 12,
+    "coverage": 0.985,
+    "status": "saved"
+  },
+  {
+    "month": "2019-11",
+    "source_images": 12,
+    "coverage": 0.991,
+    "status": "saved"
+  },
+  {
+    "month": "2019-12",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2020-01",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2020-02",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2020-03",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2020-04",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2020-05",
+    "source_images": 16,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2020-06",
+    "source_images": 20,
+    "coverage": 0.985,
+    "status": "saved"
+  },
+  {
+    "month": "2020-07",
+    "source_images": 22,
+    "coverage": 0.883,
+    "status": "saved"
+  },
+  {
+    "month": "2020-08",
+    "source_images": 20,
+    "coverage": 0.933,
+    "status": "saved"
+  },
+  {
+    "month": "2020-09",
+    "source_images": 12,
+    "coverage": 0.902,
+    "status": "saved"
+  },
+  {
+    "month": "2020-10",
+    "source_images": 10,
+    "coverage": 0.993,
+    "status": "saved"
+  },
+  {
+    "month": "2020-11",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2020-12",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2021-01",
+    "source_images": 14,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2021-02",
+    "source_images": 10,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2021-03",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2021-04",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2021-05",
+    "source_images": 14,
+    "coverage": 0.909,
+    "status": "saved"
+  },
+  {
+    "month": "2021-06",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2021-07",
+    "source_images": 20,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2021-08",
+    "source_images": 28,
+    "coverage": 0.824,
+    "status": "skipped"
+  },
+  {
+    "month": "2021-09",
+    "source_images": 20,
+    "coverage": 0.87,
+    "status": "saved"
+  },
+  {
+    "month": "2021-10",
+    "source_images": 20,
+    "coverage": 0.939,
+    "status": "saved"
+  },
+  {
+    "month": "2021-11",
+    "source_images": 12,
+    "coverage": 0.924,
+    "status": "saved"
+  },
+  {
+    "month": "2021-12",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2022-01",
+    "source_images": 14,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2022-02",
+    "source_images": 10,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2022-03",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2022-04",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2022-05",
+    "source_images": 22,
+    "coverage": 0.984,
+    "status": "saved"
+  },
+  {
+    "month": "2022-06",
+    "source_images": 12,
+    "coverage": 0.946,
+    "status": "saved"
+  },
+  {
+    "month": "2022-07",
+    "source_images": 28,
+    "coverage": 0.948,
+    "status": "saved"
+  },
+  {
+    "month": "2022-08",
+    "source_images": 28,
+    "coverage": 0.872,
+    "status": "saved"
+  },
+  {
+    "month": "2022-09",
+    "source_images": 30,
+    "coverage": 0.693,
+    "status": "skipped"
+  },
+  {
+    "month": "2022-10",
+    "source_images": 14,
+    "coverage": 0.934,
+    "status": "saved"
+  },
+  {
+    "month": "2022-11",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2022-12",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2023-01",
+    "source_images": 14,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2023-02",
+    "source_images": 10,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2023-03",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2023-04",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2023-05",
+    "source_images": 14,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2023-06",
+    "source_images": 28,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2023-07",
+    "source_images": 28,
+    "coverage": 0.458,
+    "status": "skipped"
+  },
+  {
+    "month": "2023-08",
+    "source_images": 28,
+    "coverage": 0.839,
+    "status": "skipped"
+  },
+  {
+    "month": "2023-09",
+    "source_images": 20,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2023-10",
+    "source_images": 12,
+    "coverage": 0.995,
+    "status": "saved"
+  },
+  {
+    "month": "2023-11",
+    "source_images": 12,
+    "coverage": 0.948,
+    "status": "saved"
+  },
+  {
+    "month": "2023-12",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2024-01",
+    "source_images": 14,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2024-02",
+    "source_images": 10,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2024-03",
+    "source_images": 14,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2024-04",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2024-05",
+    "source_images": 12,
+    "coverage": 0.998,
+    "status": "saved"
+  },
+  {
+    "month": "2024-06",
+    "source_images": 28,
+    "coverage": 0.949,
+    "status": "saved"
+  },
+  {
+    "month": "2024-07",
+    "source_images": 28,
+    "coverage": 0.673,
+    "status": "skipped"
+  },
+  {
+    "month": "2024-08",
+    "source_images": 28,
+    "coverage": 0.758,
+    "status": "skipped"
+  },
+  {
+    "month": "2024-09",
+    "source_images": 28,
+    "coverage": 0.758,
+    "status": "skipped"
+  },
+  {
+    "month": "2024-10",
+    "source_images": 20,
+    "coverage": 0.861,
+    "status": "saved"
+  },
+  {
+    "month": "2024-11",
+    "source_images": 12,
+    "coverage": 0.885,
+    "status": "saved"
+  },
+  {
+    "month": "2024-12",
+    "source_images": 16,
+    "coverage": 0.998,
+    "status": "saved"
   }
 ]

@@ -1,0 +1,450 @@
+{
+  "0": {
+    "path": "results/heatmaps/heatmap_0000.npy",
+    "max_val": 1.0,
+    "mean_val": 0.21598564088344574,
+    "hotspot_y": 48,
+    "hotspot_x": 20
+  },
+  "1": {
+    "path": "results/heatmaps/heatmap_0001.npy",
+    "max_val": 1.0,
+    "mean_val": 0.17344021797180176,
+    "hotspot_y": 48,
+    "hotspot_x": 24
+  },
+  "2": {
+    "path": "results/heatmaps/heatmap_0002.npy",
+    "max_val": 1.0,
+    "mean_val": 0.21722042560577393,
+    "hotspot_y": 32,
+    "hotspot_x": 40
+  },
+  "3": {
+    "path": "results/heatmaps/heatmap_0003.npy",
+    "max_val": 1.0,
+    "mean_val": 0.2311650812625885,
+    "hotspot_y": 22,
+    "hotspot_x": 30
+  },
+  "4": {
+    "path": "results/heatmaps/heatmap_0004.npy",
+    "max_val": 1.0,
+    "mean_val": 0.25612226128578186,
+    "hotspot_y": 10,
+    "hotspot_x": 33
+  },
+  "5": {
+    "path": "results/heatmaps/heatmap_0005.npy",
+    "max_val": 1.0,
+    "mean_val": 0.28204333782196045,
+    "hotspot_y": 15,
+    "hotspot_x": 39
+  },
+  "6": {
+    "path": "results/heatmaps/heatmap_0006.npy",
+    "max_val": 1.0,
+    "mean_val": 0.2561156749725342,
+    "hotspot_y": 41,
+    "hotspot_x": 22
+  },
+  "7": {
+    "path": "results/heatmaps/heatmap_0007.npy",
+    "max_val": 1.0,
+    "mean_val": 0.20059163868427277,
+    "hotspot_y": 46,
+    "hotspot_x": 38
+  },
+  "8": {
+    "path": "results/heatmaps/heatmap_0008.npy",
+    "max_val": 1.0,
+    "mean_val": 0.1958884596824646,
+    "hotspot_y": 34,
+    "hotspot_x": 25
+  },
+  "9": {
+    "path": "results/heatmaps/heatmap_0009.npy",
+    "max_val": 1.0,
+    "mean_val": 0.23212143778800964,
+    "hotspot_y": 48,
+    "hotspot_x": 24
+  },
+  "10": {
+    "path": "results/heatmaps/heatmap_0010.npy",
+    "max_val": 1.0,
+    "mean_val": 0.2725861668586731,
+    "hotspot_y": 14,
+    "hotspot_x": 15
+  },
+  "11": {
+    "path": "results/heatmaps/heatmap_0011.npy",
+    "max_val": 1.0,
+    "mean_val": 0.2388208657503128,
+    "hotspot_y": 37,
+    "hotspot_x": 32
+  },
+  "12": {
+    "path": "results/heatmaps/heatmap_0012.npy",
+    "max_val": 1.0,
+    "mean_val": 0.20986200869083405,
+    "hotspot_y": 16,
+    "hotspot_x": 54
+  },
+  "13": {
+    "path": "results/heatmaps/heatmap_0013.npy",
+    "max_val": 1.0,
+    "mean_val": 0.2054985761642456,
+    "hotspot_y": 32,
+    "hotspot_x": 34
+  },
+  "14": {
+    "path": "results/heatmaps/heatmap_0014.npy",
+    "max_val": 1.0,
+    "mean_val": 0.3152553141117096,
+    "hotspot_y": 27,
+    "hotspot_x": 3
+  },
+  "15": {
+    "path": "results/heatmaps/heatmap_0015.npy",
+    "max_val": 1.0,
+    "mean_val": 0.3267340064048767,
+    "hotspot_y": 32,
+    "hotspot_x": 10
+  },
+  "16": {
+    "path": "results/heatmaps/heatmap_0016.npy",
+    "max_val": 1.0,
+    "mean_val": 0.17915533483028412,
+    "hotspot_y": 17,
+    "hotspot_x": 33
+  },
+  "17": {
+    "path": "results/heatmaps/heatmap_0017.npy",
+    "max_val": 1.0,
+    "mean_val": 0.1459009051322937,
+    "hotspot_y": 21,
+    "hotspot_x": 23
+  },
+  "18": {
+    "path": "results/heatmaps/heatmap_0018.npy",
+    "max_val": 1.0,
+    "mean_val": 0.37172168493270874,
+    "hotspot_y": 24,
+    "hotspot_x": 33
+  },
+  "19": {
+    "path": "results/heatmaps/heatmap_0019.npy",
+    "max_val": 1.0,
+    "mean_val": 0.20228132605552673,
+    "hotspot_y": 35,
+    "hotspot_x": 47
+  },
+  "20": {
+    "path": "results/heatmaps/heatmap_0020.npy",
+    "max_val": 1.0,
+    "mean_val": 0.32649993896484375,
+    "hotspot_y": 6,
+    "hotspot_x": 39
+  },
+  "21": {
+    "path": "results/heatmaps/heatmap_0021.npy",
+    "max_val": 1.0,
+    "mean_val": 0.18138526380062103,
+    "hotspot_y": 43,
+    "hotspot_x": 30
+  },
+  "22": {
+    "path": "results/heatmaps/heatmap_0022.npy",
+    "max_val": 1.0,
+    "mean_val": 0.3172532618045807,
+    "hotspot_y": 20,
+    "hotspot_x": 33
+  },
+  "23": {
+    "path": "results/heatmaps/heatmap_0023.npy",
+    "max_val": 1.0,
+    "mean_val": 0.2249651551246643,
+    "hotspot_y": 38,
+    "hotspot_x": 24
+  },
+  "24": {
+    "path": "results/heatmaps/heatmap_0024.npy",
+    "max_val": 1.0,
+    "mean_val": 0.24848337471485138,
+    "hotspot_y": 15,
+    "hotspot_x": 32
+  },
+  "25": {
+    "path": "results/heatmaps/heatmap_0025.npy",
+    "max_val": 1.0,
+    "mean_val": 0.28046277165412903,
+    "hotspot_y": 22,
+    "hotspot_x": 54
+  },
+  "26": {
+    "path": "results/heatmaps/heatmap_0026.npy",
+    "max_val": 1.0,
+    "mean_val": 0.28139549493789673,
+    "hotspot_y": 32,
+    "hotspot_x": 59
+  },
+  "27": {
+    "path": "results/heatmaps/heatmap_0027.npy",
+    "max_val": 1.0,
+    "mean_val": 0.2195814847946167,
+    "hotspot_y": 22,
+    "hotspot_x": 39
+  },
+  "28": {
+    "path": "results/heatmaps/heatmap_0028.npy",
+    "max_val": 1.0,
+    "mean_val": 0.16540545225143433,
+    "hotspot_y": 47,
+    "hotspot_x": 42
+  },
+  "29": {
+    "path": "results/heatmaps/heatmap_0029.npy",
+    "max_val": 1.0,
+    "mean_val": 0.33781179785728455,
+    "hotspot_y": 43,
+    "hotspot_x": 34
+  },
+  "30": {
+    "path": "results/heatmaps/heatmap_0030.npy",
+    "max_val": 1.0,
+    "mean_val": 0.2708473801612854,
+    "hotspot_y": 44,
+    "hotspot_x": 26
+  },
+  "31": {
+    "path": "results/heatmaps/heatmap_0031.npy",
+    "max_val": 1.0,
+    "mean_val": 0.27719900012016296,
+    "hotspot_y": 28,
+    "hotspot_x": 26
+  },
+  "32": {
+    "path": "results/heatmaps/heatmap_0032.npy",
+    "max_val": 1.0,
+    "mean_val": 0.19671869277954102,
+    "hotspot_y": 20,
+    "hotspot_x": 16
+  },
+  "33": {
+    "path": "results/heatmaps/heatmap_0033.npy",
+    "max_val": 1.0,
+    "mean_val": 0.3234449625015259,
+    "hotspot_y": 27,
+    "hotspot_x": 10
+  },
+  "34": {
+    "path": "results/heatmaps/heatmap_0034.npy",
+    "max_val": 1.0,
+    "mean_val": 0.12745416164398193,
+    "hotspot_y": 50,
+    "hotspot_x": 18
+  },
+  "35": {
+    "path": "results/heatmaps/heatmap_0035.npy",
+    "max_val": 1.0,
+    "mean_val": 0.2698676586151123,
+    "hotspot_y": 40,
+    "hotspot_x": 11
+  },
+  "36": {
+    "path": "results/heatmaps/heatmap_0036.npy",
+    "max_val": 1.0,
+    "mean_val": 0.227194681763649,
+    "hotspot_y": 53,
+    "hotspot_x": 18
+  },
+  "37": {
+    "path": "results/heatmaps/heatmap_0037.npy",
+    "max_val": 1.0,
+    "mean_val": 0.28506746888160706,
+    "hotspot_y": 12,
+    "hotspot_x": 38
+  },
+  "38": {
+    "path": "results/heatmaps/heatmap_0038.npy",
+    "max_val": 1.0,
+    "mean_val": 0.23359717428684235,
+    "hotspot_y": 37,
+    "hotspot_x": 15
+  },
+  "39": {
+    "path": "results/heatmaps/heatmap_0039.npy",
+    "max_val": 1.0,
+    "mean_val": 0.29454314708709717,
+    "hotspot_y": 31,
+    "hotspot_x": 24
+  },
+  "40": {
+    "path": "results/heatmaps/heatmap_0040.npy",
+    "max_val": 1.0,
+    "mean_val": 0.2859320342540741,
+    "hotspot_y": 19,
+    "hotspot_x": 12
+  },
+  "41": {
+    "path": "results/heatmaps/heatmap_0041.npy",
+    "max_val": 1.0,
+    "mean_val": 0.23347726464271545,
+    "hotspot_y": 10,
+    "hotspot_x": 24
+  },
+  "42": {
+    "path": "results/heatmaps/heatmap_0042.npy",
+    "max_val": 1.0,
+    "mean_val": 0.2272111475467682,
+    "hotspot_y": 38,
+    "hotspot_x": 43
+  },
+  "43": {
+    "path": "results/heatmaps/heatmap_0043.npy",
+    "max_val": 1.0,
+    "mean_val": 0.12701457738876343,
+    "hotspot_y": 44,
+    "hotspot_x": 10
+  },
+  "44": {
+    "path": "results/heatmaps/heatmap_0044.npy",
+    "max_val": 1.0,
+    "mean_val": 0.19110476970672607,
+    "hotspot_y": 58,
+    "hotspot_x": 30
+  },
+  "45": {
+    "path": "results/heatmaps/heatmap_0045.npy",
+    "max_val": 1.0,
+    "mean_val": 0.29689323902130127,
+    "hotspot_y": 54,
+    "hotspot_x": 16
+  },
+  "46": {
+    "path": "results/heatmaps/heatmap_0046.npy",
+    "max_val": 1.0,
+    "mean_val": 0.15843164920806885,
+    "hotspot_y": 31,
+    "hotspot_x": 43
+  },
+  "47": {
+    "path": "results/heatmaps/heatmap_0047.npy",
+    "max_val": 1.0,
+    "mean_val": 0.22177991271018982,
+    "hotspot_y": 30,
+    "hotspot_x": 57
+  },
+  "48": {
+    "path": "results/heatmaps/heatmap_0048.npy",
+    "max_val": 1.0,
+    "mean_val": 0.2201019525527954,
+    "hotspot_y": 38,
+    "hotspot_x": 11
+  },
+  "49": {
+    "path": "results/heatmaps/heatmap_0049.npy",
+    "max_val": 1.0,
+    "mean_val": 0.2235787808895111,
+    "hotspot_y": 34,
+    "hotspot_x": 16
+  },
+  "50": {
+    "path": "results/heatmaps/heatmap_0050.npy",
+    "max_val": 1.0,
+    "mean_val": 0.2876168489456177,
+    "hotspot_y": 16,
+    "hotspot_x": 44
+  },
+  "51": {
+    "path": "results/heatmaps/heatmap_0051.npy",
+    "max_val": 1.0,
+    "mean_val": 0.13257046043872833,
+    "hotspot_y": 14,
+    "hotspot_x": 52
+  },
+  "52": {
+    "path": "results/heatmaps/heatmap_0052.npy",
+    "max_val": 1.0,
+    "mean_val": 0.1266595423221588,
+    "hotspot_y": 18,
+    "hotspot_x": 42
+  },
+  "53": {
+    "path": "results/heatmaps/heatmap_0053.npy",
+    "max_val": 1.0,
+    "mean_val": 0.15281151235103607,
+    "hotspot_y": 32,
+    "hotspot_x": 26
+  },
+  "54": {
+    "path": "results/heatmaps/heatmap_0054.npy",
+    "max_val": 1.0,
+    "mean_val": 0.3248715400695801,
+    "hotspot_y": 50,
+    "hotspot_x": 42
+  },
+  "55": {
+    "path": "results/heatmaps/heatmap_0055.npy",
+    "max_val": 1.0,
+    "mean_val": 0.32714998722076416,
+    "hotspot_y": 35,
+    "hotspot_x": 32
+  },
+  "56": {
+    "path": "results/heatmaps/heatmap_0056.npy",
+    "max_val": 1.0,
+    "mean_val": 0.22647713124752045,
+    "hotspot_y": 50,
+    "hotspot_x": 42
+  },
+  "57": {
+    "path": "results/heatmaps/heatmap_0057.npy",
+    "max_val": 1.0,
+    "mean_val": 0.20866934955120087,
+    "hotspot_y": 29,
+    "hotspot_x": 48
+  },
+  "58": {
+    "path": "results/heatmaps/heatmap_0058.npy",
+    "max_val": 1.0,
+    "mean_val": 0.2113710343837738,
+    "hotspot_y": 18,
+    "hotspot_x": 22
+  },
+  "59": {
+    "path": "results/heatmaps/heatmap_0059.npy",
+    "max_val": 1.0,
+    "mean_val": 0.18725323677062988,
+    "hotspot_y": 13,
+    "hotspot_x": 15
+  },
+  "60": {
+    "path": "results/heatmaps/heatmap_0060.npy",
+    "max_val": 1.0,
+    "mean_val": 0.14423447847366333,
+    "hotspot_y": 22,
+    "hotspot_x": 34
+  },
+  "61": {
+    "path": "results/heatmaps/heatmap_0061.npy",
+    "max_val": 1.0,
+    "mean_val": 0.17284254729747772,
+    "hotspot_y": 24,
+    "hotspot_x": 49
+  },
+  "62": {
+    "path": "results/heatmaps/heatmap_0062.npy",
+    "max_val": 1.0,
+    "mean_val": 0.2813599109649658,
+    "hotspot_y": 15,
+    "hotspot_x": 5
+  },
+  "63": {
+    "path": "results/heatmaps/heatmap_0063.npy",
+    "max_val": 1.0,
+    "mean_val": 0.2538506090641022,
+    "hotspot_y": 58,
+    "hotspot_x": 21
+  }
+}

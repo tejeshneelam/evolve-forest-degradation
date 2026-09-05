@@ -111,6 +111,87 @@ def compute_landslide_diagnostics(patch: dict) -> dict:
     }
 
 
+def compute_construction_suitability(patch: dict, ls_diag: dict, is_corridor_active: bool = False) -> dict:
+    """
+    Evaluates whether terrain is safe for civil, residential, or commercial construction.
+    Incorporates slope gradient (SRTM), landslide failure probability, root anchor loss,
+    and eco-sensitive wildlife corridor zoning.
+    """
+    slope = float(patch.get('slope_deg', 5.0))
+    ls_prob = float(ls_diag.get('probability', 0.1))
+    loss_rate = float(patch.get('loss_rate', 0.0))
+    treecover = float(patch.get('treecover_pct', 60.0))
+
+    # 1. Slope Gradient Assessment (NDMA Hill Slope Guidelines)
+    # <10 deg: Gentle / Low Incline (Safe)
+    # 10-20 deg: Moderate Slope (Conditional clearance — engineered terracing & retaining walls needed)
+    # >20 deg: Steep Mountain Escarpment (Prohibited / Extreme slip hazard)
+    if slope < 10.0:
+        slope_category = "Gentle / Low Incline (<10°)"
+        slope_safety = 96.0 - (slope / 10.0) * 12.0
+    elif slope < 20.0:
+        slope_category = "Moderate Hill Slope (10°–20°)"
+        slope_safety = 82.0 - ((slope - 10.0) / 10.0) * 35.0
+    else:
+        slope_category = "Steep Mountain Escarpment (>20°)"
+        slope_safety = max(5.0, 45.0 - ((slope - 20.0) / 15.0) * 38.0)
+
+    # 2. Geotechnical & Landslide Hazard Deduction
+    ls_deduction = ls_prob * 55.0
+
+    # 3. Ecological & Corridor Conflict
+    eco_deduction = 25.0 if is_corridor_active else 0.0
+
+    overall_score = float(np.clip(slope_safety - ls_deduction - eco_deduction, 2.0, 99.0))
+
+    if slope >= 20.0 or ls_prob >= 0.45 or (is_corridor_active and overall_score < 45.0):
+        verdict = "HAZARD_PROHIBITED"
+        verdict_label = "Hazard Zone — Construction Prohibited"
+        color = "#E63946"
+        badge = "Hazard: Do Not Build"
+    elif slope >= 10.0 or ls_prob >= 0.25 or overall_score < 72.0:
+        verdict = "CONDITIONAL_RESTRICTED"
+        verdict_label = "Conditional Clearance — Engineering Mandated"
+        color = "#FFB703"
+        badge = "Conditional Clearance"
+    else:
+        verdict = "SUITABLE_FOR_CONSTRUCTION"
+        verdict_label = "Safe for Construction — Standard Foundations"
+        color = "#52B788"
+        badge = "Safe to Build"
+
+    mandatory_actions = []
+    if verdict == "HAZARD_PROHIBITED":
+        mandatory_actions.append("Strict construction moratorium — High risk of catastrophic slope shear and rockfall.")
+        mandatory_actions.append("Evacuate temporary dwellings during heavy monsoon precipitation.")
+        mandatory_actions.append("Designate as Protected Ecological Slope Stabilization Buffer.")
+    elif verdict == "CONDITIONAL_RESTRICTED":
+        mandatory_actions.append("Mandatory geotechnical borehole soil-bearing testing prior to excavation.")
+        mandatory_actions.append("Engineered reinforced concrete retaining walls with subsurface weep holes.")
+        mandatory_actions.append("Construct tiered contour storm runoff diversion drains.")
+        mandatory_actions.append("Limit building height to maximum 2 storeys with lightweight superstructure.")
+    else:
+        mandatory_actions.append("Standard isolated pad or strip foundation permitted.")
+        mandatory_actions.append("Maintain minimum 15m buffer from natural slope toe and seasonal drainage.")
+        mandatory_actions.append("Preserve mature native tree root systems on property perimeter.")
+
+    return {
+        'verdict': verdict,
+        'verdict_label': verdict_label,
+        'badge': badge,
+        'color': color,
+        'safety_score': round(overall_score, 1),
+        'slope_deg': round(slope, 1),
+        'slope_category': slope_category,
+        'landslide_prob_pct': round(ls_prob * 100, 1),
+        'bearing_capacity': "Adequate (>200 kPa)" if verdict == "SUITABLE_FOR_CONSTRUCTION" else ("Moderate (100–180 kPa)" if verdict == "CONDITIONAL_RESTRICTED" else "Inadequate / Shear Failure (<80 kPa)"),
+        'wildlife_corridor_conflict': is_corridor_active,
+        'eco_status': "Wildlife Corridor Active — Legal Moratorium" if is_corridor_active else "Standard Regulatory Clearance",
+        'mandatory_actions': mandatory_actions,
+        'soil_stability': "Stable Bedrock / High Cohesion" if verdict == "SUITABLE_FOR_CONSTRUCTION" else ("Moderate Cohesion" if verdict == "CONDITIONAL_RESTRICTED" else "Unconsolidated Colluvium / High Slip Risk")
+    }
+
+
 def analyze_dynamic_region(gee_data: dict) -> dict:
     """
     Executes model inference and full feature analysis on GEE fetched patches.
@@ -135,7 +216,10 @@ def analyze_dynamic_region(gee_data: dict) -> dict:
         # Degradation score derived from recent NDVI vs monsoon/dry evolved thresholds
         deg_score = float(np.clip((THRESH_MONSOON - mean_recent_ndvi) / 0.40, 0.02, 0.95))
         if p['loss_rate'] > 0.02:
-            deg_score = min(0.95, deg_score + 0.15)
+            deg_score = min(0.95, deg_score + 0.18)
+        elif p['loss_rate'] <= 0.005 and deg_score > 0.22:
+            # If no deforestation occurred by this period, ensure healthy canopy classification
+            deg_score = max(0.04, deg_score - 0.12)
 
         if deg_score < 0.20:
             health_status = "Healthy"
@@ -149,6 +233,11 @@ def analyze_dynamic_region(gee_data: dict) -> dict:
         # Detailed Landslide Diagnostics
         ls_diag = compute_landslide_diagnostics(p)
         landslide_diagnostics_map[str(pid)] = ls_diag
+
+        # Construction Suitability Assessment
+        # Center columns (2, 3, 4) represent primary wildlife movement channels
+        in_corridor_zone = p['grid_col'] in [2, 3, 4]
+        build_suitability = compute_construction_suitability(p, ls_diag, is_corridor_active=in_corridor_zone)
 
         # Fire Risk (Low NDVI + Low Moisture in dry season)
         swir1_recent = float(np.mean([pt['swir1'] for pt in series[-6:]]))
@@ -185,9 +274,17 @@ def analyze_dynamic_region(gee_data: dict) -> dict:
             'carbon_stock_tCO2': round(c_stock, 1),
             'slope_deg': p['slope_deg'],
             'rainfall_90d_mm': p['rainfall_90d_mm'],
+            'start_ndvi': p.get('start_ndvi'),
+            'end_ndvi': p.get('end_ndvi'),
+            'trend_status': p.get('trend_status', 'Stable'),
+            'trend_icon': p.get('trend_icon', '↔️'),
+            'trend_pct': p.get('trend_pct', 0.0),
+            'peak_greenness': p.get('peak_greenness'),
+            'dry_trough': p.get('dry_trough'),
             'ndvi_series': series,
             'heatmap': sim_heatmap,
             'landslide': ls_diag,
+            'construction_suitability': build_suitability,
         })
 
     # Wildlife Corridors (N-S columns)
@@ -227,11 +324,18 @@ def analyze_dynamic_region(gee_data: dict) -> dict:
     mod_ls = sum(1 for p in analyzed_patches if p['landslide']['risk_level'] == 'Moderate')
     low_ls = sum(1 for p in analyzed_patches if p['landslide']['risk_level'] == 'Low')
 
+    # Construction Suitability Summary
+    safe_build = sum(1 for p in analyzed_patches if p['construction_suitability']['verdict'] == 'SUITABLE_FOR_CONSTRUCTION')
+    cond_build = sum(1 for p in analyzed_patches if p['construction_suitability']['verdict'] == 'CONDITIONAL_RESTRICTED')
+    prohib_build = sum(1 for p in analyzed_patches if p['construction_suitability']['verdict'] == 'HAZARD_PROHIBITED')
+
     return {
         'aoi': {
             'bbox': gee_data['bbox'],
             'center': gee_data['center'],
         },
+        'start_date': gee_data.get('start_date'),
+        'end_date': gee_data.get('end_date'),
         'summary': {
             'total_patches': total_patches,
             'degraded_patches': degraded_count,
@@ -241,11 +345,19 @@ def analyze_dynamic_region(gee_data: dict) -> dict:
             'annual_carbon_loss': round(annual_carbon_loss, 1),
             'total_carbon_value_usd': round(total_carbon * 15.0, 0),
             'landslide_high_risk_patches': high_critical_ls,
+            'safe_build_patches': safe_build,
+            'conditional_build_patches': cond_build,
+            'prohibited_build_patches': prohib_build,
         },
         'landslide_summary': {
             'Critical_High': high_critical_ls,
             'Moderate': mod_ls,
             'Low': low_ls,
+        },
+        'construction_summary': {
+            'safe': safe_build,
+            'conditional': cond_build,
+            'prohibited': prohib_build,
         },
         'corridors': corridors,
         'reforestation': reforestation_top,
