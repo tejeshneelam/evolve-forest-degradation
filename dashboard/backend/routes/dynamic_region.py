@@ -3,10 +3,15 @@ EvOLve Version 2.0 — Dynamic Region & Landslide Diagnostics Router
 """
 
 from fastapi import APIRouter, HTTPException, Request
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator, model_validator
 from typing import List, Optional
 import numpy as np
 from dashboard.backend.limiter import limiter
+from dashboard.backend.utils import (
+    sanitize_string,
+    validate_coordinates,
+    validate_date_range,
+)
 from dashboard.backend.services.gee_service import fetch_dynamic_region
 from dashboard.backend.services.inference_service import analyze_dynamic_region
 
@@ -17,15 +22,27 @@ LATEST_DYNAMIC_ANALYSIS = None
 
 
 class RegionRequest(BaseModel):
-    bbox: List[float]  # [min_lon, min_lat, max_lon, max_lat]
-    region_name: Optional[str] = "Selected Region"
-    num_months: Optional[int] = 24
-    start_date: Optional[str] = None
-    end_date: Optional[str] = None
+    bbox: List[float] = Field(..., description="[min_lon, min_lat, max_lon, max_lat]")
+    region_name: Optional[str] = Field("Selected Region", max_length=120)
+    num_months: Optional[int] = Field(24, ge=1, le=120)
+    start_date: Optional[str] = Field(None, pattern=r"^\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])$")
+    end_date: Optional[str] = Field(None, pattern=r"^\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])$")
+
+    @field_validator("region_name")
+    @classmethod
+    def sanitize_name(cls, v: Optional[str]) -> str:
+        return sanitize_string(v, max_length=120) or "Selected Region"
+
+    @model_validator(mode="after")
+    def validate_bounds_and_dates(self):
+        # Enforce -90 <= min_lat < max_lat <= 90 and -180 <= min_lon < max_lon <= 180
+        validate_coordinates(self.bbox)
+        validate_date_range(self.start_date, self.end_date)
+        return self
 
 
 class ConstructionSuitabilityRequest(BaseModel):
-    slope_deg: float = Field(..., description="Terrain slope gradient in degrees")
+    slope_deg: float = Field(..., ge=0.0, le=90.0, description="Terrain slope gradient in degrees (0 to 90)")
     landslide_prob: Optional[float] = Field(0.25, ge=0.0, le=1.0, description="Estimated landslide probability (0.0 to 1.0)")
     is_wildlife_corridor: Optional[bool] = Field(False, description="Flag indicating active wildlife corridor")
     soil_cohesion_kpa: Optional[float] = Field(120.0, ge=10.0, le=500.0, description="Effective soil cohesion in kPa")
@@ -41,10 +58,9 @@ def process_region(request: Request, req: RegionRequest):
     Rate limited to max 30 requests per minute to prevent Earth Engine quota abuse.
     """
     global LATEST_DYNAMIC_ANALYSIS
-    if len(req.bbox) != 4:
-        raise HTTPException(400, "Invalid bounding box. Must be [min_lon, min_lat, max_lon, max_lat]")
-
-    min_lon, min_lat, max_lon, max_lat = req.bbox
+    min_lon, min_lat, max_lon, max_lat = validate_coordinates(req.bbox)
+    validate_date_range(req.start_date, req.end_date)
+    sanitized_name = sanitize_string(req.region_name) or "Selected Region"
     
     # Validation: Ensure reasonable box size (max 0.35 x 0.35 degrees ~ 35km x 35km)
     if abs(max_lat - min_lat) > 0.35 or abs(max_lon - min_lon) > 0.35:

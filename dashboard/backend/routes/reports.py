@@ -214,10 +214,13 @@ def generate_pdf_report(date_from: str, date_to: str) -> bytes:
 
 @router.get("/export-pdf")
 def export_pdf(
-    date_from: str = Query("2019-01", description="Start month YYYY-MM"),
-    date_to:   str = Query("2025-12", description="End month YYYY-MM"),
+    date_from: str = Query("2019-01", pattern=r"^\d{4}-(?:0[1-9]|1[0-2])$", description="Start month YYYY-MM"),
+    date_to:   str = Query("2025-12", pattern=r"^\d{4}-(?:0[1-9]|1[0-2])$", description="End month YYYY-MM"),
 ):
     """Generate and download a PDF forest health report."""
+    if date_from > date_to:
+        raise HTTPException(400, f"date_from ({date_from}) cannot be after date_to ({date_to})")
+
     pdf_bytes = generate_pdf_report(date_from, date_to)
     filename  = f"EvOLve_Forest_Report_{date_from}_to_{date_to}.pdf"
     return StreamingResponse(
