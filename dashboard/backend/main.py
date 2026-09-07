@@ -13,7 +13,7 @@ import json
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from dashboard.backend.middleware.security import SecurityHeadersMiddleware
+from dashboard.backend.middleware import SecurityHeadersMiddleware, AuditLoggingMiddleware, AUDIT_LOG_BUFFER
 from dashboard.backend.routes import (
     health, wildlife, risk, conservation, reports, ga_log, dynamic_region
 )
@@ -29,6 +29,9 @@ app = FastAPI(
 
 # 1. Custom Security Response Headers Middleware
 app.add_middleware(SecurityHeadersMiddleware)
+
+# 2. Audit & Request Logger Middleware (captures IP, method, route, status, latency_ms)
+app.add_middleware(AuditLoggingMiddleware)
 
 # 2. Strict CORS Configuration - restricted to authorized local dashboard origins
 ALLOWED_ORIGINS = [
@@ -87,3 +90,13 @@ def status():
             "size_kb": round(os.path.getsize(path) / 1024, 1) if os.path.exists(path) else 0,
         }
     return {"results_available": available}
+    
+
+@app.get("/api/security/audit-logs", tags=["Security & Compliance"])
+def get_audit_logs(limit: int = 50):
+    """Retrieve recent structured audit logs for compliance monitoring."""
+    logs = list(AUDIT_LOG_BUFFER)
+    return {
+        "total_buffered": len(logs),
+        "audit_logs": logs[-max(1, min(100, limit)):]
+    }
