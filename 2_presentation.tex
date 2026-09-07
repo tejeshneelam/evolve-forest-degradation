@@ -16,6 +16,7 @@
 \definecolor{darkSlate}{HTML}{1E293B}
 \definecolor{forestGreen}{HTML}{15803D}
 \definecolor{hazardRed}{HTML}{B91C1C}
+\definecolor{onlineBlue}{HTML}{0000EE}
 
 % --- Theme Setup ---
 \usetheme{Madrid}
@@ -34,6 +35,13 @@
 \setbeamercolor{block body alerted}{bg=hazardRed!8,fg=darkSlate}
 \setbeamercolor{block title example}{bg=forestGreen,fg=white}
 \setbeamercolor{block body example}{bg=forestGreen!8,fg=darkSlate}
+
+% Circled Bibliography Item Style (matching IEEE review standards)
+\setbeamertemplate{bibliography item}{%
+    \begin{tikzpicture}[baseline=-0.6ex]
+        \node[circle, fill=amritaMaroon, text=white, inner sep=1.4pt, font=\scriptsize\bfseries] {\insertbiblabel};
+    \end{tikzpicture}%
+}
 
 \begin{document}
 
@@ -96,9 +104,9 @@
             \begin{block}{The Real-World Crisis}
                 \small
                 \begin{itemize}
-                    \item \textbf{Invisible Early Degradation:} Selective logging, pests, and drought thin the canopy months before clear-cutting is visible.
-                    \item \textbf{The Wayanad 2024 Catastrophe:} Loss of tree root tensile binding on steep slopes caused deadly debris flows during heavy monsoon rains.
-                    \item \textbf{Reporting Lag:} National surveys (ISFR) publish reports only every 2 years; static satellite tools trigger false alarms during dry-season leaf-shedding.
+                    \item \textbf{Invisible Early Degradation:} Selective logging, pests, and drought thin the canopy months before clear-cutting is visible \cite{hansen2013high}.
+                    \item \textbf{The Wayanad 2024 Catastrophe:} Loss of tree root tensile binding on steep slopes caused deadly debris flows during heavy monsoon rains \cite{funk2015climate, guzzetti1999landslide}.
+                    \item \textbf{Reporting Lag:} National surveys (ISFR) publish reports only every 2 years; static satellite tools trigger false alarms during dry-season leaf-shedding \cite{hansen2013high}.
                 \end{itemize}
             \end{block}
         \end{column}
@@ -185,10 +193,10 @@
             \begin{block}{Real-Time Planetary Pipeline}
                 \small
                 \begin{itemize}
-                    \item \textbf{Global Coordinates:} User selects preset regions (Wayanad, Silent Valley, Amazon) or enters custom bounding boxes.
-                    \item \textbf{Dynamic Time Window:} User filters dates from \textbf{2018 to 2025}.
-                    \item \textbf{In-Memory Slicing:} Partitions raster tensors into 64 uniform patches ($640\text{m} \times 640\text{m}$) in $<12$ seconds.
-                    \item \textbf{Vegetation Trajectory:} Computes distinct monthly NDVI curves for every patch to detect deforestation.
+                    \item \textbf{Global Coordinates:} User selects preset regions (Wayanad, Silent Valley, Amazon) or enters custom bounding boxes \cite{drusch2012sentinel}.
+                    \item \textbf{Dynamic Time Window:} User filters dates from \textbf{2018 to 2025} with CHIRPS precipitation load \cite{funk2015climate}.
+                    \item \textbf{In-Memory Slicing:} Partitions planetary raster tensors into 64 uniform patches ($640\text{m} \times 640\text{m}$) in $<12$ seconds via GEE API \cite{gorelick2017google}.
+                    \item \textbf{Vegetation Trajectory:} Computes distinct monthly NDVI curves across 72 months against Hansen tree cover baselines \cite{hansen2013high}.
                 \end{itemize}
             \end{block}
         \end{column}
@@ -274,9 +282,9 @@
                 \footnotesize
                 $$P_{\text{landslide}} = \text{clip}(0.45 \cdot S_f + 0.35 \cdot R_f + 0.20 \cdot P_f, 0.02, 0.98)$$
                 \begin{itemize}
-                    \item \textbf{$S_f$ (Shear Stress):} Downhill gravity load derived from USGS SRTM slope gradient.
-                    \item \textbf{$R_f$ (Root Decay):} Historical canopy loss rate depicting tree root tensile degradation.
-                    \item \textbf{$P_f$ (Pore Pressure):} 90-day cumulative rainfall from CHIRPS precipitation.
+                    \item \textbf{$S_f$ (Shear Stress):} Downhill gravity load derived from USGS SRTM slope gradient \cite{guzzetti1999landslide}.
+                    \item \textbf{$R_f$ (Root Decay):} Historical canopy loss rate depicting tree root tensile degradation \cite{hansen2013high}.
+                    \item \textbf{$P_f$ (Pore Pressure):} 90-day cumulative rainfall from CHIRPS precipitation \cite{funk2015climate}.
                 \end{itemize}
                 \textbf{Bio-Mitigation Guidance:} Generates Vetiver grass terracing and contour drainage orders.
             \end{block}
@@ -369,9 +377,9 @@
         \begin{column}{0.50\textwidth}
             \begin{block}{IPCC 2019 Tier-1 Allometric Model}
                 \small
-                $$\text{AGB} = 0.0673 \cdot (\rho D^2 H)^{0.976}$$
+                $$\text{AGB} = 0.0673 \cdot (\rho D^2 H)^{0.976} \quad \text{\cite{chave2014improved}}$$
                 \begin{itemize}
-                    \item \textbf{Carbon Stock Calculation:} Total Aboveground Biomass (AGB) scaled by carbon fraction ($C_f = 0.47$) and converted to $\text{CO}_2$ equivalent ($\times 3.67$).
+                    \item \textbf{Carbon Stock Calculation:} Total Aboveground Biomass (AGB) scaled by IPCC carbon fraction ($C_f = 0.47$) and converted to $\text{CO}_2$ equivalent ($\times 3.67$) \cite{ipcc2019refinement}.
                     \item \textbf{Wayanad Sanctuary Total:} $\mathbf{789{,}420}$ tons $\text{CO}_2$ stored across the 64 monitoring patches.
                 \end{itemize}
             \end{block}
@@ -445,9 +453,9 @@
         \begin{column}{0.48\textwidth}
             \begin{exampleblock}{Multi-Objective Fitness Function}
                 \footnotesize
-                $$\text{Fitness}(\mathbf{C}) = w_1 F1_{\text{mon}} + w_2 F1_{\text{dry}} - w_3 \text{FAR}_{\text{dry}}$$
+                $$\text{Fitness}(\mathbf{C}) = w_1 F1_{\text{mon}} + w_2 F1_{\text{dry}} - w_3 \text{FAR}_{\text{dry}} \quad \text{\cite{deb2002fast}}$$
                 \begin{itemize}
-                    \item \textbf{Seasonal Trade-off:} Simultaneously maximizes monsoon disaster recall while penalizing dry-season false alarms.
+                    \item \textbf{Seasonal Trade-off:} Simultaneously balances disaster recall with dry false alarms inspired by NSGA-II principles \cite{deb2002fast}.
                     \item \textbf{Embedding Cache Innovation:} Pre-computes spatio-temporal embeddings so evaluating 30 generations $\times$ 20 candidates completes in \textbf{$<4$ seconds}!
                 \end{itemize}
             \end{exampleblock}
@@ -552,15 +560,32 @@
 % =========================================================================
 \section{References \& Demo}
 \begin{frame}[allowframebreaks]{References}
-    \tiny
+    \scriptsize
     \begin{thebibliography}{99}
-        \bibitem{hansen2013high} M.~C. Hansen \textit{et~al.}, ``High-resolution global maps of 21st-century forest cover change,'' \textit{Science}, vol. 342, no. 6160, pp. 850--853, 2013.
-        \bibitem{drusch2012sentinel} M.~Drusch \textit{et~al.}, ``Sentinel-2: ESA's optical high-resolution mission for GMES operational services,'' \textit{Remote Sens. Environ.}, vol. 120, pp. 25--36, 2012.
-        \bibitem{gorelick2017google} N.~Gorelick \textit{et~al.}, ``Google Earth Engine: Planetary-scale geospatial analysis for everyone,'' \textit{Remote Sens. Environ.}, vol. 202, pp. 18--27, 2017.
-        \bibitem{chave2014improved} J.~Chave \textit{et~al.}, ``Improved allometric models to estimate aboveground biomass,'' \textit{Glob. Chang. Biol.}, vol. 20, no. 10, pp. 3177--3190, 2014.
-        \bibitem{deb2002fast} K.~Deb \textit{et~al.}, ``A fast and elitist multiobjective genetic algorithm: NSGA-II,'' \textit{IEEE Trans. Evol. Comput.}, vol. 6, no. 2, pp. 182--197, 2002.
-        \bibitem{ipcc2019refinement} IPCC, ``2019 Refinement to the 2006 IPCC Guidelines for National Greenhouse Gas Inventories,'' 2019.
-        \bibitem{funk2015climate} C.~Funk \textit{et~al.}, ``The climate hazards infrared precipitation with stations---a new environmental record for monitoring extremes,'' \textit{Sci. Data}, vol. 2, p. 150066, 2015.
+        \setlength{\itemsep}{4pt}
+        \bibitem{hansen2013high}
+        M.~C. Hansen, P.~V. Potapov, R.~Moore, and M.~Hancher, ``High-resolution global maps of 21st-century forest cover change,'' \textit{Science}, vol. 342, no. 6160, pp. 850--853, 2013. \textcolor{onlineBlue}{[Online]}
+
+        \bibitem{drusch2012sentinel}
+        M.~Drusch, U.~Del Bello, S.~Carlier, and O.~Colin, ``Sentinel-2: ESA's optical high-resolution mission for GMES operational services,'' \textit{Remote Sensing of Environment}, vol. 120, pp. 25--36, 2012. \textcolor{onlineBlue}{[Online]}
+
+        \bibitem{gorelick2017google}
+        N.~Gorelick, M.~Hancher, M.~Dixon, and S.~Ilyushchenko, ``Google Earth Engine: Planetary-scale geospatial analysis for everyone,'' \textit{Remote Sensing of Environment}, vol. 202, pp. 18--27, 2017. \textcolor{onlineBlue}{[Online]}
+
+        \bibitem{chave2014improved}
+        J.~Chave, M.~R{\'e}jou-M{\'e}chain, A.~B{\'u}rquez, and E.~Chidumayo, ``Improved allometric models to estimate the aboveground biomass of tropical trees,'' \textit{Global Change Biology}, vol. 20, no. 10, pp. 3177--3190, 2014. \textcolor{onlineBlue}{[Online]}
+
+        \bibitem{deb2002fast}
+        K.~Deb, A.~Pratap, S.~Agarwal, and T.~Meyarivan, ``A fast and elitist multiobjective genetic algorithm: NSGA-II,'' \textit{IEEE Transactions on Evolutionary Computation}, vol. 6, no. 2, pp. 182--197, 2002. \textcolor{onlineBlue}{[Online]}
+
+        \bibitem{ipcc2019refinement}
+        IPCC, ``2019 Refinement to the 2006 IPCC Guidelines for National Greenhouse Gas Inventories,'' \textit{Intergovernmental Panel on Climate Change (IPCC)}, 2019. \textcolor{onlineBlue}{[Online]}
+
+        \bibitem{funk2015climate}
+        C.~Funk, P.~Peterson, M.~Landsfeld, and D.~Pedreros, ``The climate hazards infrared precipitation with stations---a new environmental record for monitoring extremes,'' \textit{Scientific Data}, vol. 2, p. 150066, 2015. \textcolor{onlineBlue}{[Online]}
+
+        \bibitem{guzzetti1999landslide}
+        F.~Guzzetti, A.~Carrara, M.~Cardinali, and P.~Reichenbach, ``Landslide hazard evaluation: a review of current techniques and their application in a multi-scale study,'' \textit{Geomorphology}, vol. 31, no. 1--4, pp. 181--216, 1999. \textcolor{onlineBlue}{[Online]}
     \end{thebibliography}
 \end{frame}
 
