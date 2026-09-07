@@ -132,7 +132,7 @@ The project currently stands at \textbf{$\approx 85\%$ implementation completene
 \begin{itemize}[noitemsep, topsep=1pt]
     \item \textbf{Algorithmic Complexity \& Compute:} Spatial CNN feature extraction is $O(C \cdot H \cdot W)$ while Temporal Transformer self-attention across 72 tokens is $O(T^2 \cdot D)$. Model contains $1{,}145{,}288$ parameters and trains in $<2$ minutes on Google Colab T4 GPU (CUDA) or Apple Silicon (MPS).
     \item \textbf{Architectural Justifications:} FastAPI's asynchronous event loop prevents I/O blocking during Earth Engine HTTP fetches; in-memory grid slicing avoids high-latency disk I/O; SQLite provides zero-configuration local persistence.
-    \item \textbf{Roadmap for Review 2 (Target: 85--90\% Completion):} Finalize role-based access control (RBAC), expand empirical validation against historical Wayanad landslide coordinates, and deploy production Docker container on Google Cloud Run.
+    \item \textbf{Roadmap for Review 2 (Target: 85--90\% Completion):} Expand empirical validation against historical Wayanad landslide coordinates, benchmark seasonal fire fuel flammability models, and deploy production Docker container on Google Cloud Run.
 \end{itemize}
 
 % --- REFERENCES ---

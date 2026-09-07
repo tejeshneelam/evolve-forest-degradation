@@ -71,7 +71,7 @@
             \hline
             1 & \textbf{CB.EN.U4CSE23042} & \textbf{Neelam Tejesh (Lead)} & Architecture, GEE Streaming \& Land Suitability \\
             \hline
-            2 & CB.EN.U4CSE23223 & Kolla Girish & Multi-Threat Risk, Fuel Modeling \& Officer RBAC \\
+            2 & CB.EN.U4CSE23223 & Kolla Girish & Multi-Threat Risk Dashboard \& Fuel Flammability Modeling \\
             \hline
             3 & CB.EN.U4CSE23016 & D Vasishta & Wildlife Corridors, Carbon Stocks \& SQLite Vault \\
             \hline
@@ -238,7 +238,7 @@
 \end{frame}
 
 % =========================================================================
-% SECTION 2: KOLLA GIRISH - RISK, LANDSLIDE & ACCESS CONTROL
+% SECTION 2: KOLLA GIRISH - RISK, LANDSLIDE & FUEL MODELING
 % =========================================================================
 
 % --- SLIDE 8: MULTI-THREAT RISK DASHBOARD ---
@@ -294,27 +294,35 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 10: OFFICER AUTHENTICATION & RBAC ---
-\begin{frame}{9. Forest Officer Authentication \& Access Control (RBAC)}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Kolla Girish}} \quad | \quad Administrative Security Governance}
+% --- SLIDE 10: FIRE FUEL MOISTURE & COMBUSTIBLE BIOMASS ---
+\begin{frame}{9. Fire Fuel Moisture \& Combustible Biomass Modeling}
+    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Kolla Girish}} \quad | \quad Thermal SWIR Deficit \& Wildfire Prevention}
     \begin{columns}[c]
-        \begin{column}{0.50\textwidth}
-            \begin{block}{Role-Based Access Control (RBAC)}
-                \small
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Multi-Spectral Fuel Flammability}
+                \footnotesize
+                Combines Sentinel-2 SWIR ($B11, B12$) and NIR ($B8$) to detect dry standing biomass before ignition:
+                $$\text{NDWI} = \frac{B8 - B11}{B8 + B11 + \epsilon}, \quad R_{\text{SWIR}} = \text{clip}\left(\frac{B11}{0.3}, 0, 1\right)$$
+                $$\text{Risk}_{\text{raw}} = \left(0.30 R_{\text{NDVI}} + 0.25 R_{\text{SWIR}} + 0.20 R_{\text{moist}} + 0.25 R_{\text{deg}}\right) \times M_{\text{season}}$$
                 \begin{itemize}
-                    \item \textbf{Field Officer:} Inspects NDVI health, runs landslide hazard audits, and checks wildlife corridors.
-                    \item \textbf{Senior Conservator / Admin:} Approves mountain construction permits, modifies GA weights, and exports official PDF inspection orders.
-                    \item \textbf{Public Researcher:} Read-only map visualization without administrative dispatch tools.
+                    \item \textbf{Seasonal Multiplier ($M_{\text{season}}$):} $1.5\times$ for peak fire season (Feb--May in Western Ghats), $0.8\times$ dry months.
+                    \item \textbf{Degradation Memory ($R_{\text{deg}}$):} Prior stressed forest patches receive higher combustibility weight.
                 \end{itemize}
             \end{block}
         \end{column}
-        \begin{column}{0.50\textwidth}
-            \begin{exampleblock}{Security Implementation}
-                \small
+        \begin{column}{0.52\textwidth}
+            \begin{exampleblock}{Biomass Tiers \& Prescriptive Dispatch}
+                \footnotesize
                 \begin{itemize}
-                    \item \textbf{Glassmorphic Login Modal:} Styled to match EvOLve dark-mode theme.
-                    \item \textbf{JWT Session Tokens:} Secure session storage in React Context and HTTP headers.
-                    \item \textbf{Route Protection:} Backend middleware verifies officer badge authorization before executing sensitive optimizations.
+                    \item \textbf{Combustible Biomass Stratification:}
+                        \begin{itemize}
+                            \item \textbf{Critical ($>0.75$):} Emergency 5m firebreak boundary clearance.
+                            \item \textbf{High ($0.50 - 0.75$):} Deploy automated drone thermal surveillance.
+                            \item \textbf{Moderate ($0.25 - 0.50$):} Schedule routine ranger watchtower patrol.
+                            \item \textbf{Low ($<0.25$):} Hydrated canopy; standard passive monitoring.
+                        \end{itemize}
+                    \item \textbf{Compound Disaster Defense:} Correlates fire risk zones with steep landslide slopes to prevent compound deforestation runoffs.
+                    \item \textbf{Live UI Integration:} Interactive fire susceptibility ranking table rendered directly in the Multi-Threat tab.
                 \end{itemize}
             \end{exampleblock}
         \end{column}
@@ -392,7 +400,7 @@
                 \footnotesize
                 \begin{itemize}
                     \item \textbf{\texttt{query\_history}:} Stores region coordinates, date ranges, mean NDVI, and degraded patch fraction.
-                    \item \textbf{\texttt{construction\_permits}:} Records patch ID, slope, landslide risk, building safety score, and officer decision notes.
+                    \item \textbf{\texttt{construction\_permits}:} Records patch ID, slope, landslide risk, building safety score, and civil audit decision notes.
                     \item \textbf{\texttt{ga\_experiment\_logs}:} Tracks evolved thresholds, generation count, best fitness, and runtime.
                 \end{itemize}
             \end{block}
@@ -565,7 +573,7 @@
         \renewcommand{\arraystretch}{1.1}
         \begin{tabular}{lll}
             \textbf{Neelam Tejesh (Lead)} & \textbf{Kolla Girish} & \textbf{D Vasishta} \quad | \quad \textbf{Ande Tarak} \\
-            Architecture, GEE \& Suitability & Risk, Landslide \& RBAC & Corridors, Carbon \& DB \quad | \quad GA, Security \& Roadmap \\
+            Architecture, GEE \& Suitability & Risk, Landslide \& Fuel Modeling & Corridors, Carbon \& DB \quad | \quad GA, Security \& Roadmap \\
         \end{tabular}
     \end{table}
     \vspace{0.2cm}

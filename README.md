@@ -27,7 +27,7 @@ Traditional forest monitoring systems rely on periodic biennial reports (such as
 | Student Name | Register Number | Role & Core Modules | GitHub Branch |
 |:---|:---:|:---|:---:|
 | **Neelam Tejesh** *(Lead)* | `CB.EN.U4CSE23042` | Spatio-Temporal Vision Transformer, Live GEE Pipeline, Land Construction Suitability Engine | `main` |
-| **Kolla Girish** | `CB.EN.U4CSE23223` | Multi-Threat Risk Dashboard, Fuel Modeling & Officer RBAC | `feature/auth-rbac-ui` |
+| **Kolla Girish** | `CB.EN.U4CSE23223` | Multi-Threat Risk Dashboard & Fuel Flammability Modeling | `feature/multi-threat-risk` |
 | **D Vasishta** | `CB.EN.U4CSE23016` | Wildlife Corridor Graph Analysis, Carbon Stock Accounting & SQLite Vault | `feature/sqlite-history-db` |
 | **Ande Tarak** | `CB.EN.U4CSE23212` | Genetic Algorithm Multi-Objective Optimization & Cyber Security Hardening | `feature/security-rate-limiting` |
 
