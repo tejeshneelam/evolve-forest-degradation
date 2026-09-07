@@ -2,269 +2,250 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.patches import FancyBboxPatch
 
+# Primary Color Palette matching Amrita PPT Template
+COLOR_BG = '#FFFFFF'
+COLOR_MAROON = '#A4123F'
+COLOR_DARK_SLATE = '#1E293B'
+COLOR_MUTED_SLATE = '#475569'
+COLOR_LIGHT_BG = '#F8FAFC'
+COLOR_CARD_BG = '#FFFFFF'
+COLOR_BORDER = '#CBD5E1'
+COLOR_ACCENT_BG = '#FFF5F7'
+
 def draw_system_architecture():
-    # 16:9 Aspect Ratio, High Resolution
-    fig, ax = plt.subplots(figsize=(16, 9), dpi=300)
-    fig.patch.set_facecolor('#0b0f19')
-    ax.set_facecolor('#0b0f19')
+    # 16:7.5 Aspect Ratio - Perfectly proportioned for Beamer slides and LaTeX report
+    fig, ax = plt.subplots(figsize=(16, 7.5), dpi=300)
+    fig.patch.set_facecolor(COLOR_BG)
+    ax.set_facecolor(COLOR_BG)
     ax.set_xlim(0, 16)
-    ax.set_ylim(0, 9)
+    ax.set_ylim(0, 7.5)
     ax.axis('off')
 
-    # Title Header
-    ax.text(8.0, 8.55, "EvOLve: End-to-End Application Architecture", 
-            fontsize=22, fontweight='bold', color='#ffffff', ha='center', va='center', fontfamily='sans-serif')
-    ax.text(8.0, 8.18, "Decoupled 4-Tier Architecture: Presentation · Security · AI Inference & Physics · Cloud Satellite Stream", 
-            fontsize=12, color='#94a3b8', ha='center', va='center', fontfamily='sans-serif')
+    # Header Title
+    ax.text(8.0, 7.15, "EvOLve: Decoupled 4-Tier System Architecture", 
+            fontsize=17, fontweight='bold', color=COLOR_MAROON, ha='center', va='center', fontfamily='sans-serif')
+    ax.text(8.0, 6.85, "Presentation (React 18) · Security Gateway (FastAPI) · AI & Scientific Inference · Satellite Cloud & SQLite", 
+            fontsize=10.5, color=COLOR_MUTED_SLATE, ha='center', va='center', fontfamily='sans-serif')
 
-    def add_card(x, y, w, h, bg, border, title, items, subtitle=None, icon=None):
-        # Draw background card
-        card = FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.08,rounding_size=0.2",
-                              facecolor=bg, edgecolor=border, linewidth=1.8, zorder=2)
+    def add_card(x, y, w, h, title, items, is_accent=False):
+        border_col = COLOR_MAROON if is_accent else COLOR_BORDER
+        card = FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.06,rounding_size=0.15",
+                              facecolor=COLOR_CARD_BG, edgecolor=border_col, linewidth=1.5, zorder=2)
         ax.add_patch(card)
         
-        # Header text
-        header_text = title
-        ax.text(x + w/2, y + h - 0.32, header_text, fontsize=11, fontweight='bold', 
-                color='#ffffff', ha='center', va='center', zorder=3, fontfamily='sans-serif')
+        # Title banner inside card
+        banner_h = 0.32
+        banner = FancyBboxPatch((x, y + h - banner_h), w, banner_h, boxstyle="round,pad=0.04,rounding_size=0.12",
+                                facecolor=COLOR_MAROON if is_accent else '#F1F5F9', edgecolor='none', zorder=3)
+        ax.add_patch(banner)
+        ax.text(x + w/2, y + h - banner_h/2, title, fontsize=9.5, fontweight='bold', 
+                color='#FFFFFF' if is_accent else COLOR_DARK_SLATE, ha='center', va='center', zorder=4, fontfamily='sans-serif')
         
-        if subtitle:
-            ax.text(x + w/2, y + h - 0.58, subtitle, fontsize=8.5, color='#cbd5e1', 
-                    ha='center', va='center', zorder=3, fontfamily='sans-serif')
-            start_y = y + h - 0.90
-        else:
-            start_y = y + h - 0.65
-
         # Item bullets
+        start_y = y + h - banner_h - 0.22
         for i, item in enumerate(items):
-            item_y = start_y - (i * 0.38)
-            ax.text(x + 0.25, item_y, f"• {item}", fontsize=8.5, color='#e2e8f0', 
-                    va='center', zorder=3, fontfamily='sans-serif')
+            item_y = start_y - (i * 0.25)
+            ax.text(x + 0.18, item_y, f"• {item}", fontsize=8.2, color=COLOR_DARK_SLATE, 
+                    va='center', zorder=4, fontfamily='sans-serif')
 
     # -------------------------------------------------------------
-    # TIER 1: PRESENTATION TIER (TOP)
+    # TIER 1: PRESENTATION LAYER (y=4.80 to 6.60)
     # -------------------------------------------------------------
-    tier1_bg = FancyBboxPatch((0.5, 5.25), 15.0, 2.55, boxstyle="round,pad=0.1,rounding_size=0.3",
-                              facecolor='#131b2e', edgecolor='#3b82f6', linewidth=2.0, linestyle='--', zorder=1)
-    ax.add_patch(tier1_bg)
-    ax.text(0.85, 7.55, "TIER 1: PRESENTATION LAYER (React 18 + Leaflet GIS Single Page Application — Port 3000)", 
-            fontsize=11, fontweight='bold', color='#60a5fa', va='center', fontfamily='sans-serif')
+    t1_bg = FancyBboxPatch((0.5, 4.80), 15.0, 1.85, boxstyle="round,pad=0.08,rounding_size=0.2",
+                           facecolor=COLOR_LIGHT_BG, edgecolor=COLOR_BORDER, linewidth=1.5, zorder=1)
+    ax.add_patch(t1_bg)
+    ax.text(0.8, 6.45, "TIER 1: PRESENTATION LAYER (React 18 + Leaflet GIS Single Page Application — Port 3000)", 
+            fontsize=10.5, fontweight='bold', color=COLOR_MAROON, va='center', fontfamily='sans-serif')
 
-    # Card 1: Interactive GIS Map
-    add_card(0.8, 5.45, 3.4, 1.85, '#1e293b', '#3b82f6', "Interactive Leaflet Map", 
-             ["64-Patch Spatial Grid ($640m \\times 640m$)", "Real-time Layer Switching:", "  - Forest Health (NDVI Colors)", "  - Landslide Hazard (Shear risk)", "  - Building Suitability (Civil Permits)"],
-             subtitle="Map Visualization Component", icon="🗺️")
+    add_card(0.8, 4.92, 3.35, 1.35, "Interactive GIS Map", 
+             ["64-Patch Raster Grid ($640m \\times 640m$)", "Dynamic Layer Switcher", "Forest Health (NDVI Vigor)", "Landslide Hazard & Suitability"])
 
-    # Card 2: Query Controls
-    add_card(4.4, 5.45, 3.4, 1.85, '#1e293b', '#3b82f6', "Region & Date Selector", 
-             ["Presets: Wayanad, Silent Valley, Amazon", "Custom Lat/Lon Bounding Box Input", "Dynamic Date Range: 2018 to 2025", "Monthly NDVI Trajectory Graphs"],
-             subtitle="Temporal Filter Controller", icon="⏱️")
+    add_card(4.45, 4.92, 3.35, 1.35, "Region & Date Controls", 
+             ["Presets: Wayanad, Silent Valley, Amazon", "Custom Lat/Lon Bounding Box Input", "Temporal Range: 2018 to 2025", "Monthly NDVI Trajectory Graphs"])
 
-    # Card 3: Construction Safety Modal
-    add_card(8.0, 5.45, 3.4, 1.85, '#1e293b', '#10b981', "Construction Safety Auditor", 
-             ["Calculates Suitability Score (0 - 100)", "Slope & Landslide Risk Gating", "Enforces 500m Sanctuary Setback", "Civil Engineering Bio-Mitigations"],
-             subtitle="Engineering Compliance Modal", icon="🏗️")
+    add_card(8.1, 4.92, 3.35, 1.35, "Construction Safety Auditor", 
+             ["Calculates Suitability Score (0-100)", "Slope & Landslide Risk Gating", "Enforces 500m Sanctuary Setback", "Civil Engineering Bio-Mitigations"])
 
-    # Card 4: Environmental Risk & Corridors
-    add_card(11.6, 5.45, 3.6, 1.85, '#1e293b', '#f59e0b', "Risk & Wildlife Dashboards", 
-             ["Tri-Threat Matrix: Fire, Landslide, Encroach", "Dijkstra Least-Cost Migration Paths", "Species: Asian Elephant & Bengal Tiger", "IPCC Allometric Carbon Valuation ($11.8M)"],
-             subtitle="Ecological Decision Tabs", icon="🐘")
+    add_card(11.75, 4.92, 3.5, 1.35, "Risk & Wildlife Dashboards", 
+             ["Fire Fuel Moisture Danger Table", "Dijkstra Least-Cost Migration Paths", "Asian Elephant & Bengal Tiger", "IPCC Carbon Stock Valuation ($11.8M)"])
 
     # -------------------------------------------------------------
-    # TIER 2: SECURITY & MIDDLEWARE LAYER (MIDDLE-TOP)
+    # TIER 2: SECURITY & MIDDLEWARE LAYER (y=3.85 to 4.50)
     # -------------------------------------------------------------
-    sec_bg = FancyBboxPatch((0.5, 4.25), 15.0, 0.75, boxstyle="round,pad=0.08,rounding_size=0.2",
-                            facecolor='#1e1e38', edgecolor='#a855f7', linewidth=1.5, zorder=1)
+    sec_bg = FancyBboxPatch((0.5, 3.85), 15.0, 0.65, boxstyle="round,pad=0.06,rounding_size=0.15",
+                            facecolor=COLOR_ACCENT_BG, edgecolor=COLOR_MAROON, linewidth=1.5, zorder=1)
     ax.add_patch(sec_bg)
-    ax.text(8.0, 4.62, "TIER 2: API GATEWAY & SECURITY HARDENING (FastAPI Middleware)", 
-            fontsize=11, fontweight='bold', color='#c084fc', ha='center', va='center', fontfamily='sans-serif')
-    ax.text(8.0, 4.38, "SlowAPI Rate Limiter (5 req/min GA, 30 req/min GEE) · Pydantic Lat/Lon Sanitizer ([-90,90]) · HTTP Security Headers (DENY Clickjacking)", 
-            fontsize=9.0, color='#e2e8f0', ha='center', va='center', fontfamily='sans-serif')
+    ax.text(8.0, 4.32, "TIER 2: API GATEWAY & SECURITY HARDENING (FastAPI Middleware — Port 8000)", 
+            fontsize=10.5, fontweight='bold', color=COLOR_MAROON, ha='center', va='center', fontfamily='sans-serif')
+    ax.text(8.0, 4.05, "SlowAPI Rate Limiting (5 req/min GA, 30 req/min GEE) · Pydantic Lat/Lon Sanitizer ([-90, 90]) · HTTP Security Headers (DENY Clickjacking)", 
+            fontsize=8.8, color=COLOR_DARK_SLATE, ha='center', va='center', fontfamily='sans-serif')
+
+    # Arrow T1 <-> T2
+    ax.annotate("", xy=(8.0, 4.80), xytext=(8.0, 4.50),
+                arrowprops=dict(arrowstyle="<->", color=COLOR_MAROON, lw=2.0, mutation_scale=14))
 
     # -------------------------------------------------------------
-    # TIER 3: APPLICATION & INFERENCE ENGINE (MIDDLE-BOTTOM)
+    # TIER 3: APPLICATION & INFERENCE ENGINE (y=1.90 to 3.55)
     # -------------------------------------------------------------
-    tier3_bg = FancyBboxPatch((0.5, 1.95), 15.0, 2.05, boxstyle="round,pad=0.1,rounding_size=0.3",
-                              facecolor='#131b2e', edgecolor='#10b981', linewidth=2.0, linestyle='--', zorder=1)
-    ax.add_patch(tier3_bg)
-    ax.text(0.85, 3.75, "TIER 3: APPLICATION & AI INFERENCE LAYER (FastAPI Async Engine — Python 3.12 — Port 8000)", 
-            fontsize=11, fontweight='bold', color='#34d399', va='center', fontfamily='sans-serif')
+    t3_bg = FancyBboxPatch((0.5, 1.90), 15.0, 1.65, boxstyle="round,pad=0.08,rounding_size=0.2",
+                           facecolor=COLOR_LIGHT_BG, edgecolor=COLOR_BORDER, linewidth=1.5, zorder=1)
+    ax.add_patch(t3_bg)
+    ax.text(0.8, 3.35, "TIER 3: APPLICATION & SCIENTIFIC INFERENCE ENGINES (Python 3.12 / PyTorch / NumPy / SciPy)", 
+            fontsize=10.5, fontweight='bold', color=COLOR_MAROON, va='center', fontfamily='sans-serif')
 
-    # Card 5: GEE Slicing Service
-    add_card(0.8, 2.10, 3.4, 1.45, '#1e293b', '#10b981', "GEE Ingestion Service", 
-             ["Cloud Handshake: ee.Initialize()", "In-Memory 8x8 Grid Slicing (<12s)", "Zero-disk tensor raster extraction", "Synthesizes 72-Month NDVI series"],
-             icon="🛰️")
+    add_card(0.8, 2.02, 3.35, 1.15, "In-Memory GEE Slicing", 
+             ["Zero-disk tensor raster in RAM", "In-memory 8x8 tiling (<12s)", "Extracts 72-Month NDVI history"], is_accent=True)
 
-    # Card 6: Physics Hazard Engine
-    add_card(4.4, 2.10, 3.4, 1.45, '#1e293b', '#10b981', "Physics Hazard Engine", 
-             ["Shear Stress: 0.45 * SRTM Slope", "Root Decay: 0.35 * Hansen Cover Loss", "Pore Pressure: 0.20 * CHIRPS Rain", "Predicts Landslide Early Warning"],
-             icon="⛰️")
+    add_card(4.45, 2.02, 3.35, 1.15, "Physics Landslide Engine", 
+             ["Shear Stress: 0.45 * Slope Angle", "Root Tensile Loss: 0.35 * Cover", "Pore Pressure: 0.20 * CHIRPS Rain"])
 
-    # Card 7: Genetic Algorithm Adaptor
-    add_card(8.0, 2.10, 3.4, 1.45, '#1e293b', '#ec4899', "Evolutionary GA Optimizer", 
-             ["Chromosome: [lr, drop, dry, mon, ret]", "Multi-objective Fitness function", "In-Memory Embedding Cache (<4 sec)", "Evolves dry=0.333, monsoon=0.554"],
-             icon="🧬")
+    add_card(8.1, 2.02, 3.35, 1.15, "Fire Fuel Moisture Engine", 
+             ["Sentinel-2 SWIR1/2 Biomass", "NDWI Moisture Deficit Index", "Peak Dry Season 1.5x Multiplier"])
 
-    # Card 8: Ecological Graph Engine
-    add_card(11.6, 2.10, 3.6, 1.45, '#1e293b', '#10b981', "Ecological Graph Router", 
-             ["64-Node Resistance Matrix", "Elephant: Slope avoidance (>15 deg)", "Tiger: High tree cover affinity (>65%)", "Chokepoint breach detection alerts"],
-             icon="🐅")
+    add_card(11.75, 2.02, 3.5, 1.15, "Adaptive GA Optimizer", 
+             ["5-gene continuous chromosome", "Pareto tournament selection", "Runs in <4s with embedding cache"])
+
+    # Arrow T2 <-> T3
+    ax.annotate("", xy=(8.0, 3.85), xytext=(8.0, 3.55),
+                arrowprops=dict(arrowstyle="<->", color=COLOR_MAROON, lw=2.0, mutation_scale=14))
 
     # -------------------------------------------------------------
-    # TIER 4: SATELLITE CLOUD & LOCAL PERSISTENCE (BOTTOM)
+    # TIER 4: CLOUD SATELLITE STREAM & PERSISTENCE (y=0.45 to 1.60)
     # -------------------------------------------------------------
-    # GEE Cloud (Left)
-    add_card(0.8, 0.25, 6.9, 1.45, '#1a2333', '#0284c7', "Google Earth Engine Satellite Cloud (Planetary API)", 
-             ["Sentinel-2 L2A (10m MSI optical bands B2, B3, B4, B8, B11, B12, NDVI, EVI)",
-              "USGS SRTM Digital Elevation Model (30m terrain elevation & slope gradient)",
-              "CHIRPS Daily Precipitation (90-day antecedent rainfall soil water saturation load)",
-              "Hansen Global Forest Change (Canopy cover density & historical loss tracking)"],
-             subtitle="External Cloud Ingestion Stream", icon="🌍")
+    t4_bg = FancyBboxPatch((0.5, 0.45), 15.0, 1.15, boxstyle="round,pad=0.08,rounding_size=0.2",
+                           facecolor=COLOR_LIGHT_BG, edgecolor=COLOR_BORDER, linewidth=1.5, zorder=1)
+    ax.add_patch(t4_bg)
+    ax.text(0.8, 1.42, "TIER 4: SATELLITE STREAMING & RELATIONAL PERSISTENCE LAYER", 
+            fontsize=10.5, fontweight='bold', color=COLOR_MAROON, va='center', fontfamily='sans-serif')
 
-    # SQLite Database (Right)
-    add_card(8.1, 0.25, 7.1, 1.45, '#1a2333', '#eab308', "Embedded Persistence: SQLite Database (evolve_records.db)", 
-             ["query_history Table: Stores scanned BBox, start/end dates, mean NDVI, degraded fraction",
-              "construction_permits Table: Stores patch ID, slope, landslide risk, building score & officer notes",
-              "ga_experiment_logs Table: Checkpoints evolved seasonal thresholds, generations & fitness scores",
-              "1-Click Historical Inspection Recall Vault via React drawer"],
-             subtitle="Local ACID Relational Storage", icon="💾")
+    add_card(0.8, 0.55, 7.0, 0.75, "Google Earth Engine Planetary Platform (forest-502505)", 
+             ["Sentinel-2 L2A Multi-Spectral (10m) · USGS SRTM DEM (30m) · CHIRPS Precipitation · Hansen Global Forest Change"])
 
-    # -------------------------------------------------------------
-    # CONNECTING ARROWS & LABELS
-    # -------------------------------------------------------------
-    # Arrow 1: Presentation <-> Security
-    ax.annotate("", xy=(8.0, 4.95), xytext=(8.0, 5.35),
-                arrowprops=dict(arrowstyle="<->", color="#60a5fa", lw=2.5, mutation_scale=15))
-    ax.text(8.3, 5.10, "HTTP / JSON REST Requests", fontsize=8.5, color='#93c5fd', fontweight='bold', fontfamily='sans-serif')
+    add_card(8.1, 0.55, 7.15, 0.75, "Embedded SQLite Database Vault (evolve_records.db)", 
+             ["query_history (coordinates, dates, NDVI) · construction_permits (audit decisions) · ga_experiment_logs (Pareto metrics)"])
 
-    # Arrow 2: Security <-> AI Engine
-    ax.annotate("", xy=(8.0, 3.98), xytext=(8.0, 4.25),
-                arrowprops=dict(arrowstyle="<->", color="#34d399", lw=2.5, mutation_scale=15))
-    ax.text(8.3, 4.10, "Sanitized Request Dispatches", fontsize=8.5, color='#6ee7b7', fontweight='bold', fontfamily='sans-serif')
-
-    # Arrow 3: GEE Service <-> Google Earth Engine
-    ax.annotate("", xy=(4.2, 1.70), xytext=(4.2, 2.05),
-                arrowprops=dict(arrowstyle="<->", color="#38bdf8", lw=2.5, mutation_scale=15))
-    ax.text(4.4, 1.85, "ee.Initialize() & Multi-Spectral Tensor Slices", fontsize=8.5, color='#7dd3fc', fontweight='bold', fontfamily='sans-serif')
-
-    # Arrow 4: Inference Engine <-> SQLite DB
-    ax.annotate("", xy=(11.6, 1.70), xytext=(11.6, 2.05),
-                arrowprops=dict(arrowstyle="<->", color="#facc15", lw=2.5, mutation_scale=15))
-    ax.text(11.8, 1.85, "ACID Query Logs & Audit Permits", fontsize=8.5, color='#fde047', fontweight='bold', fontfamily='sans-serif')
+    # Arrow T3 <-> T4
+    ax.annotate("", xy=(4.3, 1.90), xytext=(4.3, 1.60),
+                arrowprops=dict(arrowstyle="<->", color=COLOR_MAROON, lw=2.0, mutation_scale=14))
+    ax.annotate("", xy=(11.7, 1.90), xytext=(11.7, 1.60),
+                arrowprops=dict(arrowstyle="<->", color=COLOR_MAROON, lw=2.0, mutation_scale=14))
 
     plt.tight_layout()
-    plt.savefig('slides_assets/system_architecture.png', dpi=300, facecolor='#0b0f19', edgecolor='none')
+    plt.savefig('slides_assets/system_architecture.png', dpi=300, facecolor=COLOR_BG, edgecolor='none')
     plt.close()
-    print("✅ Created slides_assets/system_architecture.png successfully!")
+    print("✅ Successfully generated slides_assets/system_architecture.png (Clean White & Maroon)!")
 
 def draw_data_flow_diagram():
-    # 16:9 Aspect Ratio, High Resolution
-    fig, ax = plt.subplots(figsize=(16, 9), dpi=300)
-    fig.patch.set_facecolor('#0b0f19')
-    ax.set_facecolor('#0b0f19')
+    # 16:7.5 Aspect Ratio - Clean, Spacious, Zero Overlap
+    fig, ax = plt.subplots(figsize=(16, 7.5), dpi=300)
+    fig.patch.set_facecolor(COLOR_BG)
+    ax.set_facecolor(COLOR_BG)
     ax.set_xlim(0, 16)
-    ax.set_ylim(0, 9)
+    ax.set_ylim(0, 7.5)
     ax.axis('off')
 
-    # Title Header
-    ax.text(8.0, 8.55, "EvOLve: End-to-End Execution Data Flow Pipeline", 
-            fontsize=22, fontweight='bold', color='#ffffff', ha='center', va='center', fontfamily='sans-serif')
-    ax.text(8.0, 8.18, "From Satellite Raw Granules to Actionable Forest Disaster & Building Safety Audits in <12 Seconds", 
-            fontsize=12, color='#94a3b8', ha='center', va='center', fontfamily='sans-serif')
+    # Header Title
+    ax.text(8.0, 7.15, "EvOLve: End-to-End Execution Data Flow Pipeline", 
+            fontsize=17, fontweight='bold', color=COLOR_MAROON, ha='center', va='center', fontfamily='sans-serif')
+    ax.text(8.0, 6.85, "Execution Lifecycle: From Planetary Satellite Feeds to Actionable Disaster Audits in <12 Seconds", 
+            fontsize=10.5, color=COLOR_MUTED_SLATE, ha='center', va='center', fontfamily='sans-serif')
 
-    def add_step_card(x, y, w, h, step_num, title, details, color_theme):
-        card = FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.08,rounding_size=0.25",
-                              facecolor='#1e293b', edgecolor=color_theme, linewidth=2.0, zorder=2)
+    def add_step_card(x, y, w, h, step_num, title, details):
+        card = FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.06,rounding_size=0.2",
+                              facecolor=COLOR_CARD_BG, edgecolor=COLOR_MAROON, linewidth=1.8, zorder=2)
         ax.add_patch(card)
         
-        # Step badge
-        badge = FancyBboxPatch((x + 0.2, y + h - 0.45), 1.2, 0.35, boxstyle="round,pad=0.04,rounding_size=0.1",
-                               facecolor=color_theme, edgecolor='none', zorder=3)
+        # Step badge (Maroon pill)
+        badge = FancyBboxPatch((x + 0.25, y + h - 0.42), 1.15, 0.32, boxstyle="round,pad=0.03,rounding_size=0.1",
+                               facecolor=COLOR_MAROON, edgecolor='none', zorder=3)
         ax.add_patch(badge)
-        ax.text(x + 0.8, y + h - 0.28, f"STEP {step_num}", fontsize=8.5, fontweight='bold', 
-                color='#ffffff', ha='center', va='center', zorder=4, fontfamily='sans-serif')
+        ax.text(x + 0.825, y + h - 0.26, f"STEP {step_num}", fontsize=8.8, fontweight='bold', 
+                color='#FFFFFF', ha='center', va='center', zorder=4, fontfamily='sans-serif')
         
-        # Title
-        ax.text(x + 1.55, y + h - 0.28, title, fontsize=11, fontweight='bold', 
-                color='#ffffff', va='center', zorder=4, fontfamily='sans-serif')
+        # Step Title
+        ax.text(x + 1.55, y + h - 0.26, title, fontsize=10.5, fontweight='bold', 
+                color=COLOR_DARK_SLATE, va='center', zorder=4, fontfamily='sans-serif')
+        
+        # Divider line
+        ax.plot([x + 0.2, x + w - 0.2], [y + h - 0.52, y + h - 0.52], color=COLOR_BORDER, lw=1.0, zorder=3)
 
-        # Details
+        # Bullet details
+        start_y = y + h - 0.78
         for i, d in enumerate(details):
-            ax.text(x + 0.3, y + h - 0.70 - (i * 0.35), f"• {d}", fontsize=8.5, 
-                    color='#e2e8f0', va='center', zorder=3, fontfamily='sans-serif')
+            ax.text(x + 0.25, start_y - (i * 0.34), f"• {d}", fontsize=8.6, 
+                    color=COLOR_DARK_SLATE, va='center', zorder=3, fontfamily='sans-serif')
 
-    # 6 Steps in 2 Rows of 3 Cards each for maximum clarity and zero crowding!
-    # ROW 1 (Steps 1, 2, 3)
+    # ROW 1 (Steps 1, 2, 3: Left to Right)
     step1_items = [
-        "User selects region (e.g. Wayanad / Silent Valley)",
-        "User selects historical dates (2018-01 to 2024-12)",
-        "Leaflet GIS sets bounding box coordinates",
-        "Triggers 'Run GEE Analysis' button"
+        "User selects region preset or custom bounding box",
+        "Sets dynamic time window (2018-01 to 2024-12)",
+        "Leaflet GIS map validates bounding box coordinates",
+        "Dispatches async query to FastAPI backend"
     ]
-    add_step_card(0.8, 4.4, 4.5, 3.2, "1", "User Query on UI", step1_items, "#3b82f6")
+    add_step_card(0.6, 3.65, 4.6, 2.7, "1", "User Query on Leaflet UI", step1_items)
 
     step2_items = [
-        "Coordinates validated: -90 <= lat <= 90",
-        "SlowAPI checks rate limit (30 req/min)",
-        "Pydantic models sanitize date regex",
-        "Prevents SQL/Script injection attacks"
+        "Pydantic validates bounds: -90 <= lat <= 90",
+        "SlowAPI checks rate limits (30 req/min GEE)",
+        "Sanitizes ISO date ranges against malformed regex",
+        "Enforces HTTP security headers against injection"
     ]
-    add_step_card(5.75, 4.4, 4.5, 3.2, "2", "API Validation & Security", step2_items, "#a855f7")
+    add_step_card(5.7, 3.65, 4.6, 2.7, "2", "API Validation & Security", step2_items)
 
     step3_items = [
         "FastAPI executes Google Earth Engine Python API",
-        "Streams Sentinel-2 optical bands (10m resolution)",
+        "Streams Sentinel-2 L2A optical granules (10m)",
         "Queries USGS SRTM DEM for slope gradient",
-        "Pulls CHIRPS 90-day precipitation & Hansen cover"
+        "Pulls CHIRPS 90-day precipitation & Hansen canopy"
     ]
-    add_step_card(10.7, 4.4, 4.5, 3.2, "3", "GEE Cloud Ingestion", step3_items, "#0284c7")
+    add_step_card(10.8, 3.65, 4.6, 2.7, "3", "GEE Cloud Ingestion", step3_items)
 
-    # Connect Row 1
-    ax.annotate("", xy=(5.65, 6.0), xytext=(5.35, 6.0),
-                arrowprops=dict(arrowstyle="->", color="#60a5fa", lw=3.0, mutation_scale=20))
-    ax.annotate("", xy=(10.6, 6.0), xytext=(10.3, 6.0),
-                arrowprops=dict(arrowstyle="->", color="#c084fc", lw=3.0, mutation_scale=20))
+    # Connecting arrows Row 1
+    ax.annotate("", xy=(5.6, 5.0), xytext=(5.3, 5.0),
+                arrowprops=dict(arrowstyle="->", color=COLOR_MAROON, lw=2.5, mutation_scale=16))
+    ax.annotate("", xy=(10.7, 5.0), xytext=(10.4, 5.0),
+                arrowprops=dict(arrowstyle="->", color=COLOR_MAROON, lw=2.5, mutation_scale=16))
 
-    # Turn arrow from Row 1 Step 3 to Row 2 Step 4
-    ax.annotate("", xy=(13.0, 4.0), xytext=(13.0, 4.35),
-                arrowprops=dict(arrowstyle="->", color="#38bdf8", lw=3.0, mutation_scale=20))
+    # Connecting arrow from Row 1 to Row 2
+    ax.annotate("", xy=(13.1, 3.25), xytext=(13.1, 3.55),
+                arrowprops=dict(arrowstyle="->", color=COLOR_MAROON, lw=2.5, mutation_scale=16))
 
-    # ROW 2 (Steps 4, 5, 6)
+    # ROW 2 (Steps 4, 5, 6: Right to Left)
     step4_items = [
         "Bounding box partitioned into 8x8 spatial grid",
         "Creates 64 uniform patches (640m x 640m each)",
         "Executed 100% in RAM (zero disk I/O latency)",
         "Compiles 72-month NDVI trajectory series"
     ]
-    add_step_card(10.7, 0.6, 4.5, 3.2, "4", "In-Memory Grid Slicing", step4_items, "#10b981")
+    add_step_card(10.8, 0.45, 4.6, 2.7, "4", "In-Memory Grid Slicing", step4_items)
 
     step5_items = [
-        "Physics Landslide: 0.45*Slope + 0.35*Root + 0.20*Rain",
+        "Landslide Hazard: 0.45*Slope + 0.35*Root + 0.20*Rain",
+        "Fire Fuel Flammability: SWIR1/2 + NDWI moisture deficit",
         "Mountain Suitability: 100 - Penalties (0 - 100 score)",
-        "GA seasonal adaptation: dry=0.333, monsoon=0.554",
         "Dijkstra solves Elephant & Tiger migration corridors"
     ]
-    add_step_card(5.75, 0.6, 4.5, 3.2, "5", "Multi-Engine AI Inference", step5_items, "#f59e0b")
+    add_step_card(5.7, 0.45, 4.6, 2.7, "5", "Multi-Engine AI Inference", step5_items)
 
     step6_items = [
-        "Interactive 64-patch color map rendered in Leaflet",
-        "Permit status: PERMITTED / CONDITIONAL / PROHIBITED",
-        "Civil engineering diagnostic modal with mitigations",
-        "Query parameters persisted to SQLite Database"
+        "Leaflet GIS displays 64 color-coded spatial patches",
+        "Permit Status: PERMITTED / CONDITIONAL / PROHIBITED",
+        "Explainable modal prescribes Vetiver / drainage orders",
+        "Audit parameters persisted to SQLite Database"
     ]
-    add_step_card(0.8, 0.6, 4.5, 3.2, "6", "Actionable Deliverables", step6_items, "#ec4899")
+    add_step_card(0.6, 0.45, 4.6, 2.7, "6", "Actionable Deliverables", step6_items)
 
-    # Connect Row 2 (Right to Left)
-    ax.annotate("", xy=(10.3, 2.2), xytext=(10.65, 2.2),
-                arrowprops=dict(arrowstyle="->", color="#34d399", lw=3.0, mutation_scale=20))
-    ax.annotate("", xy=(5.35, 2.2), xytext=(5.7, 2.2),
-                arrowprops=dict(arrowstyle="->", color="#fbbf24", lw=3.0, mutation_scale=20))
+    # Connecting arrows Row 2
+    ax.annotate("", xy=(10.4, 1.8), xytext=(10.7, 1.8),
+                arrowprops=dict(arrowstyle="->", color=COLOR_MAROON, lw=2.5, mutation_scale=16))
+    ax.annotate("", xy=(5.3, 1.8), xytext=(5.6, 1.8),
+                arrowprops=dict(arrowstyle="->", color=COLOR_MAROON, lw=2.5, mutation_scale=16))
 
     plt.tight_layout()
-    plt.savefig('slides_assets/data_flow.png', dpi=300, facecolor='#0b0f19', edgecolor='none')
+    plt.savefig('slides_assets/data_flow.png', dpi=300, facecolor=COLOR_BG, edgecolor='none')
     plt.close()
-    print("✅ Created slides_assets/data_flow.png successfully!")
+    print("✅ Successfully generated slides_assets/data_flow.png (Clean White & Maroon)!")
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     draw_system_architecture()
     draw_data_flow_diagram()
