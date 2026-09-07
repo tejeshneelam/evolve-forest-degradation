@@ -6,7 +6,10 @@ for dynamic regions.
 
 import os
 import json
-import torch
+try:
+    import torch
+except ImportError:
+    torch = None
 import numpy as np
 
 # Load GA threshold settings if available

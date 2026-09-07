@@ -13,6 +13,7 @@ import json
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from dashboard.backend.middleware.security import SecurityHeadersMiddleware
 from dashboard.backend.routes import (
     health, wildlife, risk, conservation, reports, ga_log, dynamic_region
 )
@@ -26,12 +27,21 @@ app = FastAPI(
     version="2.0.0",
 )
 
-# Allow React dev server (port 3000) to call the API
+# 1. Custom Security Response Headers Middleware
+app.add_middleware(SecurityHeadersMiddleware)
+
+# 2. Strict CORS Configuration - restricted to authorized local dashboard origins
+ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization", "X-Requested-With"],
 )
 
 # Register all route groups
