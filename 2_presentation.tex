@@ -8,6 +8,7 @@
 \usepackage{booktabs} 
 \usepackage{graphicx}
 \usepackage{tikz}
+\usetikzlibrary{calc}
 
 % --- Branding Colors ---
 \definecolor{amritaMaroon}{HTML}{A4123F} 
@@ -42,8 +43,8 @@
 \begin{frame}
     % Corner Box Indicator
     \begin{tikzpicture}[remember picture,overlay]
-        \node[fill=amritaMaroon, text=white, font=\bfseries\footnotesize, anchor=north east, rounded corners=2pt, inner sep=5pt] 
-        at ($(current page.north east) + (-0.2cm,-0.2cm)$) 
+        \node[fill=amritaMaroon, text=white, font=\bfseries\footnotesize, anchor=north east, rounded corners=2pt, inner sep=5pt, xshift=-0.2cm, yshift=-0.2cm] 
+        at (current page.north east) 
         {Type 2: Application Project};
     \end{tikzpicture}
 
