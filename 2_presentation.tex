@@ -535,10 +535,11 @@
         \end{column}
         \begin{column}{0.50\textwidth}
             \begin{exampleblock}{Roadmap for Review 2 (Target: 85--90\%)}
-                \small
+                \footnotesize
                 \begin{itemize}
-                    \item \textbf{Expanded Ground-Truth Testing:} Benchmark against historical Wayanad landslide coordinates.
-                    \item \textbf{Automated Field PDF Generator:} Official printable dispatch orders for forest patrol squads.
+                    \item \textbf{GA for Feature \& Band Selection:} Evolve binary chromosomes ($[b_1, \dots, b_N] \in \{0, 1\}^N$) to select optimal Sentinel-2 spectral indices (NDWI, SAVI, SWIR ratios) maximizing F1-score while pruning redundancy.
+                    \item \textbf{Global Interactive Location Selection:} Leaflet polygon/rectangle drawing tool with global geocoding search for on-the-fly ingestion of any forest worldwide.
+                    \item \textbf{Role-Based Access Control (RBAC):} JWT authentication with distinct privilege tiers (Field Ranger, Senior Conservator, Public Researcher) to govern construction permits and field PDF dispatches.
                     \item \textbf{Production Cloud Deployment:} Multi-stage Docker container deployed on Google Cloud Run.
                 \end{itemize}
             \end{exampleblock}
