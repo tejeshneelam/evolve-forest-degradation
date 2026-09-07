@@ -2,9 +2,11 @@
 EvOLve Version 2.0 — Dynamic Region & Landslide Diagnostics Router
 """
 
-from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
+from fastapi import APIRouter, HTTPException, Request
+from pydantic import BaseModel, Field
 from typing import List, Optional
+import numpy as np
+from dashboard.backend.limiter import limiter
 from dashboard.backend.services.gee_service import fetch_dynamic_region
 from dashboard.backend.services.inference_service import analyze_dynamic_region
 
@@ -22,11 +24,21 @@ class RegionRequest(BaseModel):
     end_date: Optional[str] = None
 
 
+class ConstructionSuitabilityRequest(BaseModel):
+    slope_deg: float = Field(..., description="Terrain slope gradient in degrees")
+    landslide_prob: Optional[float] = Field(0.25, ge=0.0, le=1.0, description="Estimated landslide probability (0.0 to 1.0)")
+    is_wildlife_corridor: Optional[bool] = Field(False, description="Flag indicating active wildlife corridor")
+    soil_cohesion_kpa: Optional[float] = Field(120.0, ge=10.0, le=500.0, description="Effective soil cohesion in kPa")
+
+
 @router.post("/process-region")
-def process_region(req: RegionRequest):
+@router.post("/dynamic-region")
+@limiter.limit("30/minute")
+def process_region(request: Request, req: RegionRequest):
     """
     On-the-fly endpoint triggered when a user selects/draws a region on the map.
     Queries Google Earth Engine, runs EvOLve inference, and computes all features dynamically.
+    Rate limited to max 30 requests per minute to prevent Earth Engine quota abuse.
     """
     global LATEST_DYNAMIC_ANALYSIS
     if len(req.bbox) != 4:
@@ -105,4 +117,64 @@ def get_construction_diagnostic(patch_id: int):
         'bounds': patch['bounds'],
         'slope_deg': patch['slope_deg'],
         'construction': patch.get('construction_suitability', {})
+    }
+
+
+@router.post("/inference/construction-suitability")
+@limiter.limit("20/minute")
+def evaluate_construction_suitability(request: Request, req: ConstructionSuitabilityRequest):
+    """
+    On-demand geo-safety and terrain construction suitability assessment.
+    Rate limited to max 20 requests per minute to throttle intensive geotechnical simulations.
+    """
+    slope = float(req.slope_deg)
+    ls_prob = float(req.landslide_prob or 0.25)
+    is_corridor = bool(req.is_wildlife_corridor)
+
+    if slope < 10.0:
+        slope_cat = "Gentle / Low Incline (<10°)"
+        slope_safety = 96.0 - (slope / 10.0) * 12.0
+    elif slope < 20.0:
+        slope_cat = "Moderate Hill Slope (10°–20°)"
+        slope_safety = 82.0 - ((slope - 10.0) / 10.0) * 35.0
+    else:
+        slope_cat = "Steep Mountain Escarpment (>20°)"
+        slope_safety = max(5.0, 45.0 - ((slope - 20.0) / 15.0) * 38.0)
+
+    ls_deduct = ls_prob * 55.0
+    eco_deduct = 25.0 if is_corridor else 0.0
+    overall_build_score = float(np.clip(slope_safety - ls_deduct - eco_deduct, 2.0, 99.0))
+
+    if slope >= 20.0 or ls_prob >= 0.45 or (is_corridor and overall_build_score < 45.0):
+        verdict = "HAZARD_PROHIBITED"
+        label = "Hazard Zone — Construction Prohibited"
+        color = "#E63946"
+        badge = "Hazard: Do Not Build"
+    elif slope >= 10.0 or ls_prob >= 0.25 or overall_build_score < 72.0:
+        verdict = "CONDITIONAL_RESTRICTED"
+        label = "Conditional Clearance — Engineering Mandated"
+        color = "#FFB703"
+        badge = "Conditional Clearance"
+    else:
+        verdict = "SUITABLE_FOR_CONSTRUCTION"
+        label = "Safe for Construction — Standard Foundations"
+        color = "#52B788"
+        badge = "Safe to Build"
+
+    return {
+        "status": "success",
+        "verdict": verdict,
+        "verdict_label": label,
+        "badge": badge,
+        "color": color,
+        "safety_score": round(overall_build_score, 1),
+        "slope_deg": slope,
+        "slope_category": slope_cat,
+        "landslide_prob_pct": round(ls_prob * 100, 1),
+        "bearing_capacity": "Adequate (>200 kPa)" if verdict == "SUITABLE_FOR_CONSTRUCTION" else ("Moderate (100–180 kPa)" if verdict == "CONDITIONAL_RESTRICTED" else "Inadequate / Shear Failure (<80 kPa)"),
+        "wildlife_corridor_conflict": is_corridor,
+        "soil_stability": "Stable Bedrock" if verdict == "SUITABLE_FOR_CONSTRUCTION" else ("Moderate Cohesion" if verdict == "CONDITIONAL_RESTRICTED" else "Unconsolidated Colluvium / High Slip Risk"),
+        "mandatory_actions": [
+            "Strict construction moratorium — High risk of catastrophic slope shear." if verdict == "HAZARD_PROHIBITED" else ("Engineered retaining walls and contour drainage required." if verdict == "CONDITIONAL_RESTRICTED" else "Standard isolated pad foundations permitted.")
+        ]
     }

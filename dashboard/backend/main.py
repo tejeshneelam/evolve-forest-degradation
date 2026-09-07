@@ -10,9 +10,12 @@ Start with:
 
 import os
 import json
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from slowapi.errors import RateLimitExceeded
 
+from dashboard.backend.limiter import limiter
 from dashboard.backend.middleware import SecurityHeadersMiddleware, AuditLoggingMiddleware, AUDIT_LOG_BUFFER
 from dashboard.backend.routes import (
     health, wildlife, risk, conservation, reports, ga_log, dynamic_region
@@ -26,6 +29,31 @@ app = FastAPI(
     ),
     version="2.0.0",
 )
+
+# SlowAPI Limiter state setup
+app.state.limiter = limiter
+
+
+def custom_rate_limit_exceeded_handler(request: Request, exc: RateLimitExceeded) -> JSONResponse:
+    """
+    Standardized HTTP 429 Too Many Requests response with RFC-compliant Retry-After header
+    and actionable security feedback.
+    """
+    retry_after = 60
+    response = JSONResponse(
+        status_code=429,
+        content={
+            "error": "Too Many Requests",
+            "message": "API rate limit exceeded. Please wait before submitting additional requests.",
+            "detail": str(exc.detail),
+            "retry_after_seconds": retry_after,
+        },
+    )
+    response.headers["Retry-After"] = str(retry_after)
+    return response
+
+
+app.add_exception_handler(RateLimitExceeded, custom_rate_limit_exceeded_handler)
 
 # 1. Custom Security Response Headers Middleware
 app.add_middleware(SecurityHeadersMiddleware)

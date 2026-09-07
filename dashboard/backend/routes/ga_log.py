@@ -1,6 +1,7 @@
 """EvOLve — dashboard/backend/routes/ga_log.py"""
 import os, json
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
+from dashboard.backend.limiter import limiter
 router = APIRouter()
 RESULTS_DIR = "results"
 
@@ -25,7 +26,8 @@ class GAAdaptationRequest(BaseModel):
 
 
 @router.post("/run-ga-adaptation")
-def run_ga_adaptation(req: GAAdaptationRequest):
+@limiter.limit("5/minute")
+def run_ga_adaptation(request: Request, req: GAAdaptationRequest):
     """
     Executes live Genetic Algorithm search to adapt seasonal detection thresholds
     and transformer hyperparameters for the user's selected climate priority.
