@@ -3,14 +3,11 @@
 % --- Packages & Setup ---
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{xcolor}
 \usepackage{booktabs} 
 \usepackage{graphicx}
 \usepackage{tikz}
-\usetikzlibrary{calc, shapes.geometric, arrows.meta, positioning}
-
-% Try loading Open Sans; fallback if missing
-\IfFileExists{opensans.sty}{\usepackage[default,scale=0.95]{opensans}}{}
 
 % --- Branding Colors ---
 \definecolor{amritaMaroon}{HTML}{A4123F} 
@@ -60,11 +57,10 @@
     {\normalsize \textbf{Team Number: [XX] \quad | \quad 23CSE399 -- Project Phase 2 (Panel Review 1)}} \\ 
     \vspace{0.3cm}
 
-    % Student Table with Roles
+    % Student Table with Modules
     \begin{table}
         \centering
-        \footnotesize
-        \renewcommand{\arraystretch}{1.1}
+        \resizebox{0.92\textwidth}{!}{
         \begin{tabular}{|c|c|l|l|}
             \hline
             \textbf{S.No} & \textbf{Register Number} & \textbf{Student Name} & \textbf{Assigned Module \& Presentation Section} \\
@@ -78,6 +74,7 @@
             4 & CB.EN.U4CSE23212 & Ande Tarak & Genetic Algorithm Optimization \& Cyber Security \\
             \hline
         \end{tabular}
+        }
     \end{table}
     \vspace{0.15cm}
     
@@ -124,8 +121,7 @@
         \begin{column}{0.60\textwidth}
             \begin{table}
                 \centering
-                \scriptsize
-                \renewcommand{\arraystretch}{1.2}
+                \resizebox{\linewidth}{!}{
                 \begin{tabular}{l c c c c}
                     \toprule
                     \textbf{Model / Methodology} & \textbf{Dry F1} & \textbf{Monsoon F1} & \textbf{Accuracy} & \textbf{False Alarms} \\
@@ -135,6 +131,7 @@
                     \textbf{EvOLve: Pretrained + GA (Ours)} & \textbf{84.2\%} & \textbf{87.6\%} & \textbf{96.88\%} & \textbf{4.1\%} \\
                     \bottomrule
                 \end{tabular}
+                }
             \end{table}
             \vspace{0.1cm}
             \footnotesize
@@ -554,8 +551,15 @@
 \section{References \& Demo}
 \begin{frame}[allowframebreaks]{References}
     \tiny
-    \bibliographystyle{IEEEtran}
-    \bibliography{ref}
+    \begin{thebibliography}{99}
+        \bibitem{hansen2013high} M.~C. Hansen \textit{et~al.}, ``High-resolution global maps of 21st-century forest cover change,'' \textit{Science}, vol. 342, no. 6160, pp. 850--853, 2013.
+        \bibitem{drusch2012sentinel} M.~Drusch \textit{et~al.}, ``Sentinel-2: ESA's optical high-resolution mission for GMES operational services,'' \textit{Remote Sens. Environ.}, vol. 120, pp. 25--36, 2012.
+        \bibitem{gorelick2017google} N.~Gorelick \textit{et~al.}, ``Google Earth Engine: Planetary-scale geospatial analysis for everyone,'' \textit{Remote Sens. Environ.}, vol. 202, pp. 18--27, 2017.
+        \bibitem{chave2014improved} J.~Chave \textit{et~al.}, ``Improved allometric models to estimate aboveground biomass,'' \textit{Glob. Chang. Biol.}, vol. 20, no. 10, pp. 3177--3190, 2014.
+        \bibitem{deb2002fast} K.~Deb \textit{et~al.}, ``A fast and elitist multiobjective genetic algorithm: NSGA-II,'' \textit{IEEE Trans. Evol. Comput.}, vol. 6, no. 2, pp. 182--197, 2002.
+        \bibitem{ipcc2019refinement} IPCC, ``2019 Refinement to the 2006 IPCC Guidelines for National Greenhouse Gas Inventories,'' 2019.
+        \bibitem{funk2015climate} C.~Funk \textit{et~al.}, ``The climate hazards infrared precipitation with stations---a new environmental record for monitoring extremes,'' \textit{Sci. Data}, vol. 2, p. 150066, 2015.
+    \end{thebibliography}
 \end{frame}
 
 \begin{frame}
