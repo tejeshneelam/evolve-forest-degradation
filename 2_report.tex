@@ -107,21 +107,12 @@
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[node distance=0.5cm, auto,
-        box/.style={rectangle, draw=darkSlate, fill=white, rounded corners=2pt, font=\scriptsize, align=center, inner sep=3pt},
-        tier/.style={rectangle, draw=amritaMaroon, fill=amritaMaroon!8, rounded corners=3pt, font=\scriptsize\bfseries, inner sep=4pt},
-        arrow/.style={-{Stealth[scale=0.9]}, thick, color=amritaMaroon}]
-        
-        \node[tier, text width=4.0cm, align=center] (client) {React 18 + Leaflet GIS UI\\{\tiny Interactive Map, Date Selector, Audit Modal}};
-        \node[tier, text width=4.8cm, align=center, right=1.2cm of client] (backend) {FastAPI Async REST Backend\\{\tiny Rate Limiter, In-Memory 8x8 Grid Slicer, Physics Engine}};
-        \node[tier, text width=3.4cm, align=center, right=1.2cm of backend] (cloud) {Cloud \& Persistence\\{\tiny Google Earth Engine API + SQLite 3}};
-        
-        \draw[arrow] ([yshift=0.15cm]client.east) -- node[above, font=\tiny] {POST /dynamic-region} ([yshift=0.15cm]backend.west);
-        \draw[arrow] ([yshift=-0.15cm]backend.west) -- node[below, font=\tiny] {64 Patch GeoJSON} ([yshift=-0.15cm]client.east);
-        \draw[arrow] ([yshift=0.15cm]backend.east) -- node[above, font=\tiny] {Multi-Sensor Query} ([yshift=0.15cm]cloud.west);
-        \draw[arrow] ([yshift=-0.15cm]cloud.west) -- node[below, font=\tiny] {Tensors / DB Logs} ([yshift=-0.15cm]backend.east);
-    \end{tikzpicture}
-    \caption{EvOLve End-to-End Application Workflow \& Data Flow Architecture}
+    \IfFileExists{slides_assets/system_architecture.png}{
+        \includegraphics[width=0.98\textwidth, height=5.5cm, keepaspectratio]{slides_assets/system_architecture.png}
+    }{
+        \fbox{\begin{minipage}{0.95\textwidth}\centering \vspace{1.5cm} [EvOLve System Architecture Diagram] \vspace{1.5cm}\end{minipage}}
+    }
+    \caption{EvOLve End-to-End Application Architecture (Presentation, Security, AI Inference \& Satellite Tiers)}
 \end{figure}
 
 % --- 4. IMPLEMENTATION PROGRESS ---

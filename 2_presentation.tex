@@ -157,48 +157,30 @@
 \end{frame}
 
 
-% --- SLIDE 4: SYSTEM ARCHITECTURE & DATA FLOW ---
-\begin{frame}{3. Application Architecture \& End-to-End Workflow}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Neelam Tejesh (Lead)}} \quad | \quad Rubric Component 1 (5 Marks)}
+% --- SLIDE 4: SYSTEM ARCHITECTURE (DECOUPLED 4-TIER DESIGN) ---
+\begin{frame}{3. Application Architecture (Decoupled 4-Tier Design)}
+    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Neelam Tejesh (Lead)}} \quad | \quad Rubric Component 1: Software Architecture (5 Marks)}
     \centering
-    \begin{tikzpicture}[node distance=0.5cm, auto,
-        box/.style={rectangle, draw=darkSlate, fill=white, rounded corners=3pt, font=\tiny, align=center, inner sep=3pt},
-        tier/.style={rectangle, draw=amritaMaroon, fill=amritaMaroon!8, rounded corners=4pt, font=\scriptsize\bfseries, inner sep=4pt},
-        arrow/.style={-{Stealth[scale=0.9]}, thick, color=amritaMaroon}]
-        
-        % Tier 1: Client
-        \node[tier, minimum width=3.6cm, minimum height=3.2cm] (client) {};
-        \node[above of=client, node distance=1.35cm, font=\scriptsize\bfseries\color{amritaMaroon}] {PRESENTATION TIER};
-        \node[box, fill=darkSlate!5, below of=client, node distance=0.75cm, text width=3.2cm] {React 18 + Leaflet GIS UI};
-        \node[box, fill=darkSlate!5, below of=client, node distance=0.0cm, text width=3.2cm] {Interactive 64-Patch Map Layers};
-        \node[box, fill=darkSlate!5, below of=client, node distance=-0.75cm, text width=3.2cm] {Building Safety Audit Modals};
-        
-        % Tier 2: Backend
-        \node[tier, minimum width=4.5cm, minimum height=3.2cm, right of=client, node distance=4.7cm] (backend) {};
-        \node[above of=backend, node distance=1.35cm, font=\scriptsize\bfseries\color{amritaMaroon}] {APPLICATION / API TIER};
-        \node[box, fill=amritaGold!15, below of=backend, node distance=0.85cm, text width=4.1cm] {FastAPI Async REST Server};
-        \node[box, fill=amritaGold!15, below of=backend, node distance=0.3cm, text width=4.1cm] {SlowAPI Limiter \& Input Sanitizer};
-        \node[box, fill=amritaGold!15, below of=backend, node distance=-0.3cm, text width=4.1cm] {In-Memory $8 \times 8$ Grid Slicing};
-        \node[box, fill=amritaGold!15, below of=backend, node distance=-0.85cm, text width=4.1cm] {Landslide \& Building Safety Engine};
-
-        % Tier 3: External & Persistence
-        \node[tier, minimum width=3.4cm, minimum height=1.4cm, right of=backend, node distance=4.6cm, yshift=0.85cm] (gee) {};
-        \node[above of=gee, node distance=0.55cm, font=\scriptsize\bfseries\color{amritaMaroon}] {SATELLITE STREAM};
-        \node[box, fill=forestGreen!10, below of=gee, node distance=0.1cm, text width=3.0cm] {Google Earth Engine API\\Sentinel-2, SRTM, CHIRPS};
-
-        \node[tier, minimum width=3.4cm, minimum height=1.4cm, right of=backend, node distance=4.6cm, yshift=-0.85cm] (db) {};
-        \node[above of=db, node distance=0.55cm, font=\scriptsize\bfseries\color{amritaMaroon}] {PERSISTENCE TIER};
-        \node[box, fill=darkSlate!10, below of=db, node distance=0.1cm, text width=3.0cm] {Embedded SQLite 3\\(\texttt{evolve\_records.db})};
-
-        % Arrows
-        \draw[arrow] (client.east) -- node[above, font=\tiny\bfseries] {REST / JSON} (backend.west);
-        \draw[arrow] ([yshift=0.5cm]backend.east) -- node[above, font=\tiny] {Raw Tensors} (gee.west);
-        \draw[arrow] ([yshift=-0.5cm]backend.east) -- node[below, font=\tiny] {Audit Logs} (db.west);
-    \end{tikzpicture}
+    \IfFileExists{slides_assets/system_architecture.png}{
+        \includegraphics[width=\linewidth, height=5.5cm, keepaspectratio]{slides_assets/system_architecture.png}
+    }{
+        \fbox{\begin{minipage}{\linewidth}\centering \vspace{1.5cm} [System Architecture Diagram] \vspace{1.5cm}\end{minipage}}
+    }
 \end{frame}
 
-% --- SLIDE 5: LIVE DEMO - DYNAMIC GEE INGESTION ---
-\begin{frame}{4. Live Demo: Dynamic GEE Ingestion \& Date Selection}
+% --- SLIDE 5: END-TO-END DATA FLOW PIPELINE ---
+\begin{frame}{4. End-to-End Data Flow Pipeline (Execution Sequence)}
+    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Neelam Tejesh (Lead)}} \quad | \quad Rubric Component 1: Workflow \& Data Flow Design (5 Marks)}
+    \centering
+    \IfFileExists{slides_assets/data_flow.png}{
+        \includegraphics[width=\linewidth, height=5.5cm, keepaspectratio]{slides_assets/data_flow.png}
+    }{
+        \fbox{\begin{minipage}{\linewidth}\centering \vspace{1.5cm} [Data Flow Pipeline Diagram] \vspace{1.5cm}\end{minipage}}
+    }
+\end{frame}
+
+% --- SLIDE 6: LIVE DEMO - DYNAMIC GEE INGESTION ---
+\begin{frame}{5. Live Demo: Dynamic GEE Ingestion \& Date Selection}
     \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Neelam Tejesh (Lead)}} \quad | \quad Rubric Component 2 (8 Marks)}
     \begin{columns}[c]
         \begin{column}{0.48\textwidth}
@@ -223,8 +205,8 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 6: LIVE DEMO - MOUNTAIN CONSTRUCTION SUITABILITY ---
-\begin{frame}{5. Live Demo: Mountain Construction Suitability Auditor}
+% --- SLIDE 7: LIVE DEMO - MOUNTAIN CONSTRUCTION SUITABILITY ---
+\begin{frame}{6. Live Demo: Mountain Construction Suitability Auditor}
     \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Neelam Tejesh (Lead)}} \quad | \quad Sustainable Hill Infrastructure Planning}
     \begin{columns}[c]
         \begin{column}{0.48\textwidth}
@@ -259,9 +241,9 @@
 % SECTION 2: KOLLA GIRISH - RISK, LANDSLIDE & ACCESS CONTROL
 % =========================================================================
 
-% --- SLIDE 7: MULTI-THREAT RISK DASHBOARD ---
+% --- SLIDE 8: MULTI-THREAT RISK DASHBOARD ---
 \section{Risk Assessment}
-\begin{frame}{6. Multi-Threat Risk Dashboard \& Fuel Modeling}
+\begin{frame}{7. Multi-Threat Risk Dashboard \& Fuel Modeling}
     \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Kolla Girish}} \quad | \quad Environmental Threat Analytics}
     \begin{columns}[c]
         \begin{column}{0.48\textwidth}
@@ -285,8 +267,8 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 8: LANDSLIDE HAZARD PHYSICS ---
-\begin{frame}{7. Explainable Landslide Hazard Prediction}
+% --- SLIDE 9: LANDSLIDE HAZARD PHYSICS ---
+\begin{frame}{8. Explainable Landslide Hazard Prediction}
     \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Kolla Girish}} \quad | \quad Physics-Informed Disaster Early Warning}
     \begin{columns}[c]
         \begin{column}{0.48\textwidth}
@@ -312,8 +294,8 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 9: OFFICER AUTHENTICATION & RBAC ---
-\begin{frame}{8. Forest Officer Authentication \& Access Control (RBAC)}
+% --- SLIDE 10: OFFICER AUTHENTICATION & RBAC ---
+\begin{frame}{9. Forest Officer Authentication \& Access Control (RBAC)}
     \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Kolla Girish}} \quad | \quad Administrative Security Governance}
     \begin{columns}[c]
         \begin{column}{0.50\textwidth}
@@ -343,9 +325,9 @@
 % SECTION 3: D VASISHTA - CORRIDORS, CARBON & DATABASE
 % =========================================================================
 
-% --- SLIDE 10: WILDLIFE CORRIDORS ---
+% --- SLIDE 11: WILDLIFE CORRIDORS ---
 \section{Conservation Intelligence}
-\begin{frame}{9. Wildlife Migration Corridors \& Graph Routing}
+\begin{frame}{10. Wildlife Migration Corridors \& Graph Routing}
     \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: D Vasishta}} \quad | \quad Ecological Chokepoint Protection}
     \begin{columns}[c]
         \begin{column}{0.48\textwidth}
@@ -374,8 +356,8 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 11: CARBON ASSET VALUATION ---
-\begin{frame}{10. IPCC Carbon Stock Accounting \& Economic Valuation}
+% --- SLIDE 12: CARBON ASSET VALUATION ---
+\begin{frame}{11. IPCC Carbon Stock Accounting \& Economic Valuation}
     \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: D Vasishta}} \quad | \quad Natural Capital Quantification}
     \begin{columns}[c]
         \begin{column}{0.50\textwidth}
@@ -401,8 +383,8 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 12: DATABASE SCHEMA & RECALL VAULT ---
-\begin{frame}{11. SQLite Database Schema \& Inspection Recall Vault}
+% --- SLIDE 13: DATABASE SCHEMA & RECALL VAULT ---
+\begin{frame}{12. SQLite Database Schema \& Inspection Recall Vault}
     \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: D Vasishta}} \quad | \quad Rubric Component 1 (5 Marks)}
     \begin{columns}[c]
         \begin{column}{0.50\textwidth}
@@ -432,9 +414,9 @@
 % SECTION 4: ANDE TARAK - GA, CYBER SECURITY & ROADMAP
 % =========================================================================
 
-% --- SLIDE 12: GA MATHEMATICAL FORMULATION & CHROMOSOME DESIGN ---
+% --- SLIDE 14: GA MATHEMATICAL FORMULATION & CHROMOSOME DESIGN ---
 \section{Evolutionary AI \& Security}
-\begin{frame}{12. Genetic Algorithm: Formulation \& Multi-Objective Fitness}
+\begin{frame}{13. Genetic Algorithm: Formulation \& Multi-Objective Fitness}
     \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Ande Tarak}} \quad | \quad Mathematical Chromosome \& Objective Modeling}
     \begin{columns}[c]
         \begin{column}{0.52\textwidth}
@@ -467,8 +449,8 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 13: GA REAL-TIME ADAPTIVE CONVERGENCE & LIVE DEMO ---
-\begin{frame}{13. Genetic Algorithm: Real-Time Dynamic Convergence}
+% --- SLIDE 15: GA REAL-TIME ADAPTIVE CONVERGENCE & LIVE DEMO ---
+\begin{frame}{14. Genetic Algorithm: Real-Time Dynamic Convergence}
     \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Ande Tarak}} \quad | \quad Live Dashboard Convergence \& Evolved Boundaries}
     \begin{columns}[c]
         \begin{column}{0.48\textwidth}
@@ -500,8 +482,8 @@
 \end{frame}
 
 
-% --- SLIDE 14: CYBER SECURITY & RATE LIMITING ---
-\begin{frame}{14. Cyber Security Hardening \& API Rate Limiting}
+% --- SLIDE 16: CYBER SECURITY & RATE LIMITING ---
+\begin{frame}{15. Cyber Security Hardening \& API Rate Limiting}
     \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Ande Tarak}} \quad | \quad Backend Hardening \& Quota Protection}
     \begin{columns}[c]
         \begin{column}{0.50\textwidth}
@@ -527,8 +509,8 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 15: SUMMARY & ROADMAP ---
-\begin{frame}{15. Review 1 Summary \& Roadmap for Review 2}
+% --- SLIDE 17: SUMMARY & ROADMAP ---
+\begin{frame}{16. Review 1 Summary \& Roadmap for Review 2}
     \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Ande Tarak}} \quad | \quad Implementation Progress ($\approx 85\%$ Completed)}
     \begin{columns}[c]
         \begin{column}{0.50\textwidth}
