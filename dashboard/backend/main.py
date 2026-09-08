@@ -120,6 +120,17 @@ def status():
     return {"results_available": available}
     
 
+from dashboard.backend.database import (
+    init_db,
+    get_query_history,
+    get_construction_permits,
+    get_ga_experiment_logs,
+)
+
+# Initialize SQLite database vault on startup
+init_db()
+
+
 @app.get("/api/security/audit-logs", tags=["Security & Compliance"])
 def get_audit_logs(limit: int = 50):
     """Retrieve recent structured audit logs for compliance monitoring."""
@@ -128,3 +139,22 @@ def get_audit_logs(limit: int = 50):
         "total_buffered": len(logs),
         "audit_logs": logs[-max(1, min(100, limit)):]
     }
+
+
+@app.get("/api/database/query-history", tags=["SQLite Database Vault"])
+def get_db_queries(limit: int = 20):
+    """Retrieve historical regional satellite inspection queries from SQLite vault."""
+    return {"queries": get_query_history(limit)}
+
+
+@app.get("/api/database/construction-permits", tags=["SQLite Database Vault"])
+def get_db_permits(limit: int = 50):
+    """Retrieve historical mountain construction suitability audits from SQLite vault."""
+    return {"permits": get_construction_permits(limit)}
+
+
+@app.get("/api/database/ga-experiment-logs", tags=["SQLite Database Vault"])
+def get_db_ga_logs(limit: int = 20):
+    """Retrieve historical Genetic Algorithm optimization runs from SQLite vault."""
+    return {"ga_experiments": get_ga_experiment_logs(limit)}
+

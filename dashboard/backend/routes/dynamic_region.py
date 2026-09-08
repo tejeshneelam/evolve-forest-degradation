@@ -79,6 +79,25 @@ def process_region(request: Request, req: RegionRequest):
         analysis['start_date'] = gee_data.get('start_date')
         analysis['end_date'] = gee_data.get('end_date')
         LATEST_DYNAMIC_ANALYSIS = analysis
+
+        # Automatically record inspection in SQLite persistence vault
+        try:
+            from dashboard.backend.database import log_query
+            mean_ndvi = float(analysis.get("regional_summary", {}).get("mean_ndvi", 0.75))
+            patches = analysis.get("patches", [])
+            deg_count = sum(1 for p in patches if p.get("degraded", False))
+            log_query(
+                region_name=req.region_name,
+                bbox=req.bbox,
+                start_date=analysis.get('start_date'),
+                end_date=analysis.get('end_date'),
+                mean_ndvi=mean_ndvi,
+                degraded_patch_count=deg_count,
+                total_patches=len(patches)
+            )
+        except Exception:
+            pass
+
         return analysis
     except Exception as e:
         print(f"❌ Error during dynamic processing: {e}")
@@ -176,6 +195,20 @@ def evaluate_construction_suitability(request: Request, req: ConstructionSuitabi
         label = "Safe for Construction — Standard Foundations"
         color = "#52B788"
         badge = "Safe to Build"
+
+    try:
+        from dashboard.backend.database import log_construction_permit
+        notes = "Moratorium enforced." if verdict == "HAZARD_PROHIBITED" else ("Retaining walls and drainage required." if verdict == "CONDITIONAL_RESTRICTED" else "Standard pad foundations permitted.")
+        log_construction_permit(
+            patch_id=None,
+            slope_deg=slope,
+            landslide_prob=ls_prob,
+            safety_score=round(overall_build_score, 1),
+            verdict=verdict,
+            decision_notes=f"{label}. {notes}"
+        )
+    except Exception:
+        pass
 
     return {
         "status": "success",
