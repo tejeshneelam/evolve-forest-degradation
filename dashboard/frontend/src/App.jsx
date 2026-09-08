@@ -6,7 +6,6 @@ import RiskDashboard from './components/RiskDashboard';
 import ConservationTab from './components/ConservationTab';
 import GALog from './components/GALog';
 import ReportExport from './components/ReportExport';
-import SecurityTab from './components/SecurityTab';
 import './App.css';
 
 const TABS = [
