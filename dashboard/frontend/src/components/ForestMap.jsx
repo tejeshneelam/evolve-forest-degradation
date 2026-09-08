@@ -62,6 +62,7 @@ export default function ForestMap() {
   const [customBBox, setCustomBBox]           = useState("76.325, 11.625, 76.375, 11.675");
   const [isProcessingGEE, setIsProcessingGEE] = useState(false);
   const [geeStatusMsg, setGeeStatusMsg]       = useState('');
+  const [geoAlertMsg, setGeoAlertMsg]         = useState('');
   
   // Diagnostic modals
   const [activeDiagnosticPatch, setActiveDiagnosticPatch]     = useState(null);
@@ -117,7 +118,7 @@ export default function ForestMap() {
 
     // Date range validation
     if (startDate && endDate && startDate > endDate) {
-      alert("⚠️ Validation Error: Start date cannot be after end date.");
+      setGeoAlertMsg("⚠️ Validation Error: Start date cannot be after end date.");
       return;
     }
 
@@ -131,34 +132,34 @@ export default function ForestMap() {
 
           // Enforce -90 <= lat <= 90 and -180 <= lon <= 180
           if (minLat < -90 || minLat > 90 || maxLat < -90 || maxLat > 90) {
-            alert("⚠️ Geographic Bounds Error: Latitude must be between -90.0° and 90.0°.");
+            setGeoAlertMsg("⚠️ Geographic Bounds Error: Latitude must be between -90.0° and 90.0°.");
             return;
           }
           if (minLat >= maxLat) {
-            alert("⚠️ Coordinate Order Error: min_lat must be strictly less than max_lat.");
+            setGeoAlertMsg("⚠️ Coordinate Order Error: min_lat must be strictly less than max_lat.");
             return;
           }
           if (minLon < -180 || minLon > 180 || maxLon < -180 || maxLon > 180) {
-            alert("⚠️ Geographic Bounds Error: Longitude must be between -180.0° and 180.0°.");
+            setGeoAlertMsg("⚠️ Geographic Bounds Error: Longitude must be between -180.0° and 180.0°.");
             return;
           }
           if (minLon >= maxLon) {
-            alert("⚠️ Coordinate Order Error: min_lon must be strictly less than max_lon.");
+            setGeoAlertMsg("⚠️ Coordinate Order Error: min_lon must be strictly less than max_lon.");
             return;
           }
           if (Math.abs(maxLat - minLat) > 0.35 || Math.abs(maxLon - minLon) > 0.35) {
-            alert("⚠️ Region Size Limit: Area exceeds 35km x 35km maximum limit for real-time inference.");
+            setGeoAlertMsg("⚠️ Region Size Limit: Area exceeds 35km x 35km maximum limit for real-time inference.");
             return;
           }
 
           bbox = [minLon, minLat, maxLon, maxLat];
           name = "Custom Global ROI";
         } else {
-          alert("Please enter 4 valid numeric coordinates: min_lon, min_lat, max_lon, max_lat");
+          setGeoAlertMsg("⚠️ Please enter 4 valid numeric coordinates: min_lon, min_lat, max_lon, max_lat");
           return;
         }
       } catch {
-        alert("Invalid coordinate string syntax.");
+        setGeoAlertMsg("⚠️ Invalid coordinate string syntax.");
         return;
       }
     } else {
@@ -167,6 +168,7 @@ export default function ForestMap() {
       name = p.name;
     }
 
+    setGeoAlertMsg('');
     setIsProcessingGEE(true);
     setGeeStatusMsg(`🛰️ Querying Earth Engine from ${startDate} to ${endDate}...`);
 
@@ -180,7 +182,7 @@ export default function ForestMap() {
       })
       .catch(err => {
         console.error("GEE Ingestion failed:", err);
-        alert(err.message.includes('429') ? err.message : `Earth Engine Error: ${err.message}`);
+        setGeoAlertMsg(err.message.includes('429') ? err.message : `Earth Engine Error: ${err.message}`);
         setIsProcessingGEE(false);
         setGeeStatusMsg('');
       });
@@ -348,6 +350,38 @@ export default function ForestMap() {
           <div style={{ marginTop: '12px', padding: '10px 14px', background: 'rgba(233, 196, 106, 0.1)', border: '1px solid var(--alert-orange)', borderRadius: 'var(--radius-sm)', color: '#fff', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div className="spinner" style={{ width: '14px', height: '14px', borderWidth: '2px' }}></div>
             <span>{geeStatusMsg} (Processing Sentinel-2 & DEM data on Earth Engine cloud...)</span>
+          </div>
+        )}
+
+        {/* Validation or Rate-Limit Error Banner */}
+        {geoAlertMsg && (
+          <div style={{
+            marginTop: '12px',
+            padding: '10px 14px',
+            background: 'rgba(230, 57, 70, 0.15)',
+            border: '1px solid #E63946',
+            borderRadius: 'var(--radius-sm)',
+            color: '#FFB4B4',
+            fontSize: '12px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}>
+            <span>{geoAlertMsg}</span>
+            <button
+              type="button"
+              onClick={() => setGeoAlertMsg('')}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: '#FFB4B4',
+                cursor: 'pointer',
+                fontSize: '14px',
+                padding: '0 6px'
+              }}
+            >
+              ✕
+            </button>
           </div>
         )}
       </div>
