@@ -21,7 +21,13 @@ const REGION_PRESETS = [
     name: "Wayanad Wildlife Sanctuary, India",
     bbox: [76.325, 11.625, 76.375, 11.675],
     center: [11.650, 76.350],
-    desc: "Muthanga Range pilot study area"
+    desc: "Muthanga Range pilot study area (forest plateau)"
+  },
+  {
+    name: "Chooralmala & Meppadi, Wayanad (July 2024 Disaster Epicenter)",
+    bbox: [76.120, 11.500, 76.170, 11.550],
+    center: [11.525, 76.145],
+    desc: "Epicenter of the July 30, 2024 catastrophic landslides (Mundakkai & Chooralmala escarpment)"
   },
   {
     name: "Silent Valley National Park, India",
@@ -490,8 +496,9 @@ export default function ForestMap() {
           <MapContainer center={center} zoom={13} style={{ height: '100%', width: '100%' }}>
             <MapRecenter center={center} />
             <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+              attribution='&copy; <a href="https://www.esri.com/">Esri</a>, Earthstar Geographics'
+              url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+              maxZoom={18}
             />
             
             {mapData.patches.map(patch => {
