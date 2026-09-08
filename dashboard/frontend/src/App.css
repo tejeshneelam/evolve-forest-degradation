@@ -90,11 +90,11 @@ body {
 }
 
 .sidebar-nav {
-  padding: 16px 12px;
+  padding: 18px 12px;
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .nav-item {
@@ -103,7 +103,7 @@ body {
   background: transparent;
   border: none;
   color: var(--text-sec);
-  padding: 11px 14px;
+  padding: 12px 14px;
   border-radius: var(--radius-sm);
   font-family: 'Inter', sans-serif;
   font-size: 13.5px;
@@ -166,6 +166,43 @@ body {
 .sidebar-footer {
   padding: 14px 20px;
   border-top: 1px solid rgba(82,183,136,0.12);
+}
+
+.api-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(82, 183, 136, 0.1);
+  border: 1px solid rgba(82, 183, 136, 0.25);
+  border-radius: 20px;
+  padding: 4px 10px;
+  margin-bottom: 8px;
+  font-size: 11px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--alert-yellow);
+}
+
+.status-dot.online {
+  background: var(--alert-green);
+  box-shadow: 0 0 6px var(--alert-green);
+}
+
+.status-dot.offline {
+  background: var(--alert-red);
+}
+
+.status-dot.checking {
+  background: var(--alert-yellow);
+}
+
+.status-text {
+  color: var(--forest-300);
+  font-weight: 500;
 }
 
 .footer-text {
