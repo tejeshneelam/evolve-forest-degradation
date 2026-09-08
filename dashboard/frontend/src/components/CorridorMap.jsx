@@ -169,8 +169,8 @@ export default function CorridorMap() {
         <div className="map-card card" style={{ padding: 0, height: '560px', overflow: 'hidden', borderRadius: '10px' }}>
           <MapContainer center={[11.65, 76.35]} zoom={13} style={{ height: '100%', width: '100%' }}>
             <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+              attribution='&copy; <a href="https://www.esri.com/">Esri</a> &mdash; USGS, NOAA'
+              url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}"
             />
             
             {/* Draw individual grid patch outlines with subtle health opacity */}

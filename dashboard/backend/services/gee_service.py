@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 import numpy as np
 
 # Dedicated GEE Project
-GEE_PROJECT_ID = 'forest-502505'
+GEE_PROJECT_ID = 'lab-work-484811'
 _GEE_INITIALIZED = False
 
 

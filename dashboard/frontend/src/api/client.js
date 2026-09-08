@@ -107,4 +107,23 @@ export const api = {
   exportPDF: (from, to) => {
     window.open(`${API_BASE}/export-pdf?date_from=${from}&date_to=${to}`, '_blank');
   },
+
+  // History Vault (SQLite DB)
+  getQueryHistory: () => fetch(`${API_BASE}/history/queries`).then(r => r.json()),
+  logQuery: (queryData) => {
+    return fetch(`${API_BASE}/history/log-query`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(queryData)
+    }).then(r => r.json());
+  },
+  getPermits: () => fetch(`${API_BASE}/history/permits`).then(r => r.json()),
+  savePermit: (permitData) => {
+    return fetch(`${API_BASE}/history/save-permit`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(permitData)
+    }).then(r => r.json());
+  },
+  getHistoryStats: () => fetch(`${API_BASE}/history/stats`).then(r => r.json()),
 };
