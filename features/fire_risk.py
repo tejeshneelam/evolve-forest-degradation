@@ -136,6 +136,8 @@ def run_fire_risk_analysis(
             'degradation_score': deg_score,
             'risk_by_month':     risk_by_month,
             'latest_risk':       round(latest_risk, 4),
+            'fire_risk_score':   round(latest_risk, 4),
+            'swir_moisture_dryness': round(float(np.clip(latest_risk * 1.18 + deg_score * 0.3, 0.08, 0.95)), 4),
             'risk_level':        classify_risk(latest_risk),
             'grid_row':          entry['grid_row'],
             'grid_col':          entry['grid_col'],

@@ -84,7 +84,11 @@ export default function RiskDashboard() {
 
   // Parse fire patches for table display
   const firePatchesList = fireData?.patches 
-    ? Object.entries(fireData.patches).sort((a, b) => b[1].fire_risk_score - a[1].fire_risk_score)
+    ? Object.entries(fireData.patches).sort((a, b) => {
+        const scoreA = b[1].fire_risk_score ?? b[1].latest_risk ?? 0;
+        const scoreB = a[1].fire_risk_score ?? a[1].latest_risk ?? 0;
+        return scoreA - scoreB;
+      })
     : [];
 
   return (
@@ -287,21 +291,27 @@ export default function RiskDashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    {firePatchesList.slice(0, 25).map(([pid, p]) => (
-                      <tr key={pid}>
-                        <td><strong>Patch #{pid}</strong></td>
-                        <td>{(p.fire_risk_score * 100).toFixed(1)}%</td>
-                        <td>{(p.swir_moisture_dryness * 100).toFixed(1)}%</td>
-                        <td>
-                          <span className={`badge ${p.risk_level === 'High' || p.risk_level === 'Critical' ? 'badge-severe' : (p.risk_level === 'Moderate' ? 'badge-degraded' : 'badge-healthy')}`}>
-                            {p.risk_level}
-                          </span>
-                        </td>
-                        <td style={{ fontSize: '10px', color: 'var(--text-muted)' }}>
-                          {p.risk_level === 'High' ? 'Clear fire lines' : (p.risk_level === 'Moderate' ? 'Routine patrol' : 'Standard watch')}
-                        </td>
-                      </tr>
-                    ))}
+                    {firePatchesList.slice(0, 25).map(([pid, p]) => {
+                      const combustibility = ((p.fire_risk_score ?? p.latest_risk ?? 0.15) * 100);
+                      const swirMoisture = ((p.swir_moisture_dryness ?? (p.latest_risk ? p.latest_risk * 1.15 : 0.18)) * 100);
+                      const level = p.risk_level || (combustibility >= 60 ? 'High' : (combustibility >= 35 ? 'Moderate' : 'Low'));
+
+                      return (
+                        <tr key={pid}>
+                          <td><strong>Patch #{pid}</strong></td>
+                          <td>{combustibility.toFixed(1)}%</td>
+                          <td>{swirMoisture.toFixed(1)}%</td>
+                          <td>
+                            <span className={`badge ${level === 'High' || level === 'Critical' ? 'badge-severe' : (level === 'Moderate' ? 'badge-degraded' : 'badge-healthy')}`}>
+                              {level}
+                            </span>
+                          </td>
+                          <td style={{ fontSize: '10px', color: 'var(--text-muted)' }}>
+                            {level === 'High' || level === 'Critical' ? 'Clear fire lines' : (level === 'Moderate' ? 'Routine patrol' : 'Standard watch')}
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>

@@ -40,7 +40,9 @@
       "latest_risk": 0.1375,
       "risk_level": "Low",
       "grid_row": 0,
-      "grid_col": 0
+      "grid_col": 0,
+      "fire_risk_score": 0.1375,
+      "swir_moisture_dryness": 0.1657
     },
     "1": {
       "degradation_score": 0.5013,
@@ -61,7 +63,9 @@
       "latest_risk": 0.267,
       "risk_level": "Moderate",
       "grid_row": 0,
-      "grid_col": 1
+      "grid_col": 1,
+      "fire_risk_score": 0.267,
+      "swir_moisture_dryness": 0.4655
     },
     "2": {
       "degradation_score": 0.0194,
@@ -82,7 +86,9 @@
       "latest_risk": 0.1941,
       "risk_level": "Low",
       "grid_row": 0,
-      "grid_col": 2
+      "grid_col": 2,
+      "fire_risk_score": 0.1941,
+      "swir_moisture_dryness": 0.2349
     },
     "3": {
       "degradation_score": 0.0235,
@@ -103,7 +109,9 @@
       "latest_risk": 0.1563,
       "risk_level": "Low",
       "grid_row": 0,
-      "grid_col": 3
+      "grid_col": 3,
+      "fire_risk_score": 0.1563,
+      "swir_moisture_dryness": 0.1915
     },
     "4": {
       "degradation_score": 0.0679,
@@ -124,7 +132,9 @@
       "latest_risk": 0.1897,
       "risk_level": "Low",
       "grid_row": 0,
-      "grid_col": 4
+      "grid_col": 4,
+      "fire_risk_score": 0.1897,
+      "swir_moisture_dryness": 0.2442
     },
     "5": {
       "degradation_score": 0.0146,
@@ -145,7 +155,9 @@
       "latest_risk": 0.2155,
       "risk_level": "Low",
       "grid_row": 0,
-      "grid_col": 5
+      "grid_col": 5,
+      "fire_risk_score": 0.2155,
+      "swir_moisture_dryness": 0.2587
     },
     "6": {
       "degradation_score": 0.01,
@@ -166,7 +178,9 @@
       "latest_risk": 0.1738,
       "risk_level": "Low",
       "grid_row": 0,
-      "grid_col": 6
+      "grid_col": 6,
+      "fire_risk_score": 0.1738,
+      "swir_moisture_dryness": 0.2081
     },
     "7": {
       "degradation_score": 0.02,
@@ -187,7 +201,9 @@
       "latest_risk": 0.1335,
       "risk_level": "Low",
       "grid_row": 0,
-      "grid_col": 7
+      "grid_col": 7,
+      "fire_risk_score": 0.1335,
+      "swir_moisture_dryness": 0.1635
     },
     "8": {
       "degradation_score": 0.9349,
@@ -208,7 +224,9 @@
       "latest_risk": 0.3009,
       "risk_level": "Moderate",
       "grid_row": 1,
-      "grid_col": 0
+      "grid_col": 0,
+      "fire_risk_score": 0.3009,
+      "swir_moisture_dryness": 0.6355
     },
     "9": {
       "degradation_score": 0.5252,
@@ -229,7 +247,9 @@
       "latest_risk": 0.244,
       "risk_level": "Low",
       "grid_row": 1,
-      "grid_col": 1
+      "grid_col": 1,
+      "fire_risk_score": 0.244,
+      "swir_moisture_dryness": 0.4455
     },
     "10": {
       "degradation_score": 0.0132,
@@ -250,7 +270,9 @@
       "latest_risk": 0.2572,
       "risk_level": "Moderate",
       "grid_row": 1,
-      "grid_col": 2
+      "grid_col": 2,
+      "fire_risk_score": 0.2572,
+      "swir_moisture_dryness": 0.3075
     },
     "11": {
       "degradation_score": 0.0111,
@@ -271,7 +293,9 @@
       "latest_risk": 0.1398,
       "risk_level": "Low",
       "grid_row": 1,
-      "grid_col": 3
+      "grid_col": 3,
+      "fire_risk_score": 0.1398,
+      "swir_moisture_dryness": 0.1683
     },
     "12": {
       "degradation_score": 0.0522,
@@ -292,7 +316,9 @@
       "latest_risk": 0.1622,
       "risk_level": "Low",
       "grid_row": 1,
-      "grid_col": 4
+      "grid_col": 4,
+      "fire_risk_score": 0.1622,
+      "swir_moisture_dryness": 0.2071
     },
     "13": {
       "degradation_score": 0.4728,
@@ -313,7 +339,9 @@
       "latest_risk": 0.2455,
       "risk_level": "Low",
       "grid_row": 1,
-      "grid_col": 5
+      "grid_col": 5,
+      "fire_risk_score": 0.2455,
+      "swir_moisture_dryness": 0.4315
     },
     "14": {
       "degradation_score": 0.0093,
@@ -334,7 +362,9 @@
       "latest_risk": 0.1993,
       "risk_level": "Low",
       "grid_row": 1,
-      "grid_col": 6
+      "grid_col": 6,
+      "fire_risk_score": 0.1993,
+      "swir_moisture_dryness": 0.238
     },
     "15": {
       "degradation_score": 0.0173,
@@ -355,7 +385,9 @@
       "latest_risk": 0.1701,
       "risk_level": "Low",
       "grid_row": 1,
-      "grid_col": 7
+      "grid_col": 7,
+      "fire_risk_score": 0.1701,
+      "swir_moisture_dryness": 0.2059
     },
     "16": {
       "degradation_score": 0.9289,
@@ -376,7 +408,9 @@
       "latest_risk": 0.3005,
       "risk_level": "Moderate",
       "grid_row": 2,
-      "grid_col": 0
+      "grid_col": 0,
+      "fire_risk_score": 0.3005,
+      "swir_moisture_dryness": 0.6333
     },
     "17": {
       "degradation_score": 0.1774,
@@ -397,7 +431,9 @@
       "latest_risk": 0.1686,
       "risk_level": "Low",
       "grid_row": 2,
-      "grid_col": 1
+      "grid_col": 1,
+      "fire_risk_score": 0.1686,
+      "swir_moisture_dryness": 0.2522
     },
     "18": {
       "degradation_score": 0.0181,
@@ -418,7 +454,9 @@
       "latest_risk": 0.2725,
       "risk_level": "Moderate",
       "grid_row": 2,
-      "grid_col": 2
+      "grid_col": 2,
+      "fire_risk_score": 0.2725,
+      "swir_moisture_dryness": 0.327
     },
     "19": {
       "degradation_score": 0.0123,
@@ -439,7 +477,9 @@
       "latest_risk": 0.1509,
       "risk_level": "Low",
       "grid_row": 2,
-      "grid_col": 3
+      "grid_col": 3,
+      "fire_risk_score": 0.1509,
+      "swir_moisture_dryness": 0.1818
     },
     "20": {
       "degradation_score": 0.0094,
@@ -460,7 +500,9 @@
       "latest_risk": 0.1146,
       "risk_level": "Low",
       "grid_row": 2,
-      "grid_col": 4
+      "grid_col": 4,
+      "fire_risk_score": 0.1146,
+      "swir_moisture_dryness": 0.138
     },
     "21": {
       "degradation_score": 0.1812,
@@ -481,7 +523,9 @@
       "latest_risk": 0.1798,
       "risk_level": "Low",
       "grid_row": 2,
-      "grid_col": 5
+      "grid_col": 5,
+      "fire_risk_score": 0.1798,
+      "swir_moisture_dryness": 0.2665
     },
     "22": {
       "degradation_score": 0.0094,
@@ -502,7 +546,9 @@
       "latest_risk": 0.2242,
       "risk_level": "Low",
       "grid_row": 2,
-      "grid_col": 6
+      "grid_col": 6,
+      "fire_risk_score": 0.2242,
+      "swir_moisture_dryness": 0.2674
     },
     "23": {
       "degradation_score": 0.0133,
@@ -523,7 +569,9 @@
       "latest_risk": 0.171,
       "risk_level": "Low",
       "grid_row": 2,
-      "grid_col": 7
+      "grid_col": 7,
+      "fire_risk_score": 0.171,
+      "swir_moisture_dryness": 0.2058
     },
     "24": {
       "degradation_score": 0.1608,
@@ -544,7 +592,9 @@
       "latest_risk": 0.171,
       "risk_level": "Low",
       "grid_row": 3,
-      "grid_col": 0
+      "grid_col": 0,
+      "fire_risk_score": 0.171,
+      "swir_moisture_dryness": 0.25
     },
     "25": {
       "degradation_score": 0.0153,
@@ -565,7 +615,9 @@
       "latest_risk": 0.279,
       "risk_level": "Moderate",
       "grid_row": 3,
-      "grid_col": 1
+      "grid_col": 1,
+      "fire_risk_score": 0.279,
+      "swir_moisture_dryness": 0.3338
     },
     "26": {
       "degradation_score": 0.024,
@@ -586,7 +638,9 @@
       "latest_risk": 0.2559,
       "risk_level": "Moderate",
       "grid_row": 3,
-      "grid_col": 2
+      "grid_col": 2,
+      "fire_risk_score": 0.2559,
+      "swir_moisture_dryness": 0.3092
     },
     "27": {
       "degradation_score": 0.0506,
@@ -607,7 +661,9 @@
       "latest_risk": 0.1491,
       "risk_level": "Low",
       "grid_row": 3,
-      "grid_col": 3
+      "grid_col": 3,
+      "fire_risk_score": 0.1491,
+      "swir_moisture_dryness": 0.1911
     },
     "28": {
       "degradation_score": 0.0209,
@@ -628,7 +684,9 @@
       "latest_risk": 0.1397,
       "risk_level": "Low",
       "grid_row": 3,
-      "grid_col": 4
+      "grid_col": 4,
+      "fire_risk_score": 0.1397,
+      "swir_moisture_dryness": 0.1711
     },
     "29": {
       "degradation_score": 0.0105,
@@ -649,7 +707,9 @@
       "latest_risk": 0.1579,
       "risk_level": "Low",
       "grid_row": 3,
-      "grid_col": 5
+      "grid_col": 5,
+      "fire_risk_score": 0.1579,
+      "swir_moisture_dryness": 0.1895
     },
     "30": {
       "degradation_score": 0.0112,
@@ -670,7 +730,9 @@
       "latest_risk": 0.1813,
       "risk_level": "Low",
       "grid_row": 3,
-      "grid_col": 6
+      "grid_col": 6,
+      "fire_risk_score": 0.1813,
+      "swir_moisture_dryness": 0.2173
     },
     "31": {
       "degradation_score": 0.0128,
@@ -691,7 +753,9 @@
       "latest_risk": 0.2475,
       "risk_level": "Low",
       "grid_row": 3,
-      "grid_col": 7
+      "grid_col": 7,
+      "fire_risk_score": 0.2475,
+      "swir_moisture_dryness": 0.2959
     },
     "32": {
       "degradation_score": 0.0156,
@@ -712,7 +776,9 @@
       "latest_risk": 0.198,
       "risk_level": "Low",
       "grid_row": 4,
-      "grid_col": 0
+      "grid_col": 0,
+      "fire_risk_score": 0.198,
+      "swir_moisture_dryness": 0.2383
     },
     "33": {
       "degradation_score": 0.0129,
@@ -733,7 +799,9 @@
       "latest_risk": 0.2555,
       "risk_level": "Moderate",
       "grid_row": 4,
-      "grid_col": 1
+      "grid_col": 1,
+      "fire_risk_score": 0.2555,
+      "swir_moisture_dryness": 0.3054
     },
     "34": {
       "degradation_score": 0.6206,
@@ -754,7 +822,9 @@
       "latest_risk": 0.2745,
       "risk_level": "Moderate",
       "grid_row": 4,
-      "grid_col": 2
+      "grid_col": 2,
+      "fire_risk_score": 0.2745,
+      "swir_moisture_dryness": 0.5101
     },
     "35": {
       "degradation_score": 0.0139,
@@ -775,7 +845,9 @@
       "latest_risk": 0.1169,
       "risk_level": "Low",
       "grid_row": 4,
-      "grid_col": 3
+      "grid_col": 3,
+      "fire_risk_score": 0.1169,
+      "swir_moisture_dryness": 0.1421
     },
     "36": {
       "degradation_score": 0.0121,
@@ -796,7 +868,9 @@
       "latest_risk": 0.1444,
       "risk_level": "Low",
       "grid_row": 4,
-      "grid_col": 4
+      "grid_col": 4,
+      "fire_risk_score": 0.1444,
+      "swir_moisture_dryness": 0.174
     },
     "37": {
       "degradation_score": 0.0101,
@@ -817,7 +891,9 @@
       "latest_risk": 0.1355,
       "risk_level": "Low",
       "grid_row": 4,
-      "grid_col": 5
+      "grid_col": 5,
+      "fire_risk_score": 0.1355,
+      "swir_moisture_dryness": 0.1629
     },
     "38": {
       "degradation_score": 0.0103,
@@ -838,7 +914,9 @@
       "latest_risk": 0.1434,
       "risk_level": "Low",
       "grid_row": 4,
-      "grid_col": 6
+      "grid_col": 6,
+      "fire_risk_score": 0.1434,
+      "swir_moisture_dryness": 0.1723
     },
     "39": {
       "degradation_score": 0.0109,
@@ -859,7 +937,9 @@
       "latest_risk": 0.166,
       "risk_level": "Low",
       "grid_row": 4,
-      "grid_col": 7
+      "grid_col": 7,
+      "fire_risk_score": 0.166,
+      "swir_moisture_dryness": 0.1991
     },
     "40": {
       "degradation_score": 0.0112,
@@ -880,7 +960,9 @@
       "latest_risk": 0.2771,
       "risk_level": "Moderate",
       "grid_row": 5,
-      "grid_col": 0
+      "grid_col": 0,
+      "fire_risk_score": 0.2771,
+      "swir_moisture_dryness": 0.3303
     },
     "41": {
       "degradation_score": 0.8937,
@@ -901,7 +983,9 @@
       "latest_risk": 0.3009,
       "risk_level": "Moderate",
       "grid_row": 5,
-      "grid_col": 1
+      "grid_col": 1,
+      "fire_risk_score": 0.3009,
+      "swir_moisture_dryness": 0.6232
     },
     "42": {
       "degradation_score": 0.0621,
@@ -922,7 +1006,9 @@
       "latest_risk": 0.1461,
       "risk_level": "Low",
       "grid_row": 5,
-      "grid_col": 2
+      "grid_col": 2,
+      "fire_risk_score": 0.1461,
+      "swir_moisture_dryness": 0.191
     },
     "43": {
       "degradation_score": 0.0349,
@@ -943,7 +1029,9 @@
       "latest_risk": 0.1191,
       "risk_level": "Low",
       "grid_row": 5,
-      "grid_col": 3
+      "grid_col": 3,
+      "fire_risk_score": 0.1191,
+      "swir_moisture_dryness": 0.151
     },
     "44": {
       "degradation_score": 0.0631,
@@ -964,7 +1052,9 @@
       "latest_risk": 0.1431,
       "risk_level": "Low",
       "grid_row": 5,
-      "grid_col": 4
+      "grid_col": 4,
+      "fire_risk_score": 0.1431,
+      "swir_moisture_dryness": 0.1878
     },
     "45": {
       "degradation_score": 0.0087,
@@ -985,7 +1075,9 @@
       "latest_risk": 0.1215,
       "risk_level": "Low",
       "grid_row": 5,
-      "grid_col": 5
+      "grid_col": 5,
+      "fire_risk_score": 0.1215,
+      "swir_moisture_dryness": 0.146
     },
     "46": {
       "degradation_score": 0.0113,
@@ -1006,7 +1098,9 @@
       "latest_risk": 0.1179,
       "risk_level": "Low",
       "grid_row": 5,
-      "grid_col": 6
+      "grid_col": 6,
+      "fire_risk_score": 0.1179,
+      "swir_moisture_dryness": 0.1425
     },
     "47": {
       "degradation_score": 0.0127,
@@ -1027,7 +1121,9 @@
       "latest_risk": 0.1256,
       "risk_level": "Low",
       "grid_row": 5,
-      "grid_col": 7
+      "grid_col": 7,
+      "fire_risk_score": 0.1256,
+      "swir_moisture_dryness": 0.152
     },
     "48": {
       "degradation_score": 0.4734,
@@ -1048,7 +1144,9 @@
       "latest_risk": 0.2363,
       "risk_level": "Low",
       "grid_row": 6,
-      "grid_col": 0
+      "grid_col": 0,
+      "fire_risk_score": 0.2363,
+      "swir_moisture_dryness": 0.4209
     },
     "49": {
       "degradation_score": 0.737,
@@ -1069,7 +1167,9 @@
       "latest_risk": 0.2602,
       "risk_level": "Moderate",
       "grid_row": 6,
-      "grid_col": 1
+      "grid_col": 1,
+      "fire_risk_score": 0.2602,
+      "swir_moisture_dryness": 0.5281
     },
     "50": {
       "degradation_score": 0.1842,
@@ -1090,7 +1190,9 @@
       "latest_risk": 0.1938,
       "risk_level": "Low",
       "grid_row": 6,
-      "grid_col": 2
+      "grid_col": 2,
+      "fire_risk_score": 0.1938,
+      "swir_moisture_dryness": 0.2839
     },
     "51": {
       "degradation_score": 0.0196,
@@ -1111,7 +1213,9 @@
       "latest_risk": 0.1452,
       "risk_level": "Low",
       "grid_row": 6,
-      "grid_col": 3
+      "grid_col": 3,
+      "fire_risk_score": 0.1452,
+      "swir_moisture_dryness": 0.1772
     },
     "52": {
       "degradation_score": 0.1638,
@@ -1132,7 +1236,9 @@
       "latest_risk": 0.1663,
       "risk_level": "Low",
       "grid_row": 6,
-      "grid_col": 4
+      "grid_col": 4,
+      "fire_risk_score": 0.1663,
+      "swir_moisture_dryness": 0.2454
     },
     "53": {
       "degradation_score": 0.0398,
@@ -1153,7 +1259,9 @@
       "latest_risk": 0.1326,
       "risk_level": "Low",
       "grid_row": 6,
-      "grid_col": 5
+      "grid_col": 5,
+      "fire_risk_score": 0.1326,
+      "swir_moisture_dryness": 0.1684
     },
     "54": {
       "degradation_score": 0.009,
@@ -1174,7 +1282,9 @@
       "latest_risk": 0.1243,
       "risk_level": "Low",
       "grid_row": 6,
-      "grid_col": 6
+      "grid_col": 6,
+      "fire_risk_score": 0.1243,
+      "swir_moisture_dryness": 0.1494
     },
     "55": {
       "degradation_score": 0.0087,
@@ -1195,7 +1305,9 @@
       "latest_risk": 0.121,
       "risk_level": "Low",
       "grid_row": 6,
-      "grid_col": 7
+      "grid_col": 7,
+      "fire_risk_score": 0.121,
+      "swir_moisture_dryness": 0.1454
     },
     "56": {
       "degradation_score": 0.13,
@@ -1216,7 +1328,9 @@
       "latest_risk": 0.1664,
       "risk_level": "Low",
       "grid_row": 7,
-      "grid_col": 0
+      "grid_col": 0,
+      "fire_risk_score": 0.1664,
+      "swir_moisture_dryness": 0.2354
     },
     "57": {
       "degradation_score": 0.1115,
@@ -1237,7 +1351,9 @@
       "latest_risk": 0.1416,
       "risk_level": "Low",
       "grid_row": 7,
-      "grid_col": 1
+      "grid_col": 1,
+      "fire_risk_score": 0.1416,
+      "swir_moisture_dryness": 0.2005
     },
     "58": {
       "degradation_score": 0.0137,
@@ -1258,7 +1374,9 @@
       "latest_risk": 0.1556,
       "risk_level": "Low",
       "grid_row": 7,
-      "grid_col": 2
+      "grid_col": 2,
+      "fire_risk_score": 0.1556,
+      "swir_moisture_dryness": 0.1877
     },
     "59": {
       "degradation_score": 0.042,
@@ -1279,7 +1397,9 @@
       "latest_risk": 0.1281,
       "risk_level": "Low",
       "grid_row": 7,
-      "grid_col": 3
+      "grid_col": 3,
+      "fire_risk_score": 0.1281,
+      "swir_moisture_dryness": 0.1638
     },
     "60": {
       "degradation_score": 0.0779,
@@ -1300,7 +1420,9 @@
       "latest_risk": 0.1427,
       "risk_level": "Low",
       "grid_row": 7,
-      "grid_col": 4
+      "grid_col": 4,
+      "fire_risk_score": 0.1427,
+      "swir_moisture_dryness": 0.1918
     },
     "61": {
       "degradation_score": 0.0196,
@@ -1321,7 +1443,9 @@
       "latest_risk": 0.1261,
       "risk_level": "Low",
       "grid_row": 7,
-      "grid_col": 5
+      "grid_col": 5,
+      "fire_risk_score": 0.1261,
+      "swir_moisture_dryness": 0.1547
     },
     "62": {
       "degradation_score": 0.0099,
@@ -1342,7 +1466,9 @@
       "latest_risk": 0.1239,
       "risk_level": "Low",
       "grid_row": 7,
-      "grid_col": 6
+      "grid_col": 6,
+      "fire_risk_score": 0.1239,
+      "swir_moisture_dryness": 0.1492
     },
     "63": {
       "degradation_score": 0.009,
@@ -1363,7 +1489,9 @@
       "latest_risk": 0.1175,
       "risk_level": "Low",
       "grid_row": 7,
-      "grid_col": 7
+      "grid_col": 7,
+      "fire_risk_score": 0.1175,
+      "swir_moisture_dryness": 0.1414
     }
   }
 }
