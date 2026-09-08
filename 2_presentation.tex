@@ -166,9 +166,10 @@
 % --- SLIDE 4: SYSTEM ARCHITECTURE (DECOUPLED 4-TIER DESIGN) ---
 \begin{frame}{3. Application Architecture (Decoupled 4-Tier Design)}
     \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Neelam Naga Naren Tejesh}} \quad | \quad Decoupled 4-Tier Client-Server Architecture}
+    \vspace{-0.35cm}
     \centering
     \IfFileExists{slides_assets/system_architecture.png}{
-        \includegraphics[width=0.98\linewidth, height=5.3cm, keepaspectratio]{slides_assets/system_architecture.png}
+        \includegraphics[width=\linewidth, height=6.2cm, keepaspectratio]{slides_assets/system_architecture.png}
     }{
         \fbox{\begin{minipage}{\linewidth}\centering \vspace{1.5cm} [System Architecture Diagram] \vspace{1.5cm}\end{minipage}}
     }
@@ -177,9 +178,10 @@
 % --- SLIDE 5: END-TO-END DATA FLOW PIPELINE ---
 \begin{frame}{4. End-to-End Data Flow Pipeline (Execution Sequence)}
     \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Neelam Naga Naren Tejesh}} \quad | \quad In-Memory Slicing \& Multi-Model Inference Lifecycle}
+    \vspace{-0.35cm}
     \centering
     \IfFileExists{slides_assets/data_flow.png}{
-        \includegraphics[width=0.98\linewidth, height=5.3cm, keepaspectratio]{slides_assets/data_flow.png}
+        \includegraphics[width=\linewidth, height=6.2cm, keepaspectratio]{slides_assets/data_flow.png}
     }{
         \fbox{\begin{minipage}{\linewidth}\centering \vspace{1.5cm} [Data Flow Pipeline Diagram] \vspace{1.5cm}\end{minipage}}
     }
@@ -373,31 +375,31 @@
 % --- SLIDE 12: A* SAFE RANGER PATROL ROUTE PLANNER ---
 \begin{frame}{11. Dynamic A* Safe Ranger Patrol Route Planner}
     \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: D Vasishta}} \quad | \quad Tactical Hazard-Aware Forest Patrol Routing}
-    \begin{columns}[c]
-        \begin{column}{0.50\textwidth}
-            \begin{block}{Multi-Hazard Traversal Cost Function}
+    \begin{columns}[t]
+        \begin{column}{0.49\textwidth}
+            \begin{block}{Multi-Hazard Traversal Cost}
                 \footnotesize
-                Computes optimal traversal between any start post and destination patch on the $8 \times 8$ grid:
-                $$C(p) = 0.4 \cdot \text{FireRisk}(p) + 0.3 \cdot \text{Degradation}(p) + 0.3 \cdot \text{Wildlife}(p)$$
+                \textbf{Grid Edge Cost Function} ($8 \times 8$ graph):
+                \vspace{-2pt}
+                $$C(p) = 0.4 \cdot \text{Fire}(p) + 0.3 \cdot \text{Deg}(p) + 0.3 \cdot \text{Wildlife}(p)$$
+                \vspace{-4pt}
                 \begin{itemize}
-                    \item \textbf{Heuristic Function:} Manhattan grid distance $h(p) = |r_p - r_{\text{dest}}| + |c_p - c_{\text{dest}}|$.
-                    \item \textbf{Priority Cost Minimization:} $f(p) = g(p) + h(p)$ steered through safe, low-resistance patches.
-                    \item \textbf{Safety Score Metric:} Output quantified as:
-                    $$\text{Safety Score} = \max(0, 100 - 10 \cdot C_{\text{total}})$$
+                    \setlength{\itemsep}{2pt}
+                    \item \textbf{Manhattan Heuristic:} $h(p) = |r_p - r_{\text{dest}}| + |c_p - c_{\text{dest}}|$.
+                    \item \textbf{A* Minimization:} $f(p) = g(p) + h(p)$ traverses safe, low-resistance patches.
+                    \item \textbf{Safety Index:} $\text{Score} = \max(0, 100 - 10 \cdot C_{\text{total}})$.
                 \end{itemize}
             \end{block}
         \end{column}
-        \begin{column}{0.50\textwidth}
-            \begin{exampleblock}{Dynamic Environmental Adaptability}
+        \begin{column}{0.51\textwidth}
+            \begin{exampleblock}{Dynamic Route Adaptation (On-the-Fly)}
                 \footnotesize
                 \begin{itemize}
-                    \item \textbf{Why Routes Are Fully Dynamic (Not Static):}
-                    \begin{itemize}
-                        \item \textbf{Wildfire Flare-ups:} When seasonal dryness increases SWIR fire risk in a patch, traversal cost spikes; A* reroutes patrols around it.
-                        \item \textbf{Animal Movement:} When elephant/tiger migration shifts corridor status, conflict zones update, preventing human-wildlife encounters.
-                        \item \textbf{Post-Rainfall Slips:} Monsoon saturation triggers slope hazard increases, automatically redirecting rangers away from landslide zones.
-                    \end{itemize}
-                    \item \textbf{Operational Deployment:} Rangers receive turn-by-turn waypoint sequences ($P_0 \to P_1 \to \dots \to P_k$) with hazard warnings.
+                    \setlength{\itemsep}{2pt}
+                    \item \textbf{Wildfire Flare-ups:} When seasonal dryness increases SWIR fire risk, cost surges; A* dynamically routes around the blaze.
+                    \item \textbf{Wildlife Movements:} Active corridor movements add conflict penalty ($+0.4$), steering patrols away from herd crossings.
+                    \item \textbf{Monsoon Landslips:} Rain saturation flags steep slopes as risky, automatically detouring rangers around slip zones.
+                    \item \textbf{Tactical Output:} Dispatches turn-by-turn waypoints ($P_0 \to P_1 \to \dots \to P_k$) with hazard alerts and safety scores.
                 \end{itemize}
             \end{exampleblock}
         \end{column}
@@ -560,29 +562,31 @@
 % --- SLIDE 18: SUMMARY & ROADMAP ---
 \begin{frame}{17. Review 1 Summary \& Roadmap for Review 2}
     \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Ande Tarak}} \quad | \quad Implementation Progress ($\approx 85\%$ Completed)}
-    \begin{columns}[c]
-        \begin{column}{0.50\textwidth}
-            \begin{block}{Panel Review 1 Status ($\approx 85\%$ Done)}
-                \small
+    \begin{columns}[t]
+        \begin{column}{0.47\textwidth}
+            \begin{block}{Review 1 Completed ($\approx 85\%$)}
+                \footnotesize
                 \begin{itemize}
-                    \item[$\checkmark$] Live Google Earth Engine multi-sensor streaming.
-                    \item[$\checkmark$] Dynamic date range selector (2018--2025).
-                    \item[$\checkmark$] Mountain construction suitability index \& modal.
-                    \item[$\checkmark$] Landslide hazard prediction \& bio-mitigations.
-                    \item[$\checkmark$] Wildlife corridors \& IPCC carbon accounting.
-                    \item[$\checkmark$] Dynamic GA threshold adaptation ($85.7\%$ F1).
-                    \item[$\checkmark$] Cyber security rate limiting \& sanitization.
+                    \setlength{\itemsep}{2pt}
+                    \item[$\checkmark$] \textbf{Live GEE Streaming:} Sentinel-2, DEM slope, CHIRPS rain.
+                    \item[$\checkmark$] \textbf{Dynamic Time Filter:} 72-month NDVI trajectory series.
+                    \item[$\checkmark$] \textbf{Mountain Suitability:} Building safety audit ($0-100$).
+                    \item[$\checkmark$] \textbf{Landslide Physics:} Slope shear \& pore pressure gating.
+                    \item[$\checkmark$] \textbf{Wildlife \& A* Patrol:} Migration paths \& dynamic routing.
+                    \item[$\checkmark$] \textbf{Adaptive GA:} Seasonal threshold tuning ($85.7\%$ F1).
+                    \item[$\checkmark$] \textbf{Cyber Defense:} SlowAPI rate limiting \& Pydantic audits.
                 \end{itemize}
             \end{block}
         \end{column}
-        \begin{column}{0.50\textwidth}
-            \begin{exampleblock}{Roadmap for Review 2 (Target: 85--90\%)}
+        \begin{column}{0.53\textwidth}
+            \begin{exampleblock}{Roadmap for Review 2 (Target: 95\%)}
                 \footnotesize
                 \begin{itemize}
-                    \item \textbf{GA for Feature \& Band Selection:} Optimize binary chromosomes ($[b_1, \dots, b_N] \in \{0, 1\}^N$) to select optimal Sentinel-2 spectral indices (NDWI, SAVI, SWIR ratios) maximizing F1-score while pruning redundancy.
-                    \item \textbf{Global Interactive Location Selection:} Leaflet polygon/rectangle drawing tool with global geocoding search for on-the-fly ingestion of any forest worldwide.
-                    \item \textbf{Role-Based Access Control (RBAC):} JWT authentication with distinct privilege tiers (Field Ranger, Senior Conservator, Public Researcher) to govern construction permits and field PDF dispatches.
-                    \item \textbf{Production Cloud Deployment:} Multi-stage Docker container deployed on Google Cloud Run.
+                    \setlength{\itemsep}{2.5pt}
+                    \item \textbf{GA Spectral Feature Selection:} Optimize binary chromosomes ($[b_1,\dots,b_N] \in \{0, 1\}^N$) to select optimal Sentinel-2 indices (NDWI, SAVI, SWIR ratios) maximizing F1.
+                    \item \textbf{Global Interactive ROI Selection:} Leaflet polygon drawing with geocoding search for on-the-fly planetary ingestion of any forest worldwide.
+                    \item \textbf{Role-Based Access Control (RBAC):} Tiered JWT authentication (Field Ranger, Conservator, Auditor) governing permits and PDF dispatches.
+                    \item \textbf{Production Cloud Deployment:} Multi-stage Docker container deployed on Google Cloud Run with CI/CD.
                 \end{itemize}
             \end{exampleblock}
         \end{column}
