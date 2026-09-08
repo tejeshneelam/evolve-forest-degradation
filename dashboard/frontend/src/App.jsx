@@ -16,7 +16,6 @@ const TABS = [
   { id: 'conservation', label: '🌱 Conservation',      component: ConservationTab },
   { id: 'ga',           label: '🧬 GA Adaptation Log', component: GALog },
   { id: 'reports',      label: '📄 Reports',           component: ReportExport },
-  { id: 'security',     label: '🛡️ Cyber Security',    component: SecurityTab },
 ];
 
 export default function App() {
