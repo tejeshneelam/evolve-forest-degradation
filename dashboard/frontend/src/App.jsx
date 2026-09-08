@@ -6,7 +6,6 @@ import RiskDashboard from './components/RiskDashboard';
 import ConservationTab from './components/ConservationTab';
 import GALog from './components/GALog';
 import ReportExport from './components/ReportExport';
-import SecurityTab from './components/SecurityTab';
 import './App.css';
 
 const TABS = [
@@ -16,17 +15,23 @@ const TABS = [
   { id: 'conservation', label: '🌱 Conservation',      component: ConservationTab },
   { id: 'ga',           label: '🧬 GA Adaptation Log', component: GALog },
   { id: 'reports',      label: '📄 Reports',           component: ReportExport },
-  { id: 'security',     label: '🛡️ Cyber Security',    component: SecurityTab },
 ];
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('map');
-  const [summary, setSummary]     = useState(null);
+  const [activeTab, setActiveTab]         = useState('map');
+  const [summary, setSummary]             = useState(null);
+  const [apiConnected, setApiConnected]   = useState(null);
 
   useEffect(() => {
     api.getSummary()
-      .then(setSummary)
-      .catch(() => setSummary(null));
+      .then(res => {
+        setSummary(res);
+        setApiConnected(true);
+      })
+      .catch(() => {
+        setSummary(null);
+        setApiConnected(false);
+      });
   }, []);
 
   const ActiveComponent = TABS.find(t => t.id === activeTab)?.component;
@@ -81,6 +86,12 @@ export default function App() {
         )}
 
         <div className="sidebar-footer">
+          <div className="api-status-pill">
+            <span className={`status-dot ${apiConnected === true ? 'online' : apiConnected === false ? 'offline' : 'checking'}`}></span>
+            <span className="status-text">
+              {apiConnected === true ? 'FastAPI Active (8000)' : apiConnected === false ? 'API Offline' : 'Connecting...'}
+            </span>
+          </div>
           <div className="footer-text">BTech Final Year Project</div>
           <div className="footer-text">Amrita School of Computing</div>
           <div className="footer-badge">2019 – 2025</div>

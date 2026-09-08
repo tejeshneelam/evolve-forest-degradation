@@ -13,6 +13,7 @@ export default function GALog() {
   const [mutationRate, setMutationRate]       = useState(0.08);
   const [isEvolving, setIsEvolving]           = useState(false);
   const [evolutionSuccessMsg, setSuccessMsg]  = useState("");
+  const [errorMsg, setErrorMsg]              = useState("");
 
   useEffect(() => {
     Promise.all([
@@ -32,6 +33,7 @@ export default function GALog() {
     e.preventDefault();
     setIsEvolving(true);
     setSuccessMsg("");
+    setErrorMsg("");
 
     api.runGAAdaptation(targetObjective, popSize, mutationRate)
       .then(res => {
@@ -55,7 +57,7 @@ export default function GALog() {
       .catch(err => {
         console.error("Evolution error:", err);
         setIsEvolving(false);
-        alert(`Adaptation Error: ${err.message}`);
+        setErrorMsg(err.message || "Failed to execute genetic adaptation.");
       });
   };
 
@@ -163,6 +165,37 @@ export default function GALog() {
         {evolutionSuccessMsg && (
           <div style={{ marginTop: '12px', padding: '8px 12px', background: 'rgba(82, 183, 136, 0.15)', border: '1px solid var(--forest-500)', borderRadius: '4px', color: 'var(--forest-300)', fontSize: '12px' }}>
             {evolutionSuccessMsg}
+          </div>
+        )}
+
+        {errorMsg && (
+          <div style={{
+            marginTop: '12px',
+            padding: '10px 14px',
+            background: 'rgba(230, 57, 70, 0.15)',
+            border: '1px solid #E63946',
+            borderRadius: '6px',
+            color: '#FFB4B4',
+            fontSize: '12px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}>
+            <span>⚠️ {errorMsg}</span>
+            <button
+              type="button"
+              onClick={() => setErrorMsg("")}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: '#FFB4B4',
+                cursor: 'pointer',
+                fontSize: '14px',
+                padding: '0 6px'
+              }}
+            >
+              ✕
+            </button>
           </div>
         )}
       </div>

@@ -87,12 +87,15 @@ This deliverable establishes an automated defense-in-depth architecture adhering
 
 ---
 
-### F. Frontend Defense-in-Depth
+### F. Frontend Defense-in-Depth & Architectural Separation
 * **Files**: `dashboard/frontend/src/api/client.js`, `ForestMap.jsx`, `GALog.jsx`.
-* **Client-Side Validation**:
+* **Clean Architectural Separation of Concerns**:
+  * Cybersecurity mechanisms (SlowAPI rate limiting, coordinate bounds verification, OWASP response headers, forensic audit logging) are implemented and enforced natively at the backend middleware and API gateway layer.
+  * The frontend UI remains strictly dedicated to core ecological and forest degradation decision support (Forest Health, Wildlife Corridors, Risk, Conservation, GA Adaptation, and Reports), keeping the interface domain-focused and intuitive for forestry officers and stakeholders without exposing raw forensic security dashboards.
+* **Client-Side Validation & Transparent Throttling**:
   * Prevents malformed bounding box coordinates or inverted coordinates before dispatching network requests.
   * Checks `startDate <= endDate` on client-side calendar filters.
-  * Intercepts HTTP 429 status codes and presents a clear security alert advising users of the rate-limit timeout.
+  * Transparently intercepts HTTP 429 status codes via `handleResponse` in `client.js` and surfaces actionable, human-readable retry guidance whenever backend quotas are reached.
 
 ---
 
