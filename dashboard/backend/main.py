@@ -13,8 +13,9 @@ import json
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from dashboard.backend.database import init_db
 from dashboard.backend.routes import (
-    health, wildlife, risk, conservation, reports, ga_log, dynamic_region
+    health, wildlife, risk, conservation, reports, ga_log, dynamic_region, history
 )
 
 app = FastAPI(
@@ -25,6 +26,9 @@ app = FastAPI(
     ),
     version="2.0.0",
 )
+
+# Initialize embedded SQLite database schema
+init_db()
 
 # Allow React dev server (port 3000) to call the API
 app.add_middleware(
@@ -42,6 +46,7 @@ app.include_router(risk.router,         prefix="/api",        tags=["Risk"])
 app.include_router(conservation.router, prefix="/api",        tags=["Conservation"])
 app.include_router(ga_log.router,       prefix="/api",        tags=["GA Log"])
 app.include_router(reports.router,      prefix="/api",        tags=["Reports"])
+app.include_router(history.router,      prefix="/api",        tags=["History Vault"])
 
 
 @app.get("/")
