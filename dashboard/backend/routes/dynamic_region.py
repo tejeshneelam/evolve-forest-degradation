@@ -14,11 +14,14 @@ from dashboard.backend.utils import (
 )
 from dashboard.backend.services.gee_service import fetch_dynamic_region
 from dashboard.backend.services.inference_service import analyze_dynamic_region
+from dashboard.backend.database import insert_query_history
 
 router = APIRouter()
 
 # Global in-memory cache for the most recently processed dynamic region
 LATEST_DYNAMIC_ANALYSIS = None
+# Cache map of processed regions to make reloads instantaneous
+REGION_CACHE = {}
 
 
 class RegionRequest(BaseModel):
@@ -64,7 +67,7 @@ def process_region(request: Request, req: RegionRequest):
     Queries Google Earth Engine, runs EvOLve inference, and computes all features dynamically.
     Rate limited to max 30 requests per minute to prevent Earth Engine quota abuse.
     """
-    global LATEST_DYNAMIC_ANALYSIS
+    global LATEST_DYNAMIC_ANALYSIS, REGION_CACHE
     min_lon, min_lat, max_lon, max_lat = validate_coordinates(req.bbox)
     validate_date_range(req.start_date, req.end_date)
     sanitized_name = sanitize_string(req.region_name) or "Selected Region"
@@ -73,8 +76,14 @@ def process_region(request: Request, req: RegionRequest):
     if abs(max_lat - min_lat) > 0.35 or abs(max_lon - min_lon) > 0.35:
         raise HTTPException(400, "Selected region is too large for real-time analysis. Please choose an area under 35km x 35km.")
 
+    cache_key = f"{sanitized_name}_{min_lon:.3f}_{min_lat:.3f}_{max_lon:.3f}_{max_lat:.3f}_{req.start_date}_{req.end_date}"
+    if cache_key in REGION_CACHE:
+        print(f"⚡ Instant Cache Hit for: {sanitized_name}")
+        LATEST_DYNAMIC_ANALYSIS = REGION_CACHE[cache_key]
+        return LATEST_DYNAMIC_ANALYSIS
+
     try:
-        print(f"🛰️ Processing dynamic region: {req.region_name} | Bounds: {req.bbox} | Dates: {req.start_date} to {req.end_date}")
+        print(f"🛰️ Processing dynamic region: {sanitized_name} | Bounds: {req.bbox} | Dates: {req.start_date} to {req.end_date}")
         gee_data = fetch_dynamic_region(
             min_lon, min_lat, max_lon, max_lat,
             num_months=req.num_months,
@@ -82,10 +91,11 @@ def process_region(request: Request, req: RegionRequest):
             end_date=req.end_date
         )
         analysis = analyze_dynamic_region(gee_data)
-        analysis['region_name'] = req.region_name
+        analysis['region_name'] = sanitized_name
         analysis['start_date'] = gee_data.get('start_date')
         analysis['end_date'] = gee_data.get('end_date')
         LATEST_DYNAMIC_ANALYSIS = analysis
+        REGION_CACHE[cache_key] = analysis
 
         # Automatically record inspection in SQLite persistence vault
         try:
@@ -94,16 +104,17 @@ def process_region(request: Request, req: RegionRequest):
             patches = analysis.get("patches", [])
             deg_count = sum(1 for p in patches if p.get("degraded", False))
             log_query(
-                region_name=req.region_name,
+                region_name=sanitized_name,
                 bbox=req.bbox,
                 start_date=analysis.get('start_date'),
                 end_date=analysis.get('end_date'),
                 mean_ndvi=mean_ndvi,
                 degraded_patch_count=deg_count,
-                total_patches=len(patches)
+                total_patches=len(patches),
+                officer_id="OFFICER-GEE"
             )
-        except Exception:
-            pass
+        except Exception as db_err:
+            print(f"⚠️ Auto-log to SQLite failed: {db_err}")
 
         return analysis
     except Exception as e:

@@ -6,6 +6,7 @@ import RiskDashboard from './components/RiskDashboard';
 import ConservationTab from './components/ConservationTab';
 import GALog from './components/GALog';
 import ReportExport from './components/ReportExport';
+import HistoryVaultPage from './components/HistoryVaultPage';
 import SecurityTab from './components/SecurityTab';
 import './App.css';
 
@@ -15,6 +16,7 @@ const TABS = [
   { id: 'risk',         label: '🔥 Risk Dashboard',    component: RiskDashboard },
   { id: 'conservation', label: '🌱 Conservation',      component: ConservationTab },
   { id: 'ga',           label: '🧬 GA Adaptation Log', component: GALog },
+  { id: 'history',      label: '📜 History Vault',     component: HistoryVaultPage },
   { id: 'reports',      label: '📄 Reports',           component: ReportExport },
   { id: 'security',     label: '🛡️ Cyber Security',    component: SecurityTab },
 ];
@@ -22,12 +24,18 @@ const TABS = [
 export default function App() {
   const [activeTab, setActiveTab] = useState('map');
   const [summary, setSummary]     = useState(null);
+  const [reloadedSession, setReloadedSession] = useState(null);
 
   useEffect(() => {
     api.getSummary()
       .then(setSummary)
       .catch(() => setSummary(null));
   }, []);
+
+  const handleReloadSession = (session) => {
+    setReloadedSession({ ...session, _reloadTimestamp: Date.now() });
+    setActiveTab('map');
+  };
 
   const ActiveComponent = TABS.find(t => t.id === activeTab)?.component;
 
@@ -90,7 +98,13 @@ export default function App() {
       {/* ── Main Content ──────────────────────────────────────────────── */}
       <main className="main-content">
         <div className="tab-content">
-          {ActiveComponent && <ActiveComponent />}
+          {ActiveComponent && (
+            <ActiveComponent
+              reloadedSession={reloadedSession}
+              onReloadSession={handleReloadSession}
+              onClose={() => setActiveTab('map')}
+            />
+          )}
         </div>
       </main>
     </div>

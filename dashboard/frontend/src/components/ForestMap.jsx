@@ -49,7 +49,7 @@ const REGION_PRESETS = [
   }
 ];
 
-export default function ForestMap() {
+export default function ForestMap({ reloadedSession }) {
   const [mapData, setMapData]                 = useState(null);
   const [selectedPatch, setSelectedPatch]     = useState(null);
   const [patchSeries, setPatchSeries]         = useState(null);
@@ -72,6 +72,64 @@ export default function ForestMap() {
   // Diagnostic modals
   const [activeDiagnosticPatch, setActiveDiagnosticPatch]     = useState(null);
   const [activeConstructionPatch, setActiveConstructionPatch] = useState(null);
+
+  useEffect(() => {
+    if (reloadedSession) {
+      const sDate = reloadedSession.start_date || startDate;
+      const eDate = reloadedSession.end_date || endDate;
+      if (reloadedSession.start_date) setStartDate(reloadedSession.start_date);
+      if (reloadedSession.end_date) setEndDate(reloadedSession.end_date);
+
+      const rName = (reloadedSession.region_name || '').toLowerCase();
+      let matchedIdx = REGION_PRESETS.findIndex(p => 
+        p.name.toLowerCase().includes(rName) || rName.includes(p.name.toLowerCase())
+      );
+      if (matchedIdx === -1) {
+        if (rName.includes('amazon')) matchedIdx = 2;
+        else if (rName.includes('silent')) matchedIdx = 1;
+        else if (rName.includes('congo')) matchedIdx = 3;
+        else if (rName.includes('wayanad')) matchedIdx = 0;
+      }
+
+      let targetBbox = null;
+      let targetName = reloadedSession.region_name || "Selected Region";
+
+      if (matchedIdx !== -1) {
+        setSelectedPreset(matchedIdx);
+        targetBbox = REGION_PRESETS[matchedIdx].bbox;
+        targetName = REGION_PRESETS[matchedIdx].name;
+      } else if (reloadedSession.bbox) {
+        targetBbox = reloadedSession.bbox;
+      } else {
+        targetBbox = REGION_PRESETS[0].bbox;
+      }
+
+      if (targetBbox) {
+        setIsProcessingGEE(true);
+        setGeeStatusMsg(`🛰️ Recalling ${targetName} (${sDate} → ${eDate}) from History Vault...`);
+        api.processRegion(targetBbox, targetName, 24, sDate, eDate)
+          .then(res => {
+            setMapData(res);
+            setIsProcessingGEE(false);
+            setGeeStatusMsg('');
+            if (reloadedSession.patch_id) {
+              const p = res.patches?.find(pt => pt.patch_id === reloadedSession.patch_id);
+              if (p) {
+                handlePatchClick(p);
+              }
+            } else {
+              setSelectedPatch(null);
+              setPatchSeries(null);
+            }
+          })
+          .catch(err => {
+            console.error("Error reloading region session:", err);
+            setIsProcessingGEE(false);
+            setGeeStatusMsg('');
+          });
+      }
+    }
+  }, [reloadedSession]);
 
   useEffect(() => {
     // Check if an existing dynamic region is loaded, otherwise load baseline patches
@@ -520,7 +578,7 @@ export default function ForestMap() {
                     click: () => handlePatchClick(patch)
                   }}
                 >
-                  <Popup className="patch-popup" minWidth={360}>
+                  <Popup className="patch-popup" minWidth={360} maxHeight={480}>
                     <div className="popup-header">
                       <h3>Patch #{patch.patch_id} Details</h3>
                       {mapMode === 'construction' ? (
@@ -538,7 +596,7 @@ export default function ForestMap() {
                       )}
                     </div>
 
-                    <div className="popup-body">
+                    <div className="popup-body" style={{ maxHeight: '420px', overflowY: 'auto', overflowX: 'hidden', paddingRight: '8px' }}>
                       <div className="meta-grid">
                         <div>
                           <strong>Grid Coordinate:</strong>
