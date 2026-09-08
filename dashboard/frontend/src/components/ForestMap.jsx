@@ -115,19 +115,50 @@ export default function ForestMap() {
     let bbox = null;
     let name = "Selected Region";
 
+    // Date range validation
+    if (startDate && endDate && startDate > endDate) {
+      alert("⚠️ Validation Error: Start date cannot be after end date.");
+      return;
+    }
+
     if (selectedPreset === -1) {
-      // Custom coordinates
+      // Custom coordinates sanitization and validation
       try {
-        const parts = customBBox.split(',').map(s => parseFloat(s.trim()));
+        const cleanedStr = customBBox.replace(/<[^>]*?>/g, '').trim();
+        const parts = cleanedStr.split(',').map(s => parseFloat(s.trim()));
         if (parts.length === 4 && parts.every(p => !isNaN(p))) {
-          bbox = parts;
+          const [minLon, minLat, maxLon, maxLat] = parts;
+
+          // Enforce -90 <= lat <= 90 and -180 <= lon <= 180
+          if (minLat < -90 || minLat > 90 || maxLat < -90 || maxLat > 90) {
+            alert("⚠️ Geographic Bounds Error: Latitude must be between -90.0° and 90.0°.");
+            return;
+          }
+          if (minLat >= maxLat) {
+            alert("⚠️ Coordinate Order Error: min_lat must be strictly less than max_lat.");
+            return;
+          }
+          if (minLon < -180 || minLon > 180 || maxLon < -180 || maxLon > 180) {
+            alert("⚠️ Geographic Bounds Error: Longitude must be between -180.0° and 180.0°.");
+            return;
+          }
+          if (minLon >= maxLon) {
+            alert("⚠️ Coordinate Order Error: min_lon must be strictly less than max_lon.");
+            return;
+          }
+          if (Math.abs(maxLat - minLat) > 0.35 || Math.abs(maxLon - minLon) > 0.35) {
+            alert("⚠️ Region Size Limit: Area exceeds 35km x 35km maximum limit for real-time inference.");
+            return;
+          }
+
+          bbox = [minLon, minLat, maxLon, maxLat];
           name = "Custom Global ROI";
         } else {
-          alert("Please enter 4 valid coordinates: min_lon, min_lat, max_lon, max_lat");
+          alert("Please enter 4 valid numeric coordinates: min_lon, min_lat, max_lon, max_lat");
           return;
         }
       } catch {
-        alert("Invalid coordinate string");
+        alert("Invalid coordinate string syntax.");
         return;
       }
     } else {
@@ -149,7 +180,7 @@ export default function ForestMap() {
       })
       .catch(err => {
         console.error("GEE Ingestion failed:", err);
-        alert(`Earth Engine Error: ${err.message}`);
+        alert(err.message.includes('429') ? err.message : `Earth Engine Error: ${err.message}`);
         setIsProcessingGEE(false);
         setGeeStatusMsg('');
       });

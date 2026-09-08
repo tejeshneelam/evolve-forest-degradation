@@ -6,7 +6,7 @@ Forest health endpoints: patch scores, NDVI series, patch map.
 import os
 import json
 import numpy as np
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Path
 
 router = APIRouter()
 
@@ -175,7 +175,7 @@ def get_all_patches():
 
 
 @router.get("/patches/{patch_id}/ndvi-series")
-def get_ndvi_series(patch_id: int):
+def get_ndvi_series(patch_id: int = Path(..., ge=0, le=10000, description="Forest patch identifier (0 to 10000)")):
     """
     Returns the monthly NDVI time series for a single patch.
     Used for the click-to-inspect chart on the map.

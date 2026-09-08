@@ -6,6 +6,7 @@ import RiskDashboard from './components/RiskDashboard';
 import ConservationTab from './components/ConservationTab';
 import GALog from './components/GALog';
 import ReportExport from './components/ReportExport';
+import SecurityTab from './components/SecurityTab';
 import './App.css';
 
 const TABS = [
@@ -15,6 +16,7 @@ const TABS = [
   { id: 'conservation', label: '🌱 Conservation',      component: ConservationTab },
   { id: 'ga',           label: '🧬 GA Adaptation Log', component: GALog },
   { id: 'reports',      label: '📄 Reports',           component: ReportExport },
+  { id: 'security',     label: '🛡️ Cyber Security',    component: SecurityTab },
 ];
 
 export default function App() {
