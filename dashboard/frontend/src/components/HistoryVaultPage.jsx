@@ -43,6 +43,7 @@ export default function HistoryVaultPage({ onReloadSession, onClose }) {
       patch_id: patchId,
       grid_row: 0,
       grid_col: 0,
+      center: [11.650, 76.350],
       degradation_score: score,
       health_status: score > 0.45 ? 'Severely Degraded' : (score > 0.20 ? 'Degraded' : 'Healthy'),
       slope_deg: 33.89,
@@ -50,17 +51,46 @@ export default function HistoryVaultPage({ onReloadSession, onClose }) {
       construction_suitability: {
         safety_score: 2.0,
         verdict: 'HAZARD_PROHIBITED',
-        badge: 'High Hazard'
+        verdict_label: 'Prohibited Hazard Zone — High Collapse Risk',
+        badge: 'High Hazard',
+        color: '#E63946',
+        slope_deg: 33.89,
+        slope_category: 'Steep Mountain Escarpment (>20°)',
+        landslide_prob_pct: 86.4,
+        bearing_capacity: 'Extremely Low (<50 kPa)',
+        wildlife_corridor_conflict: false,
+        eco_status: 'Ecologically Fragile Escarpment',
+        mandatory_actions: [
+          'Prohibit structural foundation loading and residential construction.',
+          'Deploy deep-rooted bio-anchoring vegetation (Vetiver grass and native trees).',
+          'Construct contour runoff interceptor drainage to mitigate hydrostatic pore pressure.'
+        ],
+        soil_stability: 'Severely Fractured Colluvium — Shear Failure Imminent'
       },
       landslide: {
         risk_level: 'Critical',
         probability_pct: 86.4,
-        metrics: { slope_angle_deg: 33.89, rainfall_30d_mm: 530.9, clay_fraction: 0.38, tree_loss_pct: 42.0 },
-        factors: [
-          { factor: 'Excessive Slope Gradient', impact: '33.89° exceeds safe shear angle (25°)' },
-          { factor: 'Pore-Water Saturation', impact: 'High 90-day precipitation inducing hydro-static pressure' }
+        metrics: {
+          slope_angle_deg: 33.89,
+          tree_cover_pct: 28.5,
+          recent_loss_pct: 38.2,
+          rainfall_90d_mm: 530.9
+        },
+        factors: {
+          slope_weight: 0.95,
+          root_decay_weight: 0.85,
+          pore_pressure_weight: 0.90
+        },
+        primary_reasons: [
+          'Steep terrain slope gradient (33.89°) generates severe gravitational shear stress.',
+          'Vegetation canopy loss and depleted root anchoring layer reduce subsoil cohesion.',
+          'Heavy cumulative precipitation (530.9 mm) elevates hydrostatic pore-water pressure along slip planes.'
         ],
-        mitigations: ['Prohibit structural foundation loading', 'Deploy deep-rooted vetiver stabilization']
+        recommended_mitigations: [
+          'Prohibit structural foundation loading and excavation on steep slope facets.',
+          'Deploy deep-rooted bio-anchoring flora (Vetiver and native ficus root networks).',
+          'Construct contour runoff diversion trenches to relieve hydrostatic saturation.'
+        ]
       },
       start_ndvi: 0.2104,
       end_ndvi: 0.2104,

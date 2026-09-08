@@ -356,7 +356,10 @@ export default function PatchDetailModal({ patch, allPatches = [], regionName, o
                   Pixel-Level Degradation Attention (16x16 Grad-CAM)
                 </div>
                 <div style={{ display: 'inline-grid', gridTemplateColumns: 'repeat(16, 8px)', gap: '1.5px', background: '#000', padding: '4px', borderRadius: '4px' }}>
-                  {(patch.heatmap || Array(16).fill(0).map(() => Array(16).fill(0).map(() => Math.random()))).map((row, rIdx) => 
+                  {(Array.isArray(patch.heatmap) && Array.isArray(patch.heatmap[0]) 
+                    ? patch.heatmap 
+                    : Array.from({ length: 16 }, () => Array.from({ length: 16 }, () => Math.random()))
+                  ).map((row, rIdx) => 
                     row.map((val, cIdx) => {
                       const r = Math.floor(val * 255);
                       const g = Math.floor((1 - val) * 200);
