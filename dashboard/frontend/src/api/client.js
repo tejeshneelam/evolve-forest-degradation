@@ -69,12 +69,6 @@ export const api = {
     }).then(r => handleResponse(r, 'Failed to assess construction suitability'));
   },
 
-  // Security & Compliance Audit Logs
-  getAuditLogs: (limit = 50) => {
-    return fetch(`${API_BASE}/security/audit-logs?limit=${limit}`)
-      .then(r => handleResponse(r, 'Failed to retrieve audit telemetry'));
-  },
-
   // Health
   getSummary:      () => fetch(`${API_BASE}/summary`).then(r => handleResponse(r, 'Failed to load summary')),
   getPatches:      () => fetch(`${API_BASE}/patches`).then(r => handleResponse(r, 'Failed to load patches')),
