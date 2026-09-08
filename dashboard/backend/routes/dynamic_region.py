@@ -25,8 +25,15 @@ class RegionRequest(BaseModel):
     bbox: List[float] = Field(..., description="[min_lon, min_lat, max_lon, max_lat]")
     region_name: Optional[str] = Field("Selected Region", max_length=120)
     num_months: Optional[int] = Field(24, ge=1, le=120)
-    start_date: Optional[str] = Field(None, pattern=r"^\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])$")
-    end_date: Optional[str] = Field(None, pattern=r"^\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])$")
+    start_date: Optional[str] = Field(None, pattern=r"^\d{4}-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\d|3[01]))?$")
+    end_date: Optional[str] = Field(None, pattern=r"^\d{4}-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\d|3[01]))?$")
+
+    @field_validator("start_date", "end_date", mode="before")
+    @classmethod
+    def clean_empty_dates(cls, v: Optional[str]) -> Optional[str]:
+        if isinstance(v, str) and not v.strip():
+            return None
+        return v
 
     @field_validator("region_name")
     @classmethod

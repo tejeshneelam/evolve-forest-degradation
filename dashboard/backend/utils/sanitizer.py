@@ -10,7 +10,7 @@ from typing import List, Optional
 from fastapi import HTTPException
 
 
-DATE_REGEX = re.compile(r"^\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])$")
+DATE_REGEX = re.compile(r"^\d{4}-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\d|3[01]))?$")
 HTML_TAG_REGEX = re.compile(r"<[^>]*?>")
 DANGEROUS_PATTERNS = re.compile(
     r"(?:<script|javascript:|onerror=|onload=|eval\(|UNION\s+SELECT|--|\bDROP\b|\bINSERT\b)",
@@ -42,28 +42,29 @@ def sanitize_string(text: Optional[str], max_length: int = 120) -> Optional[str]
     return cleaned
 
 
-def validate_coordinates(bbox: List[float]) -> tuple:
+def validate_coordinates(bbox: List[float]) -> List[float]:
     """
-    Validates geographic coordinates bounding box: [min_lon, min_lat, max_lon, max_lat]
-    Enforces strict mathematical bounds:
-      -90.0 <= min_lat < max_lat <= 90.0
-      -180.0 <= min_lon < max_lon <= 180.0
+    Validates geographic bounding box [min_lon, min_lat, max_lon, max_lat].
+    Enforces WGS84 range: latitude in [-90, 90], longitude in [-180, 180],
+    and strictly min < max.
     """
-    if not isinstance(bbox, (list, tuple)) or len(bbox) != 4:
+    if not bbox or len(bbox) != 4:
         raise HTTPException(
             status_code=400,
-            detail="Bounding box must be an array of 4 floats: [min_lon, min_lat, max_lon, max_lat]"
+            detail="Bounding box must be an array of exactly 4 numeric coordinates: [min_lon, min_lat, max_lon, max_lat]."
         )
 
     try:
-        min_lon, min_lat, max_lon, max_lat = [float(x) for x in bbox]
+        min_lon = float(bbox[0])
+        min_lat = float(bbox[1])
+        max_lon = float(bbox[2])
+        max_lat = float(bbox[3])
     except (ValueError, TypeError):
         raise HTTPException(
             status_code=400,
-            detail="All bounding box coordinates must be valid floating-point numbers."
+            detail="Bounding box coordinates must be valid floating point numbers."
         )
 
-    # Latitude bounds
     if not (-90.0 <= min_lat <= 90.0) or not (-90.0 <= max_lat <= 90.0):
         raise HTTPException(
             status_code=400,
@@ -76,7 +77,6 @@ def validate_coordinates(bbox: List[float]) -> tuple:
             detail=f"Invalid latitude range: min_lat ({min_lat}) must be strictly less than max_lat ({max_lat})."
         )
 
-    # Longitude bounds
     if not (-180.0 <= min_lon <= 180.0) or not (-180.0 <= max_lon <= 180.0):
         raise HTTPException(
             status_code=400,
@@ -94,7 +94,7 @@ def validate_coordinates(bbox: List[float]) -> tuple:
 
 def validate_iso_date(date_str: Optional[str], field_name: str = "date") -> Optional[str]:
     """
-    Validates ISO-8601 calendar date format (YYYY-MM-DD) with calendar validation.
+    Validates ISO calendar date format (YYYY-MM or YYYY-MM-DD) with calendar validation.
     """
     if not date_str:
         return None
@@ -103,11 +103,14 @@ def validate_iso_date(date_str: Optional[str], field_name: str = "date") -> Opti
     if not DATE_REGEX.match(date_str):
         raise HTTPException(
             status_code=400,
-            detail=f"Invalid {field_name} format '{date_str}'. Must follow strict ISO-8601 YYYY-MM-DD."
+            detail=f"Invalid {field_name} format '{date_str}'. Must follow ISO YYYY-MM or YYYY-MM-DD."
         )
 
     try:
-        datetime.strptime(date_str, "%Y-%m-%d")
+        if len(date_str) == 7:
+            datetime.strptime(date_str, "%Y-%m")
+        else:
+            datetime.strptime(date_str, "%Y-%m-%d")
     except ValueError as e:
         raise HTTPException(
             status_code=400,
@@ -120,13 +123,16 @@ def validate_iso_date(date_str: Optional[str], field_name: str = "date") -> Opti
 def validate_date_range(start_date: Optional[str], end_date: Optional[str]):
     """
     Ensures start_date <= end_date when both are specified.
+    Supports both YYYY-MM and YYYY-MM-DD format.
     """
     v_start = validate_iso_date(start_date, "start_date")
     v_end = validate_iso_date(end_date, "end_date")
 
     if v_start and v_end:
-        dt_start = datetime.strptime(v_start, "%Y-%m-%d")
-        dt_end = datetime.strptime(v_end, "%Y-%m-%d")
+        dt_s_str = v_start if len(v_start) == 10 else f"{v_start}-01"
+        dt_e_str = v_end if len(v_end) == 10 else f"{v_end}-01"
+        dt_start = datetime.strptime(dt_s_str, "%Y-%m-%d")
+        dt_end = datetime.strptime(dt_e_str, "%Y-%m-%d")
         if dt_start > dt_end:
             raise HTTPException(
                 status_code=400,
