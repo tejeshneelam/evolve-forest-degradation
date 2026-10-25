@@ -91,15 +91,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Register all route groups
-app.include_router(dynamic_region.router, prefix="/api", tags=["Dynamic GEE Ingestion"])
-app.include_router(health.router,         prefix="/api", tags=["Forest Health"])
-app.include_router(wildlife.router,       prefix="/api", tags=["Wildlife"])
-app.include_router(risk.router,           prefix="/api", tags=["Risk"])
-app.include_router(conservation.router,   prefix="/api", tags=["Conservation"])
-app.include_router(ga_log.router,         prefix="/api", tags=["GA Log"])
-app.include_router(reports.router,        prefix="/api", tags=["Reports"])
-app.include_router(history.router,        prefix="/api", tags=["History Vault"])
+# Register all route groups (served under /api and root for fail-safe resilience)
+for prefix in ["/api", ""]:
+    app.include_router(dynamic_region.router, prefix=prefix, tags=["Dynamic GEE Ingestion"] if prefix else [])
+    app.include_router(health.router,         prefix=prefix, tags=["Forest Health"] if prefix else [])
+    app.include_router(wildlife.router,       prefix=prefix, tags=["Wildlife"] if prefix else [])
+    app.include_router(risk.router,           prefix=prefix, tags=["Risk"] if prefix else [])
+    app.include_router(conservation.router,   prefix=prefix, tags=["Conservation"] if prefix else [])
+    app.include_router(ga_log.router,         prefix=prefix, tags=["GA Log"] if prefix else [])
+    app.include_router(reports.router,        prefix=prefix, tags=["Reports"] if prefix else [])
+    app.include_router(history.router,        prefix=prefix, tags=["History Vault"] if prefix else [])
 
 
 @app.get("/")

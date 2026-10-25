@@ -349,6 +349,28 @@ export default function ForestMap({ reloadedSession }) {
     );
   }
 
+  if (!mapData || !mapData.patches) {
+    return (
+      <div className="forest-map-page" style={{ padding: '30px', textAlign: 'center' }}>
+        <div style={{ background: 'var(--bg-card)', border: '1px solid rgba(230, 57, 70, 0.4)', borderRadius: '12px', padding: '36px 24px', maxWidth: '580px', margin: '40px auto' }}>
+          <div style={{ fontSize: '36px', marginBottom: '14px' }}>📡</div>
+          <h3 style={{ color: '#fff', marginBottom: '8px', fontSize: '18px' }}>Backend API Connecting...</h3>
+          <p style={{ color: 'var(--text-sec)', fontSize: '13px', lineHeight: '1.6', marginBottom: '20px' }}>
+            Unable to reach the Forest Intelligence backend.<br />
+            If your Render service is waking up from a free-tier sleep, please wait a moment and retry.
+          </p>
+          <button 
+            className="btn btn-primary"
+            onClick={() => window.location.reload()}
+            style={{ padding: '10px 24px' }}
+          >
+            🔄 Retry Connection
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   const center = customCenter || mapData?.aoi?.center || [11.65, 76.35];
 
   // Dynamic patch color based on active map layer mode
@@ -787,7 +809,7 @@ export default function ForestMap({ reloadedSession }) {
               maxZoom={18}
             />
             
-            {mapData.patches.map(patch => {
+            {mapData?.patches && mapData.patches.map(patch => {
               const bounds = getGeoBounds(patch);
               const color  = getPatchColor(patch);
               const patchKey = `${mapData.region_name || 'reg'}_${mapData.start_date || startDate}_${mapData.end_date || endDate}_${mapMode}_${patch.patch_id}_${color}`;

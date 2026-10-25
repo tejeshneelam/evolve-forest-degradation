@@ -1,4 +1,5 @@
-const API_BASE = (process.env.REACT_APP_API_URL || 'http://localhost:8000/api').replace(/\/+$/, '');
+const rawUrl = (process.env.REACT_APP_API_URL || 'http://localhost:8000/api').trim().replace(/\/+$/, '');
+const API_BASE = rawUrl.endsWith('/api') ? rawUrl : `${rawUrl}/api`;
 
 /**
  * Robust fetch response handler with security exception awareness (HTTP 429 Rate Limiting,
