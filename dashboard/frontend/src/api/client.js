@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:8000/api';
+const API_BASE = (process.env.REACT_APP_API_URL || 'http://localhost:8000/api').replace(/\/+$/, '');
 
 /**
  * Robust fetch response handler with security exception awareness (HTTP 429 Rate Limiting,
@@ -102,11 +102,33 @@ export const api = {
       })
     }).then(r => handleResponse(r, 'Failed to run GA adaptation'));
   },
+  getGAFeatureSelection: () => fetch(`${API_BASE}/feature-selection-results`).then(r => handleResponse(r, 'Failed to load feature selection results')),
+  getSpectralBandsMeta: () => fetch(`${API_BASE}/spectral-bands-meta`).then(r => handleResponse(r, 'Failed to load spectral bands metadata')),
+  runGAFeatureSelection: (targetRegionType = "all_terrain", popSize = 30, mutationRate = 0.10, generations = 25, efficiencyWeight = 0.30) => {
+    return fetch(`${API_BASE}/run-feature-selection`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        target_region_type: targetRegionType,
+        population_size: popSize,
+        mutation_rate: mutationRate,
+        generations: generations,
+        efficiency_weight: efficiencyWeight,
+      })
+    }).then(r => handleResponse(r, 'Failed to run GA feature selection'));
+  },
 
   // Reports
   exportPDF: (from, to) => {
     window.open(`${API_BASE}/export-pdf?date_from=${from}&date_to=${to}`, '_blank');
   },
+  downloadConstructionPermitPDF: (patchId) => {
+    window.open(`${API_BASE}/construction-permit-pdf/${patchId}`, '_blank');
+  },
+  downloadRangerDispatchPDF: () => {
+    window.open(`${API_BASE}/ranger-patrol-pdf`, '_blank');
+  },
+
 
   // History Vault (SQLite DB)
   getQueryHistory: () => fetch(`${API_BASE}/history/queries`).then(r => r.json()),

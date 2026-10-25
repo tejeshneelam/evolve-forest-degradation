@@ -18,6 +18,18 @@
 \definecolor{hazardRed}{HTML}{B91C1C}
 \definecolor{onlineBlue}{HTML}{0000EE}
 
+% --- Hyperlink & Citation Interaction Setup ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=amritaMaroon,
+    citecolor=amritaMaroon,
+    urlcolor=darkSlate
+}
+
+% Hyperlink citation jump directly to References slide
+\let\oldcite\cite
+\renewcommand{\cite}[1]{\hyperlink{ref:references_slide}{\textcolor{amritaMaroon}{\oldcite{#1}}}}
+
 % --- Theme Setup ---
 \usetheme{Madrid}
 \usecolortheme[named=amritaMaroon]{structure}
@@ -57,13 +69,23 @@
     \end{tikzpicture}
 
     \centering
-    \IfFileExists{logo.png}{\includegraphics[width=3.0cm]{logo.png}\vspace{0.1cm}}{\vspace{0.3cm}}
+    \IfFileExists{slides_assets/logo.png}{%
+        \includegraphics[width=3.2cm]{slides_assets/logo.png}\vspace{0.1cm}%
+    }{%
+        \IfFileExists{logo.png}{%
+            \includegraphics[width=3.2cm]{logo.png}\vspace{0.1cm}%
+        }{%
+            \IfFileExists{slides_assets/amrita_logo.png}{%
+                \includegraphics[width=3.2cm]{slides_assets/amrita_logo.png}\vspace{0.1cm}%
+            }{\vspace{0.3cm}}%
+        }%
+    }
     
     {\Large \textbf{\textcolor{amritaMaroon}{Automated Forest Canopy Monitoring \& Disaster Risk Mitigation}}} \\
     \vspace{0.1cm}
     {\small \textit{An Adaptive Geospatial Intelligence Platform Using Sentinel-2 Satellite Data}} \\
     \vspace{0.25cm}
-    {\normalsize \textbf{Team Number: 68 \quad | \quad 23CSE399 -- Project Phase 2 (Panel Review 1)}} \\ 
+    {\normalsize \textbf{Team Number: 68 \quad | \quad 23CSE399 -- Project Phase 2 (Guide Review 2)}} \\ 
     \vspace{0.3cm}
 
     % Student Table
@@ -88,17 +110,17 @@
     \vspace{0.15cm}
     
     Guide: \textbf{Dr. Bagavathi C.} \quad | \quad {\footnotesize Assistant Professor(Sr. Gd.), Department of CSE} \\
-    {\scriptsize Amrita School of Computing, Amrita Vishwa Vidyapeetham \quad -- \quad September 9, 2026}
+    {\scriptsize Amrita School of Computing, Amrita Vishwa Vidyapeetham \quad -- \quad October 2026}
 \end{frame}
 
 % =========================================================================
-% SECTION 1: NEELAM NAGA NAREN TEJESH - PROBLEM & ARCHITECTURE
+% SECTION 1: NEELAM NAGA NAREN TEJESH - PROBLEM, ARCHITECTURE & CIVIL CLEARANCES
 % =========================================================================
 
 % --- SLIDE 2: USE CASE & REAL-WORLD MOTIVATION ---
 \section{Problem \& Context}
 \begin{frame}{1. Problem Definition \& Real-World Urgency}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Neelam Naga Naren Tejesh}} \quad | \quad Disaster Context \& Forest Monitoring Gap}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: Neelam Naga Naren Tejesh}} \quad | \quad Disaster Context \& Forest Monitoring Gap}
     \begin{columns}[c]
         \begin{column}{0.52\textwidth}
             \begin{block}{The Real-World Crisis}
@@ -114,7 +136,7 @@
             \begin{exampleblock}{Proposed System Solution}
                 \small
                 \begin{itemize}
-                    \item \textbf{Live Cloud Streaming:} Ingests Sentinel-2, DEM slope, and CHIRPS rainfall on-the-fly via Google Earth Engine.
+                    \item \textbf{Live Cloud Streaming:} Ingests Sentinel-2 \cite{drusch2012sentinel}, DEM slope, and CHIRPS rainfall on-the-fly via Google Earth Engine \cite{gorelick2017google}.
                     \item \textbf{Disaster Early Warning:} Fuses soil water saturation with slope shear to predict landslides 48 hours early.
                     \item \textbf{Sustainable Civil Planning:} Evaluates mountain construction feasibility ($0 - 100$) before building permits are granted.
                 \end{itemize}
@@ -125,7 +147,7 @@
 
 % --- SLIDE 3: ALGORITHMIC BENCHMARKING (GA vs BASELINES) ---
 \begin{frame}{2. Algorithmic Benchmarking: Genetic Algorithm vs. Baselines}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Neelam Naga Naren Tejesh}} \quad | \quad Mathematical Justification of Genetic Algorithm Optimization}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: Neelam Naga Naren Tejesh}} \quad | \quad Mathematical Justification of Genetic Algorithm Optimization}
     \begin{columns}[c]
         \begin{column}{0.60\textwidth}
             \begin{table}
@@ -146,7 +168,7 @@
             \footnotesize
             \begin{itemize}
                 \item \textbf{Why Static Cutoffs Fail:} Fixed thresholds trigger high false alarm rates ($26.8\%$) during dry-season deciduous leaf fall.
-                \item \textbf{Proposed System Advantage:} GA optimizes adaptive boundaries tailored to each season, cutting false alarms by \textbf{84.7\%}.
+                \item \textbf{Proposed System Advantage:} GA optimizes adaptive boundaries tailored to each season \cite{deb2002fast}, cutting false alarms by \textbf{84.7\%}.
             \end{itemize}
         \end{column}
         \begin{column}{0.40\textwidth}
@@ -162,10 +184,9 @@
     \end{columns}
 \end{frame}
 
-
 % --- SLIDE 4: SYSTEM ARCHITECTURE (DECOUPLED 4-TIER DESIGN) ---
 \begin{frame}{3. Application Architecture (Decoupled 4-Tier Design)}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Neelam Naga Naren Tejesh}} \quad | \quad Decoupled 4-Tier Client-Server Architecture}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: Neelam Naga Naren Tejesh}} \quad | \quad Decoupled 4-Tier Client-Server Architecture}
     \vspace{-0.35cm}
     \centering
     \IfFileExists{slides_assets/system_architecture.png}{
@@ -177,7 +198,7 @@
 
 % --- SLIDE 5: END-TO-END DATA FLOW PIPELINE ---
 \begin{frame}{4. End-to-End Data Flow Pipeline (Execution Sequence)}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Neelam Naga Naren Tejesh}} \quad | \quad In-Memory Slicing \& Multi-Model Inference Lifecycle}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: Neelam Naga Naren Tejesh}} \quad | \quad In-Memory Slicing \& Multi-Model Inference Lifecycle}
     \vspace{-0.35cm}
     \centering
     \IfFileExists{slides_assets/data_flow.png}{
@@ -187,18 +208,18 @@
     }
 \end{frame}
 
-% --- SLIDE 6: LIVE DEMO - DYNAMIC GEE INGESTION ---
-\begin{frame}{5. Live Demo: Dynamic GEE Ingestion \& Date Selection}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Neelam Naga Naren Tejesh}} \quad | \quad Planetary Satellite Ingestion \& Temporal Filtering}
+% --- SLIDE 6: GLOBAL GEOCODING & FREEHAND BBOX TOOL (NEW REVIEW 2 WORK) ---
+\begin{frame}{5. Global Geocoding \& Interactive BBox Drawing Tool}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: Neelam Naga Naren Tejesh}} \quad | \quad Review 2 Work: On-The-Fly Planetary ROI Selection}
     \begin{columns}[c]
         \begin{column}{0.48\textwidth}
-            \begin{block}{Real-Time Planetary Pipeline}
+            \begin{block}{Global Ingestion Capabilities}
                 \small
                 \begin{itemize}
-                    \item \textbf{Global Coordinates:} User selects preset regions (Wayanad, Silent Valley, Amazon) or enters custom bounding boxes \cite{drusch2012sentinel}.
-                    \item \textbf{Dynamic Time Window:} User filters dates from \textbf{2018 to 2025} with CHIRPS precipitation load \cite{funk2015climate}.
-                    \item \textbf{In-Memory Slicing:} Partitions planetary raster tensors into 64 uniform patches ($640\text{m} \times 640\text{m}$) in $<12$ seconds via GEE API \cite{gorelick2017google}.
-                    \item \textbf{Vegetation Trajectory:} Computes distinct monthly NDVI curves across 72 months against Hansen tree cover baselines \cite{hansen2013high}.
+                    \item \textbf{OSM Nominatim Gazetteer:} Instant global search for any biome (e.g., \textit{Munnar, Simlipal, Cherrapunji, Congo Basin}).
+                    \item \textbf{Interactive 2-Click BBox Drawer:} Canvas event listener captures map clicks and calculates exact bounding rectangles $[min\_lon, min\_lat, max\_lon, max\_lat]$.
+                    \item \textbf{Real-Time Visual Feedback:} Renders amber glowing dashed boundary preview with dynamic coordinate badge chips.
+                    \item \textbf{1-Click GEE Trigger:} Fetches Sentinel-2 L2A (10m) \cite{drusch2012sentinel}, SRTM DEM, and CHIRPS rainfall for custom ROI via Earth Engine \cite{gorelick2017google} in $<14$ seconds.
                 \end{itemize}
             \end{block}
         \end{column}
@@ -207,30 +228,29 @@
             \IfFileExists{slides_assets/forest_map.png}{
                 \includegraphics[width=\linewidth, height=5.2cm, keepaspectratio]{slides_assets/forest_map.png}
             }{
-                \fbox{\begin{minipage}{\linewidth}\centering \vspace{1.5cm} [Interactive 64-Patch Leaflet GIS Map Screenshot] \vspace{1.5cm}\end{minipage}}
+                \fbox{\begin{minipage}{\linewidth}\centering \vspace{1.5cm} [Interactive Freehand Leaflet Map Screenshot] \vspace{1.5cm}\end{minipage}}
             }
         \end{column}
     \end{columns}
 \end{frame}
 
-% --- SLIDE 7: LIVE DEMO - MOUNTAIN CONSTRUCTION SUITABILITY ---
-\begin{frame}{6. Live Demo: Mountain Construction Suitability Auditor}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Neelam Naga Naren Tejesh}} \quad | \quad Sustainable Hill Infrastructure Planning}
+% --- SLIDE 7: CIVIL CLEARANCE CERTIFICATE & PDF GENERATOR (NEW REVIEW 2 WORK) ---
+\begin{frame}{6. Mountain Construction Suitability \& Official PDF Generator}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: Neelam Naga Naren Tejesh}} \quad | \quad Review 2 Work: NBC 2016 \& IS 14458 Safety Certification}
     \begin{columns}[c]
         \begin{column}{0.48\textwidth}
-            \begin{block}{Building Safety Index Formula}
+            \begin{block}{Building Safety Index ($I_{\text{suit}}$)}
                 \footnotesize
-                $$I_{\text{suit}} = 100 - (P_{\text{landslide}} \cdot 40 + P_{\text{slope}} \cdot 35 + P_{\text{canopy}} \cdot 25)$$
+                $$I_{\text{suit}} = S_{\text{slope}} - 45.0 \cdot P_{\text{landslide}} - 25.0 \cdot \mathbb{I}_{\text{corridor}}$$
                 \begin{itemize}
-                    \item \textbf{Slope Hazard Penalty:} Slopes $>25^\circ$ fail safety criteria automatically.
-                    \item \textbf{Legal Eco-Buffer:} Enforces 500m mandatory buffer from declared wildlife sanctuaries.
-                    \item \textbf{Decision Output:}
+                    \item \textbf{Tri-Tier Zoning Output:}
                     \begin{itemize}
                         \footnotesize
-                        \item $\ge 70$: \textcolor{forestGreen}{\textbf{PERMITTED}} (Low Hazard)
-                        \item $45 - 69$: \textcolor{amritaGold!80!black}{\textbf{CONDITIONAL}} (Mitigation Req.)
-                        \item $< 45$: \textcolor{hazardRed}{\textbf{STRICTLY PROHIBITED}}
+                        \item $\ge 72$: \textcolor{forestGreen}{\textbf{PERMITTED}} (Isolated pad foundations)
+                        \item $45 - 71$: \textcolor{amritaGold!80!black}{\textbf{CONDITIONAL}} (IS 14458 Retaining walls \cite{guzzetti1999landslide})
+                        \item $< 45$: \textcolor{hazardRed}{\textbf{PROHIBITED}} (Strict slip moratorium)
                     \end{itemize}
+                    \item \textbf{Official PDF Certificate Generator:} Produces print-ready National Clearance Certificate with Government headers, NBC 2016 hazard badge, and \textbf{SHA-256 cryptographic verification stamp}.
                 \end{itemize}
             \end{block}
         \end{column}
@@ -252,13 +272,13 @@
 % --- SLIDE 8: MULTI-THREAT RISK DASHBOARD ---
 \section{Risk Assessment}
 \begin{frame}{7. Multi-Threat Risk Dashboard \& Fuel Modeling}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Kolla Girish}} \quad | \quad Environmental Threat Analytics}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: Kolla Girish}} \quad | \quad Environmental Threat Analytics}
     \begin{columns}[c]
         \begin{column}{0.48\textwidth}
             \begin{block}{Unified Threat Assessment}
                 \small
                 \begin{itemize}
-                    \item \textbf{Tri-Hazard Matrix:} Simultaneous monitoring of Fire Risk Index, Landslide Probability, and Agricultural Encroachment.
+                    \item \textbf{Tri-Hazard Matrix:} Simultaneous monitoring of Fire Risk Index \cite{drusch2012sentinel}, Landslide Probability \cite{guzzetti1999landslide}, and Agricultural Encroachment \cite{hansen2013high}.
                     \item \textbf{Combustible Biomass Table:} Computes dry fuel density and wind exposure parameters.
                     \item \textbf{Interactive Layer Switcher:} Seamlessly toggles GIS map polygons between Forest Health, Landslide Hazard, and Building Suitability.
                 \end{itemize}
@@ -275,20 +295,18 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 9: LANDSLIDE HAZARD PHYSICS ---
-\begin{frame}{8. Explainable Landslide Hazard Prediction}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Kolla Girish}} \quad | \quad Physics-Informed Disaster Early Warning}
+% --- SLIDE 9: SLOPE-GATED LANDSLIDE HAZARD PHYSICS (UPDATED REVIEW 2 WORK) ---
+\begin{frame}{8. Slope-Gated Landslide Hazard \& Inhabited Hazard Audit}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: Kolla Girish}} \quad | \quad Review 2 Work: Slope-Gating Physics \& Wayanad Paradox}
     \begin{columns}[c]
         \begin{column}{0.48\textwidth}
             \begin{block}{Physics Hazard Formulation}
                 \footnotesize
-                $$P_{\text{landslide}} = \text{clip}(0.45 \cdot S_f + 0.35 \cdot R_f + 0.20 \cdot P_f, 0.02, 0.98)$$
+                $$P_{\text{landslide}} = \text{clip}(0.48 S_{\theta} + 0.32 C_{\text{decay}}\Omega(\theta) + 0.20 R_{90\text{d}}\Omega(\theta), 0.02, 0.98)$$
                 \begin{itemize}
-                    \item \textbf{$S_f$ (Shear Stress):} Downhill gravity load derived from USGS SRTM slope gradient \cite{guzzetti1999landslide}.
-                    \item \textbf{$R_f$ (Root Decay):} Historical canopy loss rate depicting tree root tensile degradation \cite{hansen2013high}.
-                    \item \textbf{$P_f$ (Pore Pressure):} 90-day cumulative rainfall from CHIRPS precipitation \cite{funk2015climate}.
+                    \item \textbf{Slope Gating $\Omega(\theta)$:} On flat valley ground ($\theta < 10^\circ$), gravitational shear stress $\tau = \gamma z \sin\theta \approx 0$. Prevents false alarms on inhabited flat land!
+                    \item \textbf{Resolving Inhabited Hazard Paradox:} Identifies existing dwellings built without clearances on steep slip planes ($>20^\circ$) requiring urgent retaining wall retrofits \cite{guzzetti1999landslide}.
                 \end{itemize}
-                \textbf{Bio-Mitigation Guidance:} Generates Vetiver grass terracing and contour drainage orders.
             \end{block}
         \end{column}
         \begin{column}{0.52\textwidth}
@@ -304,12 +322,12 @@
 
 % --- SLIDE 10: FIRE FUEL MOISTURE & COMBUSTIBLE BIOMASS ---
 \begin{frame}{9. Fire Fuel Moisture \& Combustible Biomass Modeling}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Kolla Girish}} \quad | \quad Thermal SWIR Deficit \& Wildfire Prevention}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: Kolla Girish}} \quad | \quad Thermal SWIR Deficit \& Wildfire Prevention}
     \begin{columns}[c]
         \begin{column}{0.48\textwidth}
             \begin{block}{Multi-Spectral Fuel Flammability}
                 \footnotesize
-                Combines Sentinel-2 SWIR ($B11, B12$) and NIR ($B8$) to detect dry standing biomass before ignition:
+                Combines Sentinel-2 SWIR ($B11, B12$) and NIR ($B8$) \cite{drusch2012sentinel} to detect dry standing biomass before ignition:
                 $$\text{NDWI} = \frac{B8 - B11}{B8 + B11 + \epsilon}, \quad R_{\text{SWIR}} = \text{clip}\left(\frac{B11}{0.3}, 0, 1\right)$$
                 $$\text{Risk}_{\text{raw}} = \left(0.30 R_{\text{NDVI}} + 0.25 R_{\text{SWIR}} + 0.20 R_{\text{moist}} + 0.25 R_{\text{deg}}\right) \times M_{\text{season}}$$
                 \begin{itemize}
@@ -344,7 +362,7 @@
 % --- SLIDE 11: WILDLIFE CORRIDORS ---
 \section{Conservation Intelligence}
 \begin{frame}{10. Wildlife Migration Corridors \& Graph Routing}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: D S Vasishta}} \quad | \quad Ecological Chokepoint Protection}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: D S Vasishta}} \quad | \quad Ecological Chokepoint Protection}
     \begin{columns}[c]
         \begin{column}{0.48\textwidth}
             \begin{block}{Least-Cost Corridor Analysis}
@@ -372,9 +390,9 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 12: A* SAFE RANGER PATROL ROUTE PLANNER ---
-\begin{frame}{11. Dynamic A* Safe Ranger Patrol Route Planner}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: D S Vasishta}} \quad | \quad Tactical Hazard-Aware Forest Patrol Routing}
+% --- SLIDE 12: A* SAFE RANGER PATROL ROUTE PLANNER (UPDATED REVIEW 2 WORK) ---
+\begin{frame}{11. Dynamic A* Ranger Patrol Planner \& PDF Mission Orders}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: D S Vasishta}} \quad | \quad Review 2 Work: Tactical Route Export \& Avoidance Polygons}
     \begin{columns}[t]
         \begin{column}{0.49\textwidth}
             \begin{block}{Multi-Hazard Traversal Cost}
@@ -392,14 +410,14 @@
             \end{block}
         \end{column}
         \begin{column}{0.51\textwidth}
-            \begin{exampleblock}{Dynamic Route Adaptation (On-the-Fly)}
+            \begin{exampleblock}{Exportable PDF Dispatch Order (New)}
                 \footnotesize
                 \begin{itemize}
                     \setlength{\itemsep}{2pt}
-                    \item \textbf{Wildfire Flare-ups:} When seasonal dryness increases SWIR fire risk, cost surges; A* dynamically routes around the blaze.
-                    \item \textbf{Wildlife Movements:} Active corridor movements add conflict penalty ($+0.4$), steering patrols away from herd crossings.
-                    \item \textbf{Monsoon Landslips:} Rain saturation flags steep slopes as risky, automatically detouring rangers around slip zones.
-                    \item \textbf{Tactical Output:} Dispatches turn-by-turn waypoints ($P_0 \to P_1 \to \dots \to P_k$) with hazard alerts and safety scores.
+                    \item \textbf{Tactical Mission Order:} 1-click export of official \textit{Ranger Patrol Dispatch Order (PDF)}.
+                    \item \textbf{Turn-by-Turn Waypoints:} Exact coordinates ($P_0 \to P_1 \to \dots \to P_k$) with hazard ratings and checkpoint intervals.
+                    \item \textbf{Avoidance Zones:} Highlights active wildlife crossing polygons and active landslide slip planes.
+                    \item \textbf{Field Equipment Checklist:} Mandates satellite radios, snakebite kits, and GPS tracking collars.
                 \end{itemize}
             \end{exampleblock}
         \end{column}
@@ -408,7 +426,7 @@
 
 % --- SLIDE 13: CARBON ASSET VALUATION ---
 \begin{frame}{12. IPCC Carbon Stock Accounting \& Economic Valuation}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: D S Vasishta}} \quad | \quad Natural Capital Quantification}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: D S Vasishta}} \quad | \quad Natural Capital Quantification}
     \begin{columns}[c]
         \begin{column}{0.50\textwidth}
             \begin{block}{IPCC 2019 Tier-1 Allometric Model}
@@ -435,7 +453,7 @@
 
 % --- SLIDE 14: DATABASE SCHEMA & RECALL VAULT ---
 \begin{frame}{13. SQLite Database Schema \& Inspection Recall Vault}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: D S Vasishta}} \quad | \quad Relational Persistence \& Historical Audit Logging}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: D S Vasishta}} \quad | \quad Relational Persistence \& Historical Audit Logging}
     \begin{columns}[c]
         \begin{column}{0.50\textwidth}
             \begin{block}{Relational Schema (\texttt{forest\_records.db})}
@@ -461,13 +479,13 @@
 \end{frame}
 
 % =========================================================================
-% SECTION 4: ANDE TARAK - GA, CYBER SECURITY & ROADMAP
+% SECTION 4: ANDE TARAK - GA, CYBER SECURITY, TESTING & ROADMAP
 % =========================================================================
 
-% --- SLIDE 15: GA MATHEMATICAL FORMULATION & CHROMOSOME DESIGN ---
-\section{Genetic Optimization \& Security}
-\begin{frame}{14. Genetic Algorithm: Formulation \& Multi-Objective Fitness}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Ande Taraka Srinivas}} \quad | \quad Mathematical Chromosome \& Objective Modeling}
+% --- SLIDE 15: GA MATHEMATICAL FORMULATION ---
+\section{Genetic Optimization \& Testing}
+\begin{frame}{14. Genetic Algorithm: Formulation \& Objective Modeling}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: Ande Taraka Srinivas}} \quad | \quad Mathematical Chromosome \& Objective Modeling}
     \begin{columns}[c]
         \begin{column}{0.52\textwidth}
             \begin{block}{Chromosome Representation}
@@ -499,15 +517,48 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 16: GA REAL-TIME ADAPTIVE CONVERGENCE & LIVE DEMO ---
-\begin{frame}{15. Genetic Algorithm: Real-Time Dynamic Convergence}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Ande Taraka Srinivas}} \quad | \quad Live Dashboard Convergence \& Optimal Threshold Boundaries}
+% --- SLIDE 16: GA MULTI-SPECTRAL BAND SELECTION (NEW REVIEW 2 WORK) ---
+\begin{frame}{15. Multi-Objective GA: Multi-Spectral Band Selection}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: Ande Taraka Srinivas}} \quad | \quad Review 2 Work: Binary Chromosome Band Pruning \& Pareto Frontier}
+    \begin{columns}[c]
+        \begin{column}{0.50\textwidth}
+            \begin{block}{Binary Band Optimization Formulation}
+                \footnotesize
+                $$\mathbf{X} = [b_1, b_2, \dots, b_{12}] \in \{0, 1\}^{12}$$
+                \begin{itemize}
+                    \item \textbf{Candidate Features (12):} Sentinel-2 MSI channels \cite{drusch2012sentinel} and spectral indices: B2, B3, B4, B8, B8A, B11, B12, NDVI, EVI, NDWI, NBR, SAVI.
+                    \item \textbf{Multi-Objective Fitness:}
+                    $$F(\mathbf{X}) = 0.70 \cdot \text{F1}(\mathbf{X}) + 0.30 \cdot \left(1 - \frac{\sum b_i}{12}\right) - \text{Penalty}$$
+                    \item \textbf{Optimal Knee-Point Solution:} NSGA-II Pareto optimization \cite{deb2002fast} discovers optimal 5-band subset: \textbf{[B4, B8, B11, NDWI, NBR]}.
+                    \item \textbf{Cloud Economy:} \textbf{58.3\% Bandwidth Saved} with \textbf{0.964 F1-Score} ($2.40\times$ inference acceleration).
+                \end{itemize}
+            \end{block}
+        \end{column}
+        \begin{column}{0.50\textwidth}
+            \begin{exampleblock}{Elite Feature Importance Ranking}
+                \footnotesize
+                \begin{itemize}
+                    \item \textbf{B8 NIR Broad (98.5\%):} Spongy mesophyll canopy scattering.
+                    \item \textbf{B11 SWIR-1 (95.2\%):} Foliar moisture loss \& logging.
+                    \item \textbf{NDVI Index (94.0\%):} Vegetative chlorophyll vigor.
+                    \item \textbf{NBR Burn Ratio (91.3\%):} Burn scars \& thermal stress.
+                    \item \textbf{NDWI Water Index (87.0\%):} Canopy dehydration proxy.
+                    \item \textbf{Pruned Channels (B2, B3):} High atmospheric scattering noise safely eliminated!
+                \end{itemize}
+            \end{exampleblock}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 17: GA REAL-TIME ADAPTIVE CONVERGENCE & LIVE DEMO ---
+\begin{frame}{16. Genetic Algorithm: Real-Time Dynamic Convergence}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: Ande Taraka Srinivas}} \quad | \quad Live Dashboard Convergence \& Dual-Tab Interface}
     \begin{columns}[c]
         \begin{column}{0.48\textwidth}
             \begin{block}{Live Dynamic Convergence \& Tuning}
                 \small
                 \begin{itemize}
-                    \item \textbf{Live Dashboard Execution:} User clicks \textit{"Optimize Regional Thresholds"} to dynamically re-tune boundaries.
+                    \item \textbf{Dual-Tab GA Console:} Seamlessly toggles between \textit{Multi-Spectral Band Selection} and \textit{Seasonal Phenological Thresholds}.
                     \item \textbf{Convergence Proof:} Fitness increases from $\mathbf{0.641}$ (Gen 1) $\to$ $\mathbf{0.962}$ (Gen 30).
                     \item \textbf{Optimized Seasonal Cutoffs:}
                     \begin{itemize}
@@ -531,10 +582,9 @@
     \end{columns}
 \end{frame}
 
-
-% --- SLIDE 17: CYBER SECURITY & RATE LIMITING ---
-\begin{frame}{16. Cyber Security Hardening \& API Rate Limiting}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Ande Taraka Srinivas}} \quad | \quad Backend Hardening \& Quota Protection}
+% --- SLIDE 18: CYBER SECURITY & RATE LIMITING ---
+\begin{frame}{17. Cyber Security Hardening \& API Rate Limiting}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: Ande Taraka Srinivas}} \quad | \quad Backend Hardening \& Quota Protection}
     \begin{columns}[c]
         \begin{column}{0.50\textwidth}
             \begin{block}{SlowAPI Rate Limiting}
@@ -559,42 +609,72 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 18: SUMMARY & ROADMAP ---
-\begin{frame}{17. Review 1 Summary \& Roadmap for Review 2}
-    \framesubtitle{\textbf{\textcolor{amritaMaroon}{Speaker: Ande Taraka Srinivas}} \quad | \quad Implementation Progress ($\approx 85\%$ Completed)}
-    \begin{columns}[t]
-        \begin{column}{0.47\textwidth}
-            \begin{block}{Review 1 Completed ($\approx 85\%$)}
-                \footnotesize
+% --- SLIDE 19: AUTOMATED TEST SUITE & MODULE INTEGRATION ---
+\begin{frame}{18. Automated Functional Test Suite \& Module Integration}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: Ande Taraka Srinivas}} \quad | \quad Full-Stack Verification Across 31 Automated Test Cases}
+    \begin{columns}[c]
+        \begin{column}{0.50\textwidth}
+            \begin{block}{Automated Pytest Suite (31/31 Passed)}
+                \fontsize{6.8pt}{8.2pt}\selectfont
+                Executed via \texttt{pytest tests/ -v} in \textbf{0.25s} (100\% pass rate):
                 \begin{itemize}
-                    \setlength{\itemsep}{2pt}
-                    \item[$\checkmark$] \textbf{Live GEE Streaming:} Sentinel-2, DEM slope, CHIRPS rain.
-                    \item[$\checkmark$] \textbf{Dynamic Time Filter:} 72-month NDVI trajectory series.
-                    \item[$\checkmark$] \textbf{Mountain Suitability:} Building safety audit ($0-100$).
-                    \item[$\checkmark$] \textbf{Landslide Physics:} Slope shear \& pore pressure gating.
-                    \item[$\checkmark$] \textbf{Wildlife \& A* Patrol:} Migration paths \& dynamic routing.
-                    \item[$\checkmark$] \textbf{Adaptive GA:} Seasonal threshold tuning ($85.7\%$ F1).
-                    \item[$\checkmark$] \textbf{Cyber Defense:} SlowAPI rate limiting \& Pydantic audits.
+                    \setlength{\itemsep}{1pt}
+                    \item \textbf{\texttt{test\_api\_endpoints.py} (9):} REST contracts, GEE ingestion, SQLite history endpoints.
+                    \item \textbf{\texttt{test\_pdf\_and\_reports.py} (3):} \texttt{\%PDF-} magic bytes and clearance schemas ($>2\text{KB}$).
+                    \item \textbf{\texttt{test\_geotechnical\_physics.py} (6):} Infinite-slope factor of safety, slope gating $\Omega(\theta)$.
+                    \item \textbf{\texttt{test\_genetic\_algorithm.py} (6):} Uniform crossover, mutation, Pareto convergence.
+                    \item \textbf{\texttt{test\_security\_sanitizer.py} (7):} XSS/SQLi stripping, coordinate boundary constraints.
                 \end{itemize}
             \end{block}
         \end{column}
-        \begin{column}{0.53\textwidth}
-            \begin{exampleblock}{Roadmap for Review 2 (Target: 95\%)}
-                \footnotesize
+        \begin{column}{0.50\textwidth}
+            \begin{exampleblock}{End-to-End Integration \& Edge Cases}
+                \fontsize{6.8pt}{8.2pt}\selectfont
                 \begin{itemize}
-                    \setlength{\itemsep}{2.5pt}
-                    \item \textbf{GA Spectral Feature Selection:} Optimize binary chromosomes ($[b_1,\dots,b_N] \in \{0, 1\}^N$) to select optimal Sentinel-2 indices (NDWI, SAVI, SWIR ratios) maximizing F1.
-                    \item \textbf{Global Interactive ROI Selection:} Leaflet polygon drawing with geocoding search for on-the-fly planetary ingestion of any forest worldwide.
-                    \item \textbf{Role-Based Access Control (RBAC):} Tiered JWT authentication (Field Ranger, Conservator, Auditor) governing permits and PDF dispatches.
-                    \item \textbf{Production Cloud Deployment:} Multi-stage Docker container deployed on Google Cloud Run with CI/CD.
+                    \setlength{\itemsep}{1.5pt}
+                    \item \textbf{Subsystem Coupling:} Verifies strict JSON synchronization between React UI, FastAPI backend, GEE pipeline, and SQLite.
+                    \item \textbf{Physics Boundaries:} Validates factor-of-safety under extreme rainfall ($I > 250\,\text{mm/hr}$) and steep limits ($\theta \ge 45^\circ$).
+                    \item \textbf{Boundary Defense:} Rejects malformed GeoJSON coordinates, inverted BBoxes, and injection payloads.
+                    \item \textbf{Zero Regression:} Embedded automated testing guarantees mathematical and software integrity across all releases.
                 \end{itemize}
             \end{exampleblock}
         \end{column}
     \end{columns}
 \end{frame}
 
-% --- SLIDE 19: TECHNICAL ENRICHMENT ACTIVITIES ---
-\begin{frame}{18. Technical Enrichment Activities}
+% --- SLIDE 20: SUMMARY & GUIDE REVIEW 2 PROGRESS ---
+\begin{frame}{19. Guide Review 2 Summary: Implementation Progress ($\approx 95\%$)}
+    \framesubtitle{\textbf{\textcolor{amritaGold}{Speaker: Ande Taraka Srinivas}} \quad | \quad Full-Stack Maturity \& Review 2 Deliverables}
+    \begin{columns}[t]
+        \begin{column}{0.50\textwidth}
+            \begin{block}{Accomplished in Review 2 ($\approx 90-95\%$ Complete)}
+                \footnotesize
+                \begin{itemize}
+                    \setlength{\itemsep}{2pt}
+                    \item[$\checkmark$] \textbf{GA Spectral Band Selection:} Multi-objective Pareto frontier discovered optimal 5-band knee point ($-58.3\%$ bandwidth).
+                    \item[$\checkmark$] \textbf{Global Freehand Drawing \& Geocoding:} OSM Nominatim gazetteer + 2-click Leaflet canvas bounding box tool.
+                    \item[$\checkmark$] \textbf{Official PDF Clearances:} National Civil Clearance Certificate \& Tactical Ranger Dispatch Order with SHA-256 stamps.
+                    \item[$\checkmark$] \textbf{Geotechnical Calibration:} Physical slope gating ($\Omega(\theta)$) resolves inhabited settlement paradox on gentle terrain.
+                    \item[$\checkmark$] \textbf{Automated Test Suite:} 31/31 passing unit/integration tests.
+                \end{itemize}
+            \end{block}
+        \end{column}
+        \begin{column}{0.50\textwidth}
+            \begin{exampleblock}{Remaining Final Review Roadmap (Last 5\%)}
+                \footnotesize
+                \begin{itemize}
+                    \setlength{\itemsep}{2.5pt}
+                    \item \textbf{Final Research Paper Submission:} Complete submission-ready IEEE conference paper prepared in \texttt{research\_paper.tex} for Scopus indexed submission.
+                    \item \textbf{Production Cloud Packaging:} Multi-stage Docker containerization for Google Cloud Run deployment.
+                    \item \textbf{Sentinel-1 SAR Radar Fusion:} Integration of C-band radar for monsoon cloud penetration during typhoon cloudbursts.
+                \end{itemize}
+            \end{exampleblock}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 21: TECHNICAL ENRICHMENT ACTIVITIES (TEA) ---
+\begin{frame}{20. Technical Enrichment Activities}
     \framesubtitle{Professional Courses and Selected Group Activities}
     \vspace{-0.2cm}
     
@@ -630,7 +710,7 @@
             \hline
             \textbf{S.No} & \textbf{Activity} & \textbf{Work} \\
             \hline
-            1 & \textbf{Research Paper} & Preparation of a submission-ready research paper based on the project work. \\
+            1 & \textbf{Research Paper} & Preparation of a submission-ready research paper based on the project work (\texttt{research\_paper.tex}). \\
             \hline
             2 & \textbf{Documentation Portal} & Project website containing objectives, methodology, progress, documentation, team details, GitHub link, and demonstrations. \\
             \hline
@@ -644,39 +724,47 @@
 % REFERENCES & THANK YOU
 % =========================================================================
 \section{References \& Demo}
-\begin{frame}{References}
+\begin{frame}[label=references_slide]{References}
+    \hypertarget{ref:references_slide}{}
     \fontsize{6.5pt}{8pt}\selectfont
     \begin{thebibliography}{99}
         \setlength{\itemsep}{1.5pt}
-        \bibitem{hansen2013high}
-        M.~C. Hansen, P.~V. Potapov, R.~Moore, et al., ``High-resolution global maps of 21st-century forest cover change,'' \textit{Science}, vol. 342, no. 6160, pp. 850--853, 2013.
+        \bibitem{hansen2013high}\hypertarget{ref:hansen2013high}{}
+        M.~C. Hansen, P.~V. Potapov, R.~Moore, et al., ``\href{https://doi.org/10.1126/science.1244693}{High-resolution global maps of 21st-century forest cover change},'' \textit{Science}, vol. 342, no. 6160, pp. 850--853, 2013.
 
-        \bibitem{drusch2012sentinel}
-        M.~Drusch, U.~Del Bello, S.~Carlier, et al., ``Sentinel-2: ESA's optical high-resolution mission for GMES operational services,'' \textit{Remote Sensing of Environment}, vol. 120, pp. 25--36, 2012.
+        \bibitem{drusch2012sentinel}\hypertarget{ref:drusch2012sentinel}{}
+        M.~Drusch, U.~Del Bello, S.~Carlier, et al., ``\href{https://doi.org/10.1016/j.rse.2011.11.026}{Sentinel-2: ESA's optical high-resolution mission for GMES operational services},'' \textit{Remote Sensing of Environment}, vol. 120, pp. 25--36, 2012.
 
-        \bibitem{gorelick2017google}
-        N.~Gorelick, M.~Hancher, M.~Dixon, et al., ``Google Earth Engine: Planetary-scale geospatial analysis for everyone,'' \textit{Remote Sensing of Environment}, vol. 202, pp. 18--27, 2017.
+        \bibitem{gorelick2017google}\hypertarget{ref:gorelick2017google}{}
+        N.~Gorelick, M.~Hancher, M.~Dixon, et al., ``\href{https://doi.org/10.1016/j.rse.2017.06.030}{Google Earth Engine: Planetary-scale geospatial analysis for everyone},'' \textit{Remote Sensing of Environment}, vol. 202, pp. 18--27, 2017.
 
-        \bibitem{chave2014improved}
-        J.~Chave, M.~R{\'e}jou-M{\'e}chain, A.~B{\'u}rquez, et al., ``Improved allometric models to estimate aboveground biomass,'' \textit{Global Change Biology}, vol. 20, no. 10, pp. 3177--3190, 2014.
+        \bibitem{chave2014improved}\hypertarget{ref:chave2014improved}{}
+        J.~Chave, M.~R{\'e}jou-M{\'e}chain, A.~B{\'u}rquez, et al., ``\href{https://doi.org/10.1111/gcb.12629}{Improved allometric models to estimate aboveground biomass},'' \textit{Global Change Biology}, vol. 20, no. 10, pp. 3177--3190, 2014.
 
-        \bibitem{deb2002fast}
-        K.~Deb, A.~Pratap, S.~Agarwal, and T.~Meyarivan, ``A fast and elitist multiobjective genetic algorithm: NSGA-II,'' \textit{IEEE Trans. Evol. Comput.}, vol. 6, no. 2, pp. 182--197, 2002.
+        \bibitem{deb2002fast}\hypertarget{ref:deb2002fast}{}
+        K.~Deb, A.~Pratap, S.~Agarwal, and T.~Meyarivan, ``\href{https://doi.org/10.1109/4235.996017}{A fast and elitist multiobjective genetic algorithm: NSGA-II},'' \textit{IEEE Trans. Evol. Comput.}, vol. 6, no. 2, pp. 182--197, 2002.
 
-        \bibitem{ipcc2019refinement}
-        IPCC, ``2019 Refinement to the 2006 IPCC Guidelines for National Greenhouse Gas Inventories,'' \textit{Intergovernmental Panel on Climate Change (IPCC)}, 2019.
+        \bibitem{ipcc2019refinement}\hypertarget{ref:ipcc2019refinement}{}
+        IPCC, ``\href{https://www.ipcc.ch/report/2019-refinement-to-the-2006-ipcc-guidelines-for-national-greenhouse-gas-inventories/}{2019 Refinement to the 2006 IPCC Guidelines for National Greenhouse Gas Inventories},'' \textit{Intergovernmental Panel on Climate Change (IPCC)}, 2019.
 
-        \bibitem{funk2015climate}
-        C.~Funk, P.~Peterson, M.~Landsfeld, et al., ``The climate hazards infrared precipitation with stations---a new environmental record,'' \textit{Scientific Data}, vol. 2, p. 150066, 2015.
+        \bibitem{funk2015climate}\hypertarget{ref:funk2015climate}{}
+        C.~Funk, P.~Peterson, M.~Landsfeld, et al., ``\href{https://doi.org/10.1038/sdata.2015.66}{The climate hazards infrared precipitation with stations---a new environmental record},'' \textit{Scientific Data}, vol. 2, p. 150066, 2015.
 
-        \bibitem{guzzetti1999landslide}
-        F.~Guzzetti, A.~Carrara, M.~Cardinali, and P.~Reichenbach, ``Landslide hazard evaluation: a review of current techniques,'' \textit{Geomorphology}, vol. 31, no. 1--4, pp. 181--216, 1999.
+        \bibitem{guzzetti1999landslide}\hypertarget{ref:guzzetti1999landslide}{}
+        F.~Guzzetti, A.~Carrara, M.~Cardinali, and P.~Reichenbach, ``\href{https://doi.org/10.1016/S0169-555X(99)00078-1}{Landslide hazard evaluation: a review of current techniques},'' \textit{Geomorphology}, vol. 31, no. 1--4, pp. 181--216, 1999.
     \end{thebibliography}
 \end{frame}
 
 \begin{frame}
     \centering
-    \vspace{0.4cm}
+    \vspace{0.2cm}
+    \IfFileExists{slides_assets/logo.png}{%
+        \includegraphics[width=2.6cm]{slides_assets/logo.png}\vspace{0.15cm}%
+    }{%
+        \IfFileExists{logo.png}{%
+            \includegraphics[width=2.6cm]{logo.png}\vspace{0.15cm}%
+        }{}%
+    } \\
     {\Huge \textbf{\textcolor{amritaMaroon}{Thank You}}} \\
     \vspace{0.3cm}
     {\large \textbf{Automated Forest Canopy Monitoring \& Disaster Risk Mitigation Platform}} \\
@@ -689,7 +777,7 @@
         \renewcommand{\arraystretch}{1.1}
         \begin{tabular}{cccc}
             Neelam Naga Naren Tejesh & Kolla Girish & D S Vasishta & Ande Taraka Srinivas \\
-            Architecture \& Suitability & Threat Risk \& Fuel & Corridors, Patrol \& Carbon & GA Optimization \& Defense \\
+            Architecture \& Clearances & Threat Risk \& Landslides & Corridors, Patrol \& Carbon & GA Band Selection \& Testing \\
         \end{tabular}
     \end{table}
     \vspace{0.2cm}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Rectangle, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Rectangle, Popup, useMap, useMapEvents, CircleMarker } from 'react-leaflet';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { api } from '../api/client';
 import LandslideReportModal from './LandslideReportModal';
@@ -14,6 +14,37 @@ function MapRecenter({ center }) {
     }
   }, [center, map]);
   return null;
+}
+
+// Helper component to enable interactive bounding box drawing on the map
+function MapBoxDrawer({ isDrawing, onCorner1Set, onBoxComplete, corner1 }) {
+  useMapEvents({
+    click(e) {
+      if (!isDrawing) return;
+      const { lat, lng } = e.latlng;
+      if (!corner1) {
+        onCorner1Set([lat, lng]);
+      } else {
+        const minLat = Math.min(corner1[0], lat);
+        const maxLat = Math.max(corner1[0], lat);
+        const minLon = Math.min(corner1[1], lng);
+        const maxLon = Math.max(corner1[1], lng);
+        onBoxComplete([[minLat, minLon], [maxLat, maxLon]], [minLon, minLat, maxLon, maxLat]);
+      }
+    }
+  });
+
+  return (
+    <>
+      {corner1 && (
+        <CircleMarker 
+          center={corner1} 
+          radius={7} 
+          pathOptions={{ color: '#FFB703', fillColor: '#FFB703', fillOpacity: 0.95, weight: 2 }} 
+        />
+      )}
+    </>
+  );
 }
 
 const REGION_PRESETS = [
@@ -73,6 +104,63 @@ export default function ForestMap({ reloadedSession }) {
   // Diagnostic modals
   const [activeDiagnosticPatch, setActiveDiagnosticPatch]     = useState(null);
   const [activeConstructionPatch, setActiveConstructionPatch] = useState(null);
+
+  // Geocoding Search & Interactive Free-Draw Box states
+  const [searchQuery, setSearchQuery]           = useState('');
+  const [isSearchingLocation, setIsSearchingLocation] = useState(false);
+  const [locationFeedback, setLocationFeedback] = useState('');
+  const [isDrawingBox, setIsDrawingBox]         = useState(false);
+  const [drawCorner1, setDrawCorner1]           = useState(null);
+  const [drawnBoxPreview, setDrawnBoxPreview]   = useState(null);
+  const [customCenter, setCustomCenter]         = useState(null);
+
+  const handleLocationSearch = async (e) => {
+    if (e) e.preventDefault();
+    if (!searchQuery.trim()) return;
+    setIsSearchingLocation(true);
+    setLocationFeedback('🔍 Searching global gazetteer via OpenStreetMap...');
+    setGeoAlertMsg('');
+    try {
+      const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(searchQuery)}`);
+      const data = await res.json();
+      if (data && data.length > 0) {
+        const item = data[0];
+        const lat = parseFloat(item.lat);
+        const lon = parseFloat(item.lon);
+        const halfSpan = 0.025; // ~5.5km x 5.5km balanced grid bounding box
+        const minLon = parseFloat((lon - halfSpan).toFixed(4));
+        const maxLon = parseFloat((lon + halfSpan).toFixed(4));
+        const minLat = parseFloat((lat - halfSpan).toFixed(4));
+        const maxLat = parseFloat((lat + halfSpan).toFixed(4));
+
+        const bboxStr = `${minLon}, ${minLat}, ${maxLon}, ${maxLat}`;
+        setCustomBBox(bboxStr);
+        setSelectedPreset(-1);
+        setCustomCenter([lat, lon]);
+        setDrawnBoxPreview([[minLat, minLon], [maxLat, maxLon]]);
+        const shortName = item.display_name.split(',').slice(0, 2).join(',');
+        setLocationFeedback(`📍 Located: ${shortName} (${lat.toFixed(3)}°N, ${lon.toFixed(3)}°E). Click '⚡ Run Analysis' to process!`);
+      } else {
+        setLocationFeedback('⚠️ Location not found. Please try another city, national park, or landmark name.');
+      }
+    } catch (err) {
+      console.error(err);
+      setLocationFeedback('⚠️ Location search failed. Check your internet connection.');
+    } finally {
+      setIsSearchingLocation(false);
+    }
+  };
+
+  const handleBoxDrawn = (bounds, bbox) => {
+    const bboxStr = `${bbox[0].toFixed(4)}, ${bbox[1].toFixed(4)}, ${bbox[2].toFixed(4)}, ${bbox[3].toFixed(4)}`;
+    setCustomBBox(bboxStr);
+    setSelectedPreset(-1);
+    setDrawnBoxPreview(bounds);
+    setIsDrawingBox(false);
+    setDrawCorner1(null);
+    setCustomCenter([(bbox[1] + bbox[3]) / 2, (bbox[0] + bbox[2]) / 2]);
+    setLocationFeedback(`📐 Bounding box defined: [${bboxStr}]. Click '⚡ Run Analysis' to query GEE!`);
+  };
 
   useEffect(() => {
     if (reloadedSession) {
@@ -261,7 +349,7 @@ export default function ForestMap({ reloadedSession }) {
     );
   }
 
-  const center = mapData?.aoi?.center || [11.65, 76.35];
+  const center = customCenter || mapData?.aoi?.center || [11.65, 76.35];
 
   // Dynamic patch color based on active map layer mode
   const getPatchColor = (patch) => {
@@ -332,81 +420,172 @@ export default function ForestMap({ reloadedSession }) {
             </p>
           </div>
 
-          {/* Earth Engine Selector Toolbar with Date Range */}
-          <form onSubmit={handleTriggerGEE} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'var(--bg-card)', padding: '10px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(82, 183, 136, 0.25)', flexWrap: 'wrap' }}>
-            <div>
-              <label style={{ fontSize: '10px', color: 'var(--text-muted)', display: 'block', marginBottom: '2px' }}>TARGET REGION</label>
-              <select 
-                value={selectedPreset} 
-                onChange={(e) => setSelectedPreset(parseInt(e.target.value))}
-                style={{ background: 'var(--bg-surface)', border: '1px solid rgba(82, 183, 136, 0.3)', color: '#fff', padding: '6px 10px', borderRadius: '4px', fontSize: '11px', maxWidth: '210px' }}
-                disabled={isProcessingGEE}
-              >
-                {REGION_PRESETS.map((p, i) => (
-                  <option key={i} value={i}>{p.name}</option>
-                ))}
-                <option value={-1}>Custom Bounding Box (Lat/Lon)...</option>
-              </select>
-            </div>
-
-            {selectedPreset === -1 && (
-              <div>
-                <label style={{ fontSize: '10px', color: 'var(--text-muted)', display: 'block', marginBottom: '2px' }}>MIN_LON, MIN_LAT, MAX_LON, MAX_LAT</label>
+          {/* Earth Engine Selector Toolbar with Geocoding Search & Date Range */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', background: 'var(--bg-card)', padding: '12px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(82, 183, 136, 0.25)' }}>
+            
+            {/* Top Toolbar Row: Global Gazetteer Search & Free-Draw Box Tool */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', borderBottom: '1px solid rgba(255,255,255,0.06)', paddingBottom: '10px' }}>
+              <div style={{ display: 'flex', flex: 1, minWidth: '280px', gap: '6px' }}>
                 <input 
                   type="text" 
-                  value={customBBox} 
-                  onChange={(e) => setCustomBBox(e.target.value)}
-                  placeholder="e.g. 76.32, 11.62, 76.37, 11.67"
-                  style={{ background: 'var(--bg-surface)', border: '1px solid rgba(82, 183, 136, 0.3)', color: '#fff', padding: '6px 10px', borderRadius: '4px', fontSize: '11px', width: '200px' }}
-                  disabled={isProcessingGEE}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleLocationSearch(e); } }}
+                  placeholder="🔍 Search any global forest, city or coordinates (e.g. Munnar, Simlipal, Cherrapunji, Congo)..."
+                  style={{ flex: 1, background: 'var(--bg-surface)', border: '1px solid rgba(82, 183, 136, 0.35)', color: '#fff', padding: '6px 12px', borderRadius: '5px', fontSize: '11px' }}
+                  disabled={isProcessingGEE || isSearchingLocation}
                 />
+                <button
+                  type="button"
+                  onClick={handleLocationSearch}
+                  disabled={isProcessingGEE || isSearchingLocation || !searchQuery.trim()}
+                  className="btn btn-secondary"
+                  style={{ padding: '6px 12px', fontSize: '11px', whiteSpace: 'nowrap' }}
+                >
+                  {isSearchingLocation ? 'Locating...' : 'Locate & Center'}
+                </button>
+              </div>
+
+              {/* Free-Draw Box Tool Button */}
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsDrawingBox(!isDrawingBox);
+                    setDrawCorner1(null);
+                    if (!isDrawingBox) {
+                      setLocationFeedback('📍 Drawing Mode Active: Click Corner 1 on the map, then click Corner 2.');
+                    } else {
+                      setLocationFeedback('');
+                    }
+                  }}
+                  style={{
+                    padding: '6px 12px',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    color: isDrawingBox ? '#000' : '#FFB703',
+                    backgroundColor: isDrawingBox ? '#FFB703' : 'rgba(255, 183, 3, 0.12)',
+                    border: `1px solid ${isDrawingBox ? '#FFB703' : 'rgba(255, 183, 3, 0.4)'}`,
+                    borderRadius: '5px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    transition: 'all 0.2s',
+                    boxShadow: isDrawingBox ? '0 0 12px rgba(255, 183, 3, 0.4)' : 'none'
+                  }}
+                >
+                  <span>{isDrawingBox ? '✏️ Drawing Active (Click 2 Points)' : '📐 Freehand Box Tool'}</span>
+                </button>
+
+                {drawnBoxPreview && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setDrawnBoxPreview(null);
+                      setLocationFeedback('');
+                      setSelectedPreset(0);
+                    }}
+                    style={{
+                      padding: '5px 8px',
+                      fontSize: '10px',
+                      color: 'var(--text-muted)',
+                      background: 'rgba(255,255,255,0.06)',
+                      border: '1px solid rgba(255,255,255,0.1)',
+                      borderRadius: '4px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Clear Box
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Location Feedback Bar */}
+            {locationFeedback && (
+              <div style={{ fontSize: '11px', color: '#52B788', display: 'flex', alignItems: 'center', gap: '6px', padding: '2px 4px' }}>
+                <span>{locationFeedback}</span>
               </div>
             )}
 
-            {/* Start Date */}
-            <div>
-              <label style={{ fontSize: '10px', color: 'var(--text-muted)', display: 'block', marginBottom: '2px' }}>FROM (START DATE)</label>
-              <input
-                type="month"
-                value={startDate}
-                min="2018-01"
-                max="2025-12"
-                onChange={(e) => setStartDate(e.target.value)}
-                style={{ background: 'var(--bg-surface)', border: '1px solid rgba(82, 183, 136, 0.3)', color: '#fff', padding: '5px 8px', borderRadius: '4px', fontSize: '11px' }}
-                disabled={isProcessingGEE}
-              />
-            </div>
+            {/* Standard Preset & Date Selection Form */}
+            <form onSubmit={handleTriggerGEE} style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', paddingTop: '2px' }}>
+              <div>
+                <label style={{ fontSize: '10px', color: 'var(--text-muted)', display: 'block', marginBottom: '2px' }}>TARGET REGION</label>
+                <select 
+                  value={selectedPreset} 
+                  onChange={(e) => setSelectedPreset(parseInt(e.target.value))}
+                  style={{ background: 'var(--bg-surface)', border: '1px solid rgba(82, 183, 136, 0.3)', color: '#fff', padding: '6px 10px', borderRadius: '4px', fontSize: '11px', maxWidth: '210px' }}
+                  disabled={isProcessingGEE}
+                >
+                  {REGION_PRESETS.map((p, i) => (
+                    <option key={i} value={i}>{p.name}</option>
+                  ))}
+                  <option value={-1}>Custom Bounding Box (Lat/Lon)...</option>
+                </select>
+              </div>
 
-            {/* End Date */}
-            <div>
-              <label style={{ fontSize: '10px', color: 'var(--text-muted)', display: 'block', marginBottom: '2px' }}>TO (END DATE)</label>
-              <input
-                type="month"
-                value={endDate}
-                min="2018-01"
-                max="2025-12"
-                onChange={(e) => setEndDate(e.target.value)}
-                style={{ background: 'var(--bg-surface)', border: '1px solid rgba(82, 183, 136, 0.3)', color: '#fff', padding: '5px 8px', borderRadius: '4px', fontSize: '11px' }}
-                disabled={isProcessingGEE}
-              />
-            </div>
-
-            <button 
-              type="submit" 
-              className="btn btn-primary" 
-              disabled={isProcessingGEE}
-              style={{ padding: '7px 14px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '6px', alignSelf: 'flex-end' }}
-            >
-              {isProcessingGEE ? (
-                <>
-                  <div className="spinner" style={{ width: '12px', height: '12px', borderWidth: '2px' }}></div>
-                  <span>Querying GEE...</span>
-                </>
-              ) : (
-                <span>⚡ Run Analysis</span>
+              {selectedPreset === -1 && (
+                <div>
+                  <label style={{ fontSize: '10px', color: 'var(--text-muted)', display: 'block', marginBottom: '2px' }}>MIN_LON, MIN_LAT, MAX_LON, MAX_LAT</label>
+                  <input 
+                    type="text" 
+                    value={customBBox} 
+                    onChange={(e) => setCustomBBox(e.target.value)}
+                    placeholder="e.g. 76.32, 11.62, 76.37, 11.67"
+                    style={{ background: 'var(--bg-surface)', border: '1px solid rgba(82, 183, 136, 0.3)', color: '#fff', padding: '6px 10px', borderRadius: '4px', fontSize: '11px', width: '200px' }}
+                    disabled={isProcessingGEE}
+                  />
+                </div>
               )}
-            </button>
-          </form>
+
+              {/* Start Date */}
+              <div>
+                <label style={{ fontSize: '10px', color: 'var(--text-muted)', display: 'block', marginBottom: '2px' }}>FROM (START DATE)</label>
+                <input
+                  type="month"
+                  value={startDate}
+                  min="2018-01"
+                  max="2025-12"
+                  onChange={(e) => setStartDate(e.target.value)}
+                  style={{ background: 'var(--bg-surface)', border: '1px solid rgba(82, 183, 136, 0.3)', color: '#fff', padding: '5px 8px', borderRadius: '4px', fontSize: '11px' }}
+                  disabled={isProcessingGEE}
+                />
+              </div>
+
+              {/* End Date */}
+              <div>
+                <label style={{ fontSize: '10px', color: 'var(--text-muted)', display: 'block', marginBottom: '2px' }}>TO (END DATE)</label>
+                <input
+                  type="month"
+                  value={endDate}
+                  min="2018-01"
+                  max="2025-12"
+                  onChange={(e) => setEndDate(e.target.value)}
+                  style={{ background: 'var(--bg-surface)', border: '1px solid rgba(82, 183, 136, 0.3)', color: '#fff', padding: '5px 8px', borderRadius: '4px', fontSize: '11px' }}
+                  disabled={isProcessingGEE}
+                />
+              </div>
+
+              <button 
+                type="submit" 
+                className="btn btn-primary" 
+                disabled={isProcessingGEE}
+                style={{ padding: '7px 14px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '6px', alignSelf: 'flex-end' }}
+              >
+                {isProcessingGEE ? (
+                  <>
+                    <div className="spinner" style={{ width: '12px', height: '12px', borderWidth: '2px' }}></div>
+                    <span>Querying GEE...</span>
+                  </>
+                ) : (
+                  <span>⚡ Run Analysis</span>
+                )}
+              </button>
+            </form>
+          </div>
+
         </div>
 
         {/* Live GEE Telemetry banner */}
@@ -587,6 +766,21 @@ export default function ForestMap({ reloadedSession }) {
         <div className="map-wrapper" style={{ height: '580px', borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(82, 183, 136, 0.2)' }}>
           <MapContainer center={center} zoom={13} style={{ height: '100%', width: '100%' }}>
             <MapRecenter center={center} />
+            <MapBoxDrawer 
+              isDrawing={isDrawingBox}
+              corner1={drawCorner1}
+              onCorner1Set={(pt) => {
+                setDrawCorner1(pt);
+                setLocationFeedback('📍 Corner 1 marked! Now click opposite corner on the map.');
+              }}
+              onBoxComplete={handleBoxDrawn}
+            />
+            {drawnBoxPreview && (
+              <Rectangle 
+                bounds={drawnBoxPreview} 
+                pathOptions={{ color: '#FFB703', dashArray: '6, 6', weight: 2.5, fillColor: '#FFB703', fillOpacity: 0.18 }} 
+              />
+            )}
             <TileLayer
               attribution='&copy; <a href="https://www.esri.com/">Esri</a>, Earthstar Geographics'
               url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"

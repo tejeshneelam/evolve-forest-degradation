@@ -97,7 +97,7 @@ export default function App() {
           <div className="api-status-pill">
             <span className={`status-dot ${apiConnected === true ? 'online' : apiConnected === false ? 'offline' : 'checking'}`}></span>
             <span className="status-text">
-              {apiConnected === true ? 'FastAPI Active (8000)' : apiConnected === false ? 'API Offline' : 'Connecting...'}
+              {apiConnected === true ? 'API Connected' : apiConnected === false ? 'API Offline' : 'Connecting...'}
             </span>
           </div>
           <div className="footer-text">BTech Final Year Project</div>

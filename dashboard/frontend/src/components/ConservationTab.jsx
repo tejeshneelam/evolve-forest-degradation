@@ -259,6 +259,31 @@ export default function ConservationTab() {
                 </div>
               </div>
             )}
+
+            <button
+              onClick={() => api.downloadRangerDispatchPDF()}
+              style={{
+                marginTop: '16px',
+                width: '100%',
+                padding: '9px 14px',
+                fontSize: '12px',
+                fontWeight: 600,
+                color: '#fff',
+                backgroundColor: 'rgba(45, 106, 79, 0.5)',
+                border: '1px solid #52B788',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(45, 106, 79, 0.85)'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(45, 106, 79, 0.5)'}
+            >
+              <span>📄 Export Official Ranger Mission Dispatch Order (PDF)</span>
+            </button>
           </div>
         </div>
       </div>

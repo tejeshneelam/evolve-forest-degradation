@@ -1,4 +1,5 @@
 import React from 'react';
+import { api } from '../api/client';
 
 export default function ConstructionReportModal({ patch, onClose }) {
   if (!patch) return null;
@@ -207,13 +208,36 @@ export default function ConstructionReportModal({ patch, onClose }) {
           <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
             Compliant with NDMA Hill Construction Directives & Western Ghats Ecology Panel Guidelines.
           </span>
-          <button 
-            onClick={onClose}
-            className="btn btn-primary"
-            style={{ padding: '7px 18px', fontSize: '12px' }}
-          >
-            Acknowledge & Close
-          </button>
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+            <button 
+              onClick={() => api.downloadConstructionPermitPDF(patch.patch_id)}
+              style={{
+                padding: '7px 16px',
+                fontSize: '12px',
+                fontWeight: 600,
+                color: '#fff',
+                backgroundColor: '#2D6A4F',
+                border: '1px solid #52B788',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#1B4332'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#2D6A4F'}
+            >
+              <span>📄 Download Official Certificate (PDF)</span>
+            </button>
+            <button 
+              onClick={onClose}
+              className="btn btn-primary"
+              style={{ padding: '7px 18px', fontSize: '12px' }}
+            >
+              Acknowledge & Close
+            </button>
+          </div>
         </div>
       </div>
     </div>

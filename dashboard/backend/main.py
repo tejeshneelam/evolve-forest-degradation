@@ -70,18 +70,25 @@ app.add_middleware(SecurityHeadersMiddleware)
 # 2. Audit & Request Logger Middleware (captures IP, method, route, status, latency_ms)
 app.add_middleware(AuditLoggingMiddleware)
 
-# 3. Strict CORS Configuration - restricted to authorized local dashboard origins
-ALLOWED_ORIGINS = [
+# 3. Dynamic CORS Configuration for Local & Vercel Deployments
+allowed_origins_env = os.getenv("ALLOWED_ORIGINS", "")
+allowed_origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
+if allowed_origins_env:
+    for o in allowed_origins_env.split(","):
+        clean_o = o.strip()
+        if clean_o and clean_o not in allowed_origins:
+            allowed_origins.append(clean_o)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,
+    allow_origins=allowed_origins,
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Content-Type", "Authorization", "X-Requested-With"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Register all route groups

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import LandslideReportModal from './LandslideReportModal';
 import ConstructionReportModal from './ConstructionReportModal';
+import { api } from '../api/client';
 
 export default function PatchDetailModal({ patch, allPatches = [], regionName, onClose, onSelectPatch }) {
   const [showHeatmap, setShowHeatmap] = useState(false);
@@ -273,6 +274,36 @@ export default function PatchDetailModal({ patch, allPatches = [], regionName, o
               }}
             >
               <span>⛰️ View Landslide Diagnostic Report ({landslideProb}%)</span>
+            </button>
+
+            <button
+              onClick={() => api.downloadConstructionPermitPDF(patch.patch_id)}
+              style={{
+                width: '100%',
+                padding: '9px 12px',
+                fontSize: '12px',
+                fontWeight: 600,
+                color: '#60A5FA',
+                background: 'rgba(96, 165, 250, 0.12)',
+                border: '1px solid rgba(96, 165, 250, 0.35)',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(96, 165, 250, 0.22)';
+                e.currentTarget.style.borderColor = 'rgba(96, 165, 250, 0.6)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(96, 165, 250, 0.12)';
+                e.currentTarget.style.borderColor = 'rgba(96, 165, 250, 0.35)';
+              }}
+            >
+              <span>📄 Download Official Civil Clearance Certificate (PDF)</span>
             </button>
           </div>
 

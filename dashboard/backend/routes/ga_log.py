@@ -12,10 +12,12 @@ def load_json(path):
 from pydantic import BaseModel
 from typing import Optional, List
 import numpy as np
+from ga.band_selection_ga import MultiSpectralGA, BAND_METADATA
 
 # In-memory evolved thresholds override
 ACTIVE_EVOLVED_THRESHOLDS = None
 ACTIVE_GA_HISTORY = None
+ACTIVE_BAND_SELECTION = None
 
 
 class GAAdaptationRequest(BaseModel):
@@ -23,6 +25,14 @@ class GAAdaptationRequest(BaseModel):
     population_size: Optional[int] = 30
     mutation_rate: Optional[float] = 0.08
     generations: Optional[int] = 30
+
+
+class GABandSelectionRequest(BaseModel):
+    target_region_type: Optional[str] = "all_terrain"  # "all_terrain" | "evergreen_canopy" | "deciduous_fire_prone" | "riparian_wetland"
+    population_size: Optional[int] = 30
+    mutation_rate: Optional[float] = 0.10
+    generations: Optional[int] = 25
+    efficiency_weight: Optional[float] = 0.30
 
 
 @router.post("/run-ga-adaptation")
@@ -163,3 +173,81 @@ def get_ga_history():
     data = load_json(os.path.join(RESULTS_DIR, "ga_results.json"))
     if not data: raise HTTPException(404, "GA results not found")
     return {"history": data.get("history", [])}
+
+
+@router.post("/run-feature-selection")
+@limiter.limit("5/minute")
+def run_feature_selection(request: Request, req: GABandSelectionRequest):
+    """
+    Executes live Multi-Objective Genetic Algorithm to select the optimal
+    Sentinel-2 spectral bands and vegetation indices ([b_1, ..., b_12] in {0, 1}^12).
+    Maximizes forest degradation detection F1 while pruning redundant bands to minimize latency.
+    """
+    global ACTIVE_BAND_SELECTION
+    
+    pop_size = max(10, min(80, req.population_size or 30))
+    n_gens = max(10, min(50, req.generations or 25))
+    mut_rate = max(0.02, min(0.30, req.mutation_rate or 0.10))
+    eff_weight = max(0.05, min(0.70, req.efficiency_weight or 0.30))
+    reg_type = req.target_region_type or "all_terrain"
+
+    ga = MultiSpectralGA(
+        pop_size=pop_size,
+        n_generations=n_gens,
+        mutation_rate=mut_rate,
+        efficiency_weight=eff_weight,
+        target_region_type=reg_type
+    )
+
+    results = ga.run()
+    ACTIVE_BAND_SELECTION = results
+
+    # Persist results to disk
+    try:
+        os.makedirs(RESULTS_DIR, exist_ok=True)
+        out_path = os.path.join(RESULTS_DIR, "band_selection_results.json")
+        with open(out_path, "w") as f:
+            json.dump(results, f, indent=2)
+    except Exception as e:
+        pass
+
+    return results
+
+
+@router.get("/feature-selection-results")
+def get_feature_selection_results():
+    """
+    Retrieves the active or saved multi-spectral band selection results.
+    If none exists, executes an initial run so data is immediately available.
+    """
+    global ACTIVE_BAND_SELECTION
+    if ACTIVE_BAND_SELECTION is not None:
+        return ACTIVE_BAND_SELECTION
+
+    out_path = os.path.join(RESULTS_DIR, "band_selection_results.json")
+    if os.path.exists(out_path):
+        data = load_json(out_path)
+        if data:
+            ACTIVE_BAND_SELECTION = data
+            return data
+
+    # Perform initial run on startup if never run
+    ga = MultiSpectralGA(pop_size=25, n_generations=20, efficiency_weight=0.30)
+    results = ga.run()
+    ACTIVE_BAND_SELECTION = results
+    try:
+        os.makedirs(RESULTS_DIR, exist_ok=True)
+        with open(out_path, "w") as f:
+            json.dump(results, f, indent=2)
+    except Exception:
+        pass
+    return results
+
+
+@router.get("/spectral-bands-meta")
+def get_spectral_bands_meta():
+    """
+    Returns spectral band and index metadata for the 12 Sentinel-2 features.
+    """
+    return {"bands": BAND_METADATA}
+

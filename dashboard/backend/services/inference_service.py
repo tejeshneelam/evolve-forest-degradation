@@ -38,16 +38,20 @@ def compute_landslide_diagnostics(patch: dict) -> dict:
     # Critical threshold typically begins above 15 degrees in Western Ghats
     slope_factor = float(np.clip(slope / 28.0, 0.05, 1.0))
 
+    # Gravitational shear force gating: on gentle slopes (<12 deg),
+    # soil pore-pressure and lack of trees cannot cause mass failure without steep gravitational incline.
+    slope_gate = float(np.clip(slope / 12.0, 0.20, 1.0)) if slope < 12.0 else 1.0
+
     # 2. Root Binding & Canopy Factor (0 to 1)
     # Higher loss or lower cover means decayed root networks -> less soil cohesion
-    canopy_loss_factor = float(np.clip((loss_rate * 15.0) + ((100.0 - treecover) / 100.0) * 0.4, 0.05, 1.0))
+    canopy_loss_factor = float(np.clip(((loss_rate * 15.0) + ((100.0 - treecover) / 100.0) * 0.4) * slope_gate, 0.02, 1.0))
 
     # 3. Rainfall Load Factor (0 to 1)
     # Rainfall > 250mm over 90 days creates saturated pore-water pressure
-    rain_factor = float(np.clip(rainfall / 350.0, 0.1, 1.0))
+    rain_factor = float(np.clip((rainfall / 350.0) * slope_gate, 0.05, 1.0))
 
     # Combined Physical Probability
-    probability = float(np.clip(0.45 * slope_factor + 0.35 * canopy_loss_factor + 0.20 * rain_factor, 0.02, 0.98))
+    probability = float(np.clip(0.48 * slope_factor + 0.32 * canopy_loss_factor + 0.20 * rain_factor, 0.02, 0.98))
 
     if probability >= 0.65:
         risk_level = "Critical"
@@ -235,8 +239,10 @@ def analyze_dynamic_region(gee_data: dict) -> dict:
         landslide_diagnostics_map[str(pid)] = ls_diag
 
         # Construction Suitability Assessment
-        # Center columns (2, 3, 4) represent primary wildlife movement channels
-        in_corridor_zone = p['grid_col'] in [2, 3, 4]
+        # Wildlife corridor gating: Only active if central corridor AND terrain maintains contiguous forest canopy.
+        # Inhabited villages, towns, or cleared agricultural plots are not active wildlife corridors.
+        is_contiguous_forest = (p.get('treecover_pct', 0) >= 45.0) and (mean_recent_ndvi >= 0.45)
+        in_corridor_zone = (p['grid_col'] in [2, 3, 4]) and is_contiguous_forest
         build_suitability = compute_construction_suitability(p, ls_diag, is_corridor_active=in_corridor_zone)
 
         # Fire Risk (Low NDVI + Low Moisture in dry season)

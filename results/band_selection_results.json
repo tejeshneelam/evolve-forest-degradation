@@ -1,0 +1,555 @@
+{
+  "status": "success",
+  "target_region_type": "deciduous_fire_prone",
+  "population_size": 20,
+  "generations": 15,
+  "mutation_rate": 0.1,
+  "efficiency_weight": 0.35,
+  "best_solution": {
+    "selected_bands": [
+      "B4",
+      "B8",
+      "B12",
+      "NDVI",
+      "NBR"
+    ],
+    "selected_count": 5,
+    "pruned_count": 7,
+    "accuracy_f1": 0.964,
+    "latency_reduction_pct": 58.3,
+    "fitness": 0.8308,
+    "gene_mask": [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      0
+    ]
+  },
+  "history": [
+    {
+      "generation": 1,
+      "best_fitness": 0.7809,
+      "avg_fitness": 0.685,
+      "best_f1": 0.8873,
+      "avg_f1": 0.7577,
+      "best_band_count": 5,
+      "avg_band_count": 5.4,
+      "best_bands": [
+        "B8",
+        "B12",
+        "NDVI",
+        "NBR",
+        "SAVI"
+      ]
+    },
+    {
+      "generation": 2,
+      "best_fitness": 0.8016,
+      "avg_fitness": 0.7304,
+      "best_f1": 0.964,
+      "avg_f1": 0.8387,
+      "best_band_count": 6,
+      "avg_band_count": 5.7,
+      "best_bands": [
+        "B2",
+        "B4",
+        "B8",
+        "B12",
+        "NDVI",
+        "NBR"
+      ]
+    },
+    {
+      "generation": 3,
+      "best_fitness": 0.8016,
+      "avg_fitness": 0.7527,
+      "best_f1": 0.964,
+      "avg_f1": 0.8865,
+      "best_band_count": 6,
+      "avg_band_count": 6.0,
+      "best_bands": [
+        "B2",
+        "B4",
+        "B8",
+        "B12",
+        "NDVI",
+        "NBR"
+      ]
+    },
+    {
+      "generation": 4,
+      "best_fitness": 0.8308,
+      "avg_fitness": 0.7719,
+      "best_f1": 0.964,
+      "avg_f1": 0.8891,
+      "best_band_count": 5,
+      "avg_band_count": 5.3,
+      "best_bands": [
+        "B4",
+        "B8",
+        "B12",
+        "NDVI",
+        "NBR"
+      ]
+    },
+    {
+      "generation": 5,
+      "best_fitness": 0.8308,
+      "avg_fitness": 0.7708,
+      "best_f1": 0.964,
+      "avg_f1": 0.8739,
+      "best_band_count": 5,
+      "avg_band_count": 5.0,
+      "best_bands": [
+        "B4",
+        "B8",
+        "B12",
+        "NDVI",
+        "NBR"
+      ]
+    },
+    {
+      "generation": 6,
+      "best_fitness": 0.8308,
+      "avg_fitness": 0.7723,
+      "best_f1": 0.964,
+      "avg_f1": 0.892,
+      "best_band_count": 5,
+      "avg_band_count": 5.4,
+      "best_bands": [
+        "B4",
+        "B8",
+        "B12",
+        "NDVI",
+        "NBR"
+      ]
+    },
+    {
+      "generation": 7,
+      "best_fitness": 0.8308,
+      "avg_fitness": 0.7906,
+      "best_f1": 0.964,
+      "avg_f1": 0.9269,
+      "best_band_count": 5,
+      "avg_band_count": 5.5,
+      "best_bands": [
+        "B4",
+        "B8",
+        "B12",
+        "NDVI",
+        "NBR"
+      ]
+    },
+    {
+      "generation": 8,
+      "best_fitness": 0.8308,
+      "avg_fitness": 0.7911,
+      "best_f1": 0.964,
+      "avg_f1": 0.9098,
+      "best_band_count": 5,
+      "avg_band_count": 5.2,
+      "best_bands": [
+        "B4",
+        "B8",
+        "B12",
+        "NDVI",
+        "NBR"
+      ]
+    },
+    {
+      "generation": 9,
+      "best_fitness": 0.8308,
+      "avg_fitness": 0.798,
+      "best_f1": 0.964,
+      "avg_f1": 0.9226,
+      "best_band_count": 5,
+      "avg_band_count": 5.2,
+      "best_bands": [
+        "B4",
+        "B8",
+        "B12",
+        "NDVI",
+        "NBR"
+      ]
+    },
+    {
+      "generation": 10,
+      "best_fitness": 0.8308,
+      "avg_fitness": 0.7931,
+      "best_f1": 0.964,
+      "avg_f1": 0.906,
+      "best_band_count": 5,
+      "avg_band_count": 5.0,
+      "best_bands": [
+        "B4",
+        "B8",
+        "B12",
+        "NDVI",
+        "NBR"
+      ]
+    },
+    {
+      "generation": 11,
+      "best_fitness": 0.8308,
+      "avg_fitness": 0.7935,
+      "best_f1": 0.964,
+      "avg_f1": 0.9156,
+      "best_band_count": 5,
+      "avg_band_count": 5.2,
+      "best_bands": [
+        "B4",
+        "B8",
+        "B12",
+        "NDVI",
+        "NBR"
+      ]
+    },
+    {
+      "generation": 12,
+      "best_fitness": 0.8308,
+      "avg_fitness": 0.8111,
+      "best_f1": 0.964,
+      "avg_f1": 0.9539,
+      "best_band_count": 5,
+      "avg_band_count": 5.5,
+      "best_bands": [
+        "B4",
+        "B8",
+        "B12",
+        "NDVI",
+        "NBR"
+      ]
+    },
+    {
+      "generation": 13,
+      "best_fitness": 0.8308,
+      "avg_fitness": 0.7825,
+      "best_f1": 0.964,
+      "avg_f1": 0.8987,
+      "best_band_count": 5,
+      "avg_band_count": 5.2,
+      "best_bands": [
+        "B4",
+        "B8",
+        "B12",
+        "NDVI",
+        "NBR"
+      ]
+    },
+    {
+      "generation": 14,
+      "best_fitness": 0.8308,
+      "avg_fitness": 0.7853,
+      "best_f1": 0.964,
+      "avg_f1": 0.9097,
+      "best_band_count": 5,
+      "avg_band_count": 5.3,
+      "best_bands": [
+        "B4",
+        "B8",
+        "B12",
+        "NDVI",
+        "NBR"
+      ]
+    },
+    {
+      "generation": 15,
+      "best_fitness": 0.8308,
+      "avg_fitness": 0.7902,
+      "best_f1": 0.964,
+      "avg_f1": 0.906,
+      "best_band_count": 5,
+      "avg_band_count": 5.1,
+      "best_bands": [
+        "B4",
+        "B8",
+        "B12",
+        "NDVI",
+        "NBR"
+      ]
+    }
+  ],
+  "pareto_frontier": [
+    {
+      "selected_count": 2,
+      "selected_bands": [
+        "NDVI",
+        "NBR"
+      ],
+      "accuracy_f1": 0.6041,
+      "latency_reduction_pct": 83.3,
+      "fitness": 0.6843,
+      "genes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "selected_count": 3,
+      "selected_bands": [
+        "B4",
+        "B8A",
+        "B12"
+      ],
+      "accuracy_f1": 0.7458,
+      "latency_reduction_pct": 75.0,
+      "fitness": 0.7473,
+      "genes": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "selected_count": 4,
+      "selected_bands": [
+        "B4",
+        "B8",
+        "B12",
+        "NBR"
+      ],
+      "accuracy_f1": 0.8834,
+      "latency_reduction_pct": 66.7,
+      "fitness": 0.8076,
+      "genes": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "selected_count": 5,
+      "selected_bands": [
+        "B4",
+        "B8",
+        "B12",
+        "NDVI",
+        "NBR"
+      ],
+      "accuracy_f1": 0.964,
+      "latency_reduction_pct": 58.3,
+      "fitness": 0.8308,
+      "genes": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "selected_count": 5,
+      "selected_bands": [
+        "B4",
+        "B8",
+        "B11",
+        "NDVI",
+        "NBR"
+      ],
+      "accuracy_f1": 0.964,
+      "latency_reduction_pct": 58.3,
+      "fitness": 0.8308,
+      "genes": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "selected_count": 5,
+      "selected_bands": [
+        "B8",
+        "B11",
+        "NDVI",
+        "NDWI",
+        "NBR"
+      ],
+      "accuracy_f1": 0.964,
+      "latency_reduction_pct": 58.3,
+      "fitness": 0.8308,
+      "genes": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0
+      ]
+    }
+  ],
+  "band_importance": [
+    {
+      "id": "B8",
+      "name": "NIR Broad (842 nm)",
+      "category": "Canopy Architecture",
+      "wavelength": "842 nm",
+      "selection_frequency_pct": 100.0,
+      "is_critical": true,
+      "description": "High spongy mesophyll cell scattering; quintessential signal for canopy density and health."
+    },
+    {
+      "id": "B12",
+      "name": "SWIR-2 (2190 nm)",
+      "category": "Thermal / Dry Matter",
+      "wavelength": "2190 nm",
+      "selection_frequency_pct": 100.0,
+      "is_critical": true,
+      "description": "Dry dead fuel, charcoal residues, post-fire burn severity, and mineral rock exposure."
+    },
+    {
+      "id": "NBR",
+      "name": "NBR (Burn Ratio)",
+      "category": "Disturbance Index",
+      "wavelength": "Derived Index",
+      "selection_frequency_pct": 100.0,
+      "is_critical": true,
+      "description": "Normalized Burn Ratio; isolates wildland fire burn scars, slash-and-burn, and thermal scarring."
+    },
+    {
+      "id": "NDVI",
+      "name": "NDVI (NIR-Red)/(NIR+Red)",
+      "category": "Vegetation Index",
+      "wavelength": "Derived Index",
+      "selection_frequency_pct": 93.3,
+      "is_critical": true,
+      "description": "Standard Normalized Difference Vegetation Index; gold standard for seasonal phenology."
+    },
+    {
+      "id": "B4",
+      "name": "Red (665 nm)",
+      "category": "Photosynthetic Absorber",
+      "wavelength": "665 nm",
+      "selection_frequency_pct": 86.7,
+      "is_critical": true,
+      "description": "Strong chlorophyll absorption band; crucial for logging contrast and bare soil exposure."
+    },
+    {
+      "id": "B3",
+      "name": "Green (560 nm)",
+      "category": "Visible Reflector",
+      "wavelength": "560 nm",
+      "selection_frequency_pct": 20.0,
+      "is_critical": false,
+      "description": "Peak healthy vegetation green reflection and chlorophyll backscatter."
+    },
+    {
+      "id": "B8A",
+      "name": "Narrow NIR (865 nm)",
+      "category": "Biophysical Reference",
+      "wavelength": "865 nm",
+      "selection_frequency_pct": 20.0,
+      "is_critical": false,
+      "description": "Atmospheric water vapor absorption edge; biophysical parameter estimation."
+    },
+    {
+      "id": "SAVI",
+      "name": "SAVI (Soil-Adjusted)",
+      "category": "Vegetation Index",
+      "wavelength": "Derived Index",
+      "selection_frequency_pct": 13.3,
+      "is_critical": false,
+      "description": "Soil-Adjusted Vegetation Index; suppresses bare ground background in open deciduous woodlands."
+    },
+    {
+      "id": "B11",
+      "name": "SWIR-1 (1610 nm)",
+      "category": "Hydration / Burn",
+      "wavelength": "1610 nm",
+      "selection_frequency_pct": 6.7,
+      "is_critical": false,
+      "description": "Canopy moisture content and soil hydration indicator; sensitive to selective logging."
+    },
+    {
+      "id": "NDWI",
+      "name": "NDWI (Canopy Water)",
+      "category": "Moisture Index",
+      "wavelength": "Derived Index",
+      "selection_frequency_pct": 6.7,
+      "is_critical": false,
+      "description": "Normalized Difference Water Index; tracks drought stress and foliar moisture deficit."
+    },
+    {
+      "id": "B2",
+      "name": "Blue (490 nm)",
+      "category": "Atmospheric / Visible",
+      "wavelength": "490 nm",
+      "selection_frequency_pct": 0.0,
+      "is_critical": false,
+      "description": "Atmospheric scattering reference, aerosol discrimination, surface water."
+    },
+    {
+      "id": "EVI",
+      "name": "EVI (Enhanced Veg Index)",
+      "category": "Vegetation Index",
+      "wavelength": "Derived Index",
+      "selection_frequency_pct": 0.0,
+      "is_critical": false,
+      "description": "Atmosphere-corrected index with high sensitivity in dense closed-canopy tropical evergreen biomes."
+    }
+  ],
+  "summary_metrics": {
+    "full_spectrum_bands": 12,
+    "optimized_bands": 5,
+    "cloud_bandwidth_saved_pct": 58.3,
+    "f1_retained_pct": 100.2,
+    "speedup_factor": 2.4
+  }
+}
